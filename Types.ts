@@ -1,0 +1,1 @@
+export type GRID = string[][];
