@@ -1,10 +1,11 @@
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { BasePuzzleString } from "./BasePuzzleString";
 import { IKropkiChain } from "./IKropkiChain";
+import { KropkiString } from "./KropkiString";
 
 
 export class KropkiChain_BW implements IKropkiChain {
-  solve(puzzle: BasePuzzleString, chainLocs: Loc[]): boolean {
+  solve(puzzle: KropkiString, chainLocs: Loc[]): boolean {
     const tempLocs = [...chainLocs];
 
     let edited = false;
@@ -17,7 +18,7 @@ export class KropkiChain_BW implements IKropkiChain {
     return KropkiChain_BW.solveExplicit_BW(puzzle, tempLocs) || edited;
   }
 
-  static solveExplicit_BW(puzzle: BasePuzzleString, chainLocs: Loc[]): boolean {
+  static solveExplicit_BW(puzzle: KropkiString, chainLocs: Loc[]): boolean {
     let edited = puzzle.removeCandidate(chainLocs[2], 1, puzzle.length);
 
     return (

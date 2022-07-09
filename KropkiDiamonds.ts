@@ -1,9 +1,10 @@
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { BasePuzzleString } from "./BasePuzzleString";
 import { ITechnique } from "./ITechnique";
+import { KropkiString } from "./KropkiString";
 
 export class KropkiDiamonds implements ITechnique {
-  solve(puzzle: BasePuzzleString): boolean {
+  solve(puzzle: KropkiString): boolean {
     let edited = false;
 
     for (let r = 1; r < puzzle.length * 2 - 1; r += 2)

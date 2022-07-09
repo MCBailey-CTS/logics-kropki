@@ -1,11 +1,10 @@
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
 import { LocSet } from "./LocSet";
 import { IKropkiChain } from "./IKropkiChain";
 import { KropkiString } from "./KropkiString";
 
 export class KropkiChain_BB implements IKropkiChain {
-  solve(puzzle: BasePuzzleString, chainLocs: Loc[]): boolean {
+  solve(puzzle: KropkiString, chainLocs: Loc[]): boolean {
     let edited = false;
 
     if (puzzle.length != 9) return false;

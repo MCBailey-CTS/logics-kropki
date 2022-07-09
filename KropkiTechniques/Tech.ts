@@ -1,10 +1,9 @@
-import { BasePuzzleString } from "../BasePuzzleString";
 import { KropkiString } from "../KropkiString";
 import { Loc } from "../Loc";
 
 export class Tech {
   static kropkiDiamondWwew6(
-    puzzle: BasePuzzleString,
+    puzzle: KropkiString,
     rightValue: string,
     topValue: string,
     downValue: string,
@@ -31,7 +30,7 @@ export class Tech {
   }
 
   static kropkiDiamondWwew0(
-    puzzle: BasePuzzleString,
+    puzzle: KropkiString,
     rightValue: string,
     topValue: string,
     downValue: string,
@@ -64,7 +63,7 @@ export class Tech {
   }
 
   static kropkiDiamondWeww1(
-    puzzle: BasePuzzleString,
+    puzzle: KropkiString,
     topValue: string,
     rightValue: string,
     downValue: string,
@@ -98,7 +97,7 @@ export class Tech {
   }
 
   static kropkiDiamondWeww0(
-    puzzle: BasePuzzleString,
+    puzzle: KropkiString,
     topValue: string,
     rightValue: string,
     downValue: string,
@@ -132,7 +131,7 @@ export class Tech {
   }
 
   // static kropkiDiamondWwew(
-  //   puzzle: BasePuzzleString,
+  //   puzzle: KropkiString,
   //   // rightValue: string,
   //   // topValue: string,
   //   // downValue: string,
@@ -214,7 +213,7 @@ export class Tech {
   // ];
 
   static kropkiDiamondWwew(
-    puzzle: BasePuzzleString,
+    puzzle: KropkiString,
     // rightValue: string,
     // topValue: string,
     // downValue: string,

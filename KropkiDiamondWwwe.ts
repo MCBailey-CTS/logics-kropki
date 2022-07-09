@@ -1,10 +1,11 @@
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { BasePuzzleString } from "./BasePuzzleString";
 import { IKropkiDiamond } from "./IKropkiDiamond";
+import { KropkiString } from "./KropkiString";
 
 export class KropkiDiamondWwwe implements IKropkiDiamond {
   // Check each candidate in the corners if +1 or -1 is not availabe in ether touching cell, then the candidate cannot be used there.
-  solve(puzzle: BasePuzzleString, diamondChain: Loc[]): boolean {
+  solve(puzzle: KropkiString, diamondChain: Loc[]): boolean {
     // return false;
 
     let edited = false;

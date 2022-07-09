@@ -1,7 +1,8 @@
+import { KropkiString } from "./KropkiString";
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { BasePuzzleString } from "./BasePuzzleString";
 
 
 export interface IKropkiChain {
-  solve(puzzle: BasePuzzleString, chainLocs: Loc[]): boolean;
+  solve(puzzle: KropkiString, chainLocs: Loc[]): boolean;
 }

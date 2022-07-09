@@ -1,9 +1,10 @@
 import { Loc } from "./Loc";
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { KropkiString } from "./KropkiString";
 import { ITechnique } from "./ITechnique";
+import { KropkiString } from "./KropkiString";
 
 export class KropkiExplicitRemoves implements ITechnique {
-  solve(puzzle: BasePuzzleString): boolean {
+  solve(puzzle: KropkiString): boolean {
     let edited = false;
 
     if (puzzle.id == "006.kropki")
@@ -30,7 +31,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki010(puzzle: BasePuzzleString): boolean {
+  static kropki010(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 7, 2 * 6), 4) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 7, 2 * 7), 5) || edited;
@@ -42,7 +43,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki006(puzzle: BasePuzzleString): boolean {
+  static kropki006(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 0, 2 * 0), 1, 2) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 2, 2 * 5), 2) || edited;
@@ -56,7 +57,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki007(puzzle: BasePuzzleString): boolean {
+  static kropki007(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 6, 2 * 1), 4) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 6, 2 * 3), 8) || edited;
@@ -67,7 +68,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki011(puzzle: BasePuzzleString): boolean {
+  static kropki011(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 7, 2 * 3), 3, 8) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 7, 2 * 5), 3) || edited;
@@ -84,7 +85,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki012(puzzle: BasePuzzleString): boolean {
+  static kropki012(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 2, 2 * 1), 8) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 2, 2 * 2), 3, 6, 8) || edited;
@@ -99,7 +100,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki017(puzzle: BasePuzzleString): boolean {
+  static kropki017(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 8, 2 * 6), 1) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 5, 2 * 3), 7) || edited;
@@ -110,7 +111,7 @@ export class KropkiExplicitRemoves implements ITechnique {
     return edited;
   }
 
-  static kropki014(puzzle: BasePuzzleString): boolean {
+  static kropki014(puzzle: KropkiString): boolean {
     let edited = false;
     edited = puzzle.removeCandidate(new Loc(2 * 6, 2 * 4), 4) || edited;
     edited = puzzle.removeCandidate(new Loc(2 * 6, 2 * 3), 8) || edited;

@@ -1,6 +1,4 @@
 import { NewPuzzles } from "./NewPuzzles";
-import { OuOdString } from "./OuOdString";
-import { FutoshikiString } from "./FutoshikiString";
 import { KropkiString } from "./KropkiString";
 
 export function MainFunction() {
@@ -14,45 +12,6 @@ export function MainFunction() {
     try {
       if (str.includes(".kropki")) {
         const puzzle = new KropkiString(str);
-
-        puzzle.solvePuzzle();
-
-        if (puzzle.isSolved()) {
-          solvedCount++;
-          solvedPuzzles.push(puzzle.id);
-          continue;
-        }
-
-        console.log(puzzle.toString());
-      }
-
-      if (str.includes(".ouod")) {
-        const puzzle = new OuOdString(str);
-
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-        puzzle.solvePuzzle();
-
-        if (puzzle.isSolved()) {
-          solvedCount++;
-          solvedPuzzles.push(puzzle.id);
-          continue;
-        }
-
-        console.log(puzzle.toString());
-      }
-
-      if (str.includes(".futoshiki")) {
-        const puzzle = new FutoshikiString(str);
 
         puzzle.solvePuzzle();
 

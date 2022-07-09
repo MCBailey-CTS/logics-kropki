@@ -1,7 +1,8 @@
+import { cellCandidates } from "./KropkiString";
 import { Loc } from "./Loc";
 import { LocSet } from "./LocSet";
 import { GRID } from "./Types";
-import { cellCandidates, solveSudokuCrossHatch } from "./PuzzleString";
+// import { cellCandidates, solveSudokuCrossHatch } from "./PuzzleString";
 
 export class NewTechniques {
   // static solveKropkiIntersectionChains(grid: GRID, length: number) {
@@ -9,6 +10,19 @@ export class NewTechniques {
 
   // }
   // static isValidKropkiBlack():boolean{}
+
+  static solveSudokuCrossHatch(length: number, house: string[]) {
+    for (let i = 0; i < length; i++)
+      for (let ii = 0; ii < length; ii++) {
+        if (i == ii) continue;
+
+        const cell = cellCandidates(house[i]);
+
+        if (cell.length != 1) continue;
+
+        house[ii] = house[ii].replace(`${cell[0]}`, "_");
+      }
+  }
 
   static solveSudokuNakedPair(length: number, house: string[]) {
     for (let i = 0; i < length; i++)
@@ -273,7 +287,7 @@ export class NewTechniques {
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
-    solveSudokuCrossHatch(_length, house);
+    NewTechniques.solveSudokuCrossHatch(_length, house);
 
     let edited = false;
 
