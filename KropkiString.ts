@@ -11,11 +11,10 @@ import { KropkiChain_BB } from "./KropkiChain_BB";
 import { KropkiDiamondWwwe } from "./KropkiDiamondWwwe";
 import { Tech } from "./KropkiTechniques/Tech";
 import { NewTechniques } from "./NewTechniques";
-import { 
-  // IHash, 
-  IKropkiPuzzle } from "./IKropkiSolve";
-
-
+import {
+  // IHash,
+  IKropkiPuzzle,
+} from "./IKropkiSolve";
 
 export function cellCandidates(cell: string): number[] {
   const array = [];
@@ -29,8 +28,7 @@ export function cellCandidates(cell: string): number[] {
   return array;
 }
 
-
-export class KropkiString implements IKropkiPuzzle  {
+export class KropkiString implements IKropkiPuzzle {
   constructor(puzzle: string) {
     const array = puzzle.split("\n");
 
@@ -109,29 +107,41 @@ export class KropkiString implements IKropkiPuzzle  {
       }
   }
 
-  getLocString(r: number | Loc, c?: number): string {
-    throw new Error("Method not implemented.");
-  }
-
-  getExplicitLocString(r: number | Loc, c?: number): string {
-    throw new Error("Method not implemented.");
-  }
-
   getCellList(r: number | Loc, c?: number): number[] {
-    throw new Error("Method not implemented.");
-  }
-
-  getExplicitCellList(r: number | Loc, c?: number): number[] {
-    throw new Error("Method not implemented.");
+    return cellCandidates(this.getCellString(r, c));
   }
 
   getCellSet(r: number | Loc, c?: number): Set<number> {
-    throw new Error("Method not implemented.");
+    return new Set<number>(this.getCellList(r, c));
   }
-  
-  getExplicitCellSet(r: number | Loc, c?: number): Set<number> {
-    throw new Error("Method not implemented.");
+
+  getCellString(r: number | Loc, c?: number): string {
+    if (typeof r == "number" && typeof c == "number") return this._grid[r][c];
+
+    if (r instanceof Loc) return this._grid[r.row][r.col];
+
+    throw Error("invalid parameters");
   }
+
+  // getExplicitLocString(r: number | Loc, c?: number): string {
+  //   if (typeof c == "undefined") throw new Error("Method not implemented.");
+  // }
+
+  // getCellList(r: number | Loc, c?: number): number[] {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  // getExplicitCellList(r: number | Loc, c?: number): number[] {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  // getCellSet(r: number | Loc, c?: number): Set<number> {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  // getExplicitCellSet(r: number | Loc, c?: number): Set<number> {
+  //   throw new Error("Method not implemented.");
+  // }
 
   isIntersectionSolved(c0: number, kropki: string, c1: number): boolean {
     switch (kropki) {
@@ -152,7 +162,6 @@ export class KropkiString implements IKropkiPuzzle  {
     }
   }
 
-  
   private readonly _hasFences: boolean;
 
   private readonly _dict: Map<string, Array<Loc>>;
@@ -161,7 +170,7 @@ export class KropkiString implements IKropkiPuzzle  {
 
   private readonly _length: number;
 
-  private readonly _grid: GRID;
+  private readonly _grid: string[][];
 
   get length() {
     return this._length;
@@ -214,15 +223,15 @@ export class KropkiString implements IKropkiPuzzle  {
     throw new Error(`Invalid parameters for setCellString`);
   }
 
-  getCellString(loc: Loc): string {
-    try {
-      return this._grid[loc.row][loc.col];
-    } catch (err) {
-      throw new Error(
-        `Error occurred when trying to getCellString for Loc: ${loc.toString()}.`
-      );
-    }
-  }
+  // getCellString(loc: Loc): string {
+  //   try {
+  //     return this._grid[loc.row][loc.col];
+  //   } catch (err) {
+  //     throw new Error(
+  //       `Error occurred when trying to getCellString for Loc: ${loc.toString()}.`
+  //     );
+  //   }
+  // }
 
   getCellCandidates(loc: Loc): number[] {
     return cellCandidates(this.getCellString(loc));
@@ -578,7 +587,6 @@ export class KropkiString implements IKropkiPuzzle  {
 
     return overall;
   }
-
 
   // isSolved(): boolean {
 
@@ -1206,9 +1214,9 @@ export class KropkiString implements IKropkiPuzzle  {
     topValue: string,
     downValue: string,
     leftValue: string,
-    tlSet:  Set<number>,
-    trSet:  Set<number>,
-    dlSet:  Set<number>,
+    tlSet: Set<number>,
+    trSet: Set<number>,
+    dlSet: Set<number>,
     edited: boolean,
     downInt: Loc
   ) {
@@ -1511,10 +1519,6 @@ export class KropkiString implements IKropkiPuzzle  {
 
     return edited;
   }
-
-
-
-
 }
 
 // 1207

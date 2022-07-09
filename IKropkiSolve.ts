@@ -15,17 +15,17 @@ export interface IKropkiPuzzle {
 
   get isSolved(): boolean;
 
-  getLocString(r: Loc | number, c?: number): string;
+  getCellString(r: Loc | number, c?: number): string;
 
-  getExplicitLocString(r: Loc | number, c?: number): string;
+  // getExplicitLocString(r: Loc | number, c?: number): string;
 
-  getCellList(r: Loc | number, c?: number): number[];
+  getCellCandidates(r: Loc | number, c?: number): number[];
 
-  getExplicitCellList(r: Loc | number, c?: number): number[];
+  // getExplicitCellList(r: Loc | number, c?: number): number[];
 
   getCellSet(r: Loc | number, c?: number): Set<number>;
 
-  getExplicitCellSet(r: Loc | number, c?: number): Set<number>;
+  // getExplicitCellSet(r: Loc | number, c?: number): Set<number>;
 }
 
 export interface IEdit {
