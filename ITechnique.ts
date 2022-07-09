@@ -1,5 +1,5 @@
-import { BasePuzzleString } from "./BasePuzzleString";
+// import { BasePuzzleString } from "./BasePuzzleString";
 
-export interface ITechnique {
-  solve(puzzle: BasePuzzleString): boolean;
-}
+// export interface ITechnique {
+//   solve(puzzle: BasePuzzleString): boolean;
+// }

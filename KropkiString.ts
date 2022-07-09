@@ -4,14 +4,16 @@ import { KropkiExplicitRemoves } from "./KropkiExplicitRemoves";
 import { KropkiNextToCells } from "./KropkiNextToCells";
 import { GRID } from "./Types";
 import { KropkiDiamonds } from "./KropkiDiamonds";
-import { ITechnique } from "./ITechnique";
+// import { ITechnique } from "./ITechnique";
 import { LocSet } from "./LocSet";
 import { KropkiChain_BW } from "./KropkiChain_BW";
 import { KropkiChain_BB } from "./KropkiChain_BB";
 import { KropkiDiamondWwwe } from "./KropkiDiamondWwwe";
 import { Tech } from "./KropkiTechniques/Tech";
 import { NewTechniques } from "./NewTechniques";
-import { IHash, IKropkiPuzzle } from "./IKropkiSolve";
+import { 
+  // IHash, 
+  IKropkiPuzzle } from "./IKropkiSolve";
 
 
 
@@ -106,22 +108,28 @@ export class KropkiString implements IKropkiPuzzle  {
         this._dict.get(fence)?.push(new Loc(r * 2, c * 2));
       }
   }
+
   getLocString(r: number | Loc, c?: number): string {
     throw new Error("Method not implemented.");
   }
+
   getExplicitLocString(r: number | Loc, c?: number): string {
     throw new Error("Method not implemented.");
   }
+
   getCellList(r: number | Loc, c?: number): number[] {
     throw new Error("Method not implemented.");
   }
+
   getExplicitCellList(r: number | Loc, c?: number): number[] {
     throw new Error("Method not implemented.");
   }
-  getCellSet(r: number | Loc, c?: number): IHash<number> {
+
+  getCellSet(r: number | Loc, c?: number): Set<number> {
     throw new Error("Method not implemented.");
   }
-  getExplicitCellSet(r: number | Loc, c?: number): IHash<number> {
+  
+  getExplicitCellSet(r: number | Loc, c?: number): Set<number> {
     throw new Error("Method not implemented.");
   }
 
@@ -1198,9 +1206,9 @@ export class KropkiString implements IKropkiPuzzle  {
     topValue: string,
     downValue: string,
     leftValue: string,
-    tlSet:  IHash<number>,
-    trSet:  IHash<number>,
-    dlSet:  IHash<number>,
+    tlSet:  Set<number>,
+    trSet:  Set<number>,
+    dlSet:  Set<number>,
     edited: boolean,
     downInt: Loc
   ) {
@@ -1211,9 +1219,9 @@ export class KropkiString implements IKropkiPuzzle  {
       leftValue == "b"
     ) {
       if (
-        KropkiString.equalSets([1, 2, 4, 6, 8], [...tlSet.items]) ||
-        KropkiString.equalSets([2, 4, 6, 8], [...trSet.items]) ||
-        KropkiString.equalSets([1, 3, 6], [...dlSet.items])
+        KropkiString.equalSets([1, 2, 4, 6, 8], [...tlSet]) ||
+        KropkiString.equalSets([2, 4, 6, 8], [...trSet]) ||
+        KropkiString.equalSets([1, 3, 6], [...dlSet])
       )
         edited = this.removeCandidate(downInt.right(), 3) || edited;
     }

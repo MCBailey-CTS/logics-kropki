@@ -23,9 +23,9 @@ export interface IKropkiPuzzle {
 
   getExplicitCellList(r: Loc | number, c?: number): number[];
 
-  getCellSet(r: Loc | number, c?: number): IHash<number>;
+  getCellSet(r: Loc | number, c?: number): Set<number>;
 
-  getExplicitCellSet(r: Loc | number, c?: number): IHash<number>;
+  getExplicitCellSet(r: Loc | number, c?: number): Set<number>;
 }
 
 export interface IEdit {
@@ -38,38 +38,38 @@ export interface IEdit {
   get candidate(): number;
 }
 
-export interface IHash<T> {
-  union(other: T[]): IHash<T>;
+// export interface IHash<T> {
+//   union(other: T[]): T[];
 
-  intersection(other: T[]): IHash<T>;
+//   intersection(other: T[]): IHash<T>;
 
-  subtract(other: T[]): IHash<T>;
+//   subtract(other: T[]): IHash<T>;
 
-  setEquals(other: T[]): IHash<T>;
+//   setEquals(other: T[]): IHash<T>;
 
-  add(item: T): boolean;
+//   add(item: T): boolean;
 
-  remove(item: T): boolean;
+//   remove(item: T): boolean;
 
-  has(item: T): boolean;
+//   has(item: T): boolean;
 
-  isSubsetOf(other: T[]): boolean;
+//   isSubsetOf(other: T[]): boolean;
 
-  isProperSubsetOf(other: T[]): boolean;
+//   isProperSubsetOf(other: T[]): boolean;
 
-  isSupersetOf(other: T[]): boolean;
+//   isSupersetOf(other: T[]): boolean;
 
-  isProperSupersetOf(other: T[]): boolean;
+//   isProperSupersetOf(other: T[]): boolean;
 
-  get count(): number;
+//   get count(): number;
 
-  get items(): T[];
+//   get items(): T[];
 
-  get comparer(): IEqualityComparer<T> | undefined;
-}
+//   get comparer(): IEqualityComparer<T> | undefined;
+// }
 
-export interface IEqualityComparer<T> {
-  hashCode(item: T): number;
+// export interface IEqualityComparer<T> {
+//   hashCode(item: T): number;
 
-  equalItems(item0: T, item1: T): boolean;
-}
+//   equalItems(item0: T, item1: T): boolean;
+// }

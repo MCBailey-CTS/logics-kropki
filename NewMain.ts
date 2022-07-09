@@ -15,7 +15,7 @@ export function MainFunction() {
 
         puzzle.solvePuzzle();
 
-        if (puzzle.isSolved()) {
+        if (puzzle.isSolved) {
           solvedCount++;
           solvedPuzzles.push(puzzle.id);
           continue;
