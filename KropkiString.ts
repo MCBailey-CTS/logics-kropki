@@ -11,6 +11,7 @@ import { KropkiChain_BB } from "./KropkiChain_BB";
 import { KropkiDiamondWwwe } from "./KropkiDiamondWwwe";
 import { Tech } from "./KropkiTechniques/Tech";
 import { NewTechniques } from "./NewTechniques";
+import { IHash, IKropkiPuzzle } from "./IKropkiSolve";
 
 
 
@@ -27,7 +28,7 @@ export function cellCandidates(cell: string): number[] {
 }
 
 
-export class KropkiString  {
+export class KropkiString implements IKropkiPuzzle  {
   constructor(puzzle: string) {
     const array = puzzle.split("\n");
 
@@ -104,6 +105,24 @@ export class KropkiString  {
 
         this._dict.get(fence)?.push(new Loc(r * 2, c * 2));
       }
+  }
+  getLocString(r: number | Loc, c?: number): string {
+    throw new Error("Method not implemented.");
+  }
+  getExplicitLocString(r: number | Loc, c?: number): string {
+    throw new Error("Method not implemented.");
+  }
+  getCellList(r: number | Loc, c?: number): number[] {
+    throw new Error("Method not implemented.");
+  }
+  getExplicitCellList(r: number | Loc, c?: number): number[] {
+    throw new Error("Method not implemented.");
+  }
+  getCellSet(r: number | Loc, c?: number): IHash<number> {
+    throw new Error("Method not implemented.");
+  }
+  getExplicitCellSet(r: number | Loc, c?: number): IHash<number> {
+    throw new Error("Method not implemented.");
   }
 
   isIntersectionSolved(c0: number, kropki: string, c1: number): boolean {
@@ -412,7 +431,7 @@ export class KropkiString  {
     return true;
   }
 
-  isSolved(): boolean {
+  get isSolved(): boolean {
     for (let i = 0; i < this._length; i++) {
       if (
         !NewTechniques.isSudokuHouseLocsSolved(
@@ -453,9 +472,9 @@ export class KropkiString  {
     return true;
   }
 
-  getCellSet(loc: Loc): Set<number> {
-    return new Set<number>(this.getCellCandidates(loc));
-  }
+  // getCellSet(loc: Loc): Set<number> {
+  //   return new Set<number>(this.getCellCandidates(loc));
+  // }
 
   getKropkiIntersectionLocs(puzzleLength: number): Loc[] {
     const intersections = new LocSet();
@@ -1179,9 +1198,9 @@ export class KropkiString  {
     topValue: string,
     downValue: string,
     leftValue: string,
-    tlSet: Set<number>,
-    trSet: Set<number>,
-    dlSet: Set<number>,
+    tlSet:  IHash<number>,
+    trSet:  IHash<number>,
+    dlSet:  IHash<number>,
     edited: boolean,
     downInt: Loc
   ) {
@@ -1192,9 +1211,9 @@ export class KropkiString  {
       leftValue == "b"
     ) {
       if (
-        KropkiString.equalSets([1, 2, 4, 6, 8], [...tlSet]) ||
-        KropkiString.equalSets([2, 4, 6, 8], [...trSet]) ||
-        KropkiString.equalSets([1, 3, 6], [...dlSet])
+        KropkiString.equalSets([1, 2, 4, 6, 8], [...tlSet.items]) ||
+        KropkiString.equalSets([2, 4, 6, 8], [...trSet.items]) ||
+        KropkiString.equalSets([1, 3, 6], [...dlSet.items])
       )
         edited = this.removeCandidate(downInt.right(), 3) || edited;
     }
@@ -1484,6 +1503,10 @@ export class KropkiString  {
 
     return edited;
   }
+
+
+
+
 }
 
 // 1207
