@@ -1,31 +1,35 @@
 import { Loc } from "./Loc";
 
-export interface IKropkiSolve {
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
-
-  solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit[];
-
+export interface IKropkiSolver {
   get id(): string;
+
+  // solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
+
+  solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
 }
 
 export interface IKropkiPuzzle {
   get id(): string;
 
-  get length():number;
+  get length(): number;
 
   get isSolved(): boolean;
 
   getCellString(r: Loc | number, c?: number): string;
 
-  // getExplicitLocString(r: Loc | number, c?: number): string;
-
   getCellCandidates(r: Loc | number, c?: number): number[];
-
-  // getExplicitCellList(r: Loc | number, c?: number): number[];
 
   getCellSet(r: Loc | number, c?: number): Set<number>;
 
-  // getExplicitCellSet(r: Loc | number, c?: number): Set<number>;
+  get sudokuCellLocs(): Loc[];
+
+  removeCandidate(loc: Loc, candidate: number): boolean;
+
+  solve(solvers: IKropkiSolver[]): IEdit[];
+
+  get edits():IEdit[];
+
+  // getWhiteCandidates
 }
 
 export interface IEdit {
@@ -33,7 +37,7 @@ export interface IEdit {
 
   get loc(): Loc;
 
-  get technique(): IKropkiSolve;
+  get solver(): IKropkiSolver;
 
   get candidate(): number;
 }

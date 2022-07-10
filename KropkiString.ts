@@ -1,22 +1,16 @@
 import { Loc } from "./Loc";
-
-import { KropkiExplicitRemoves } from "./KropkiExplicitRemoves";
-import { KropkiNextToCells } from "./KropkiNextToCells";
-import { GRID } from "./Types";
-import { KropkiDiamonds } from "./KropkiDiamonds";
-// import { ITechnique } from "./ITechnique";
 import { LocSet } from "./LocSet";
-import { KropkiChain_BW } from "./KropkiChain_BW";
-import { KropkiChain_BB } from "./KropkiChain_BB";
-import { KropkiDiamondWwwe } from "./KropkiDiamondWwwe";
-import { Tech } from "./KropkiTechniques/Tech";
 import { NewTechniques } from "./NewTechniques";
 import {
+  IEdit,
   // IHash,
   IKropkiPuzzle,
-} from "./IKropkiSolve";
+  IKropkiSolver,
+} from "./IKropkiSolver";
 
 export function cellCandidates(cell: string): number[] {
+  // console.log(`'${cell}'`);
+
   const array = [];
 
   for (const candidate of cell) {
@@ -29,7 +23,11 @@ export function cellCandidates(cell: string): number[] {
 }
 
 export class KropkiString implements IKropkiPuzzle {
+  private readonly _edits: IEdit[];
+
   constructor(puzzle: string) {
+    this._edits = [];
+
     const array = puzzle.split("\n");
 
     const temp = [];
@@ -107,6 +105,10 @@ export class KropkiString implements IKropkiPuzzle {
       }
   }
 
+  get edits(): IEdit[] {
+    return this._edits;
+  }
+
   getCellList(r: number | Loc, c?: number): number[] {
     return cellCandidates(this.getCellString(r, c));
   }
@@ -116,6 +118,8 @@ export class KropkiString implements IKropkiPuzzle {
   }
 
   getCellString(r: number | Loc, c?: number): string {
+    
+
     if (typeof r == "number" && typeof c == "number") return this._grid[r][c];
 
     if (r instanceof Loc) return this._grid[r.row][r.col];
@@ -192,6 +196,15 @@ export class KropkiString implements IKropkiPuzzle {
     return [...this._dict.keys()];
   }
 
+  get sudokuCellLocs(): Loc[] {
+    const locs = [];
+
+    for (let r = 0; r < this._length; r++)
+      for (let c = 0; c < this._length; c++) locs.push(new Loc(r, c));
+
+    return locs;
+  }
+
   getLocFence(loc: Loc): string {
     const cell = this.getCellString(loc);
 
@@ -238,10 +251,17 @@ export class KropkiString implements IKropkiPuzzle {
   }
 
   toCellRowString(r: number, c: number): string {
+    let numbers = "";
+    let blanks = "";
+
+    for (let i = 0; i < this._length; i++) {
+      numbers += `${i + 1}`;
+      blanks += "_";
+    }
+
     // cell
     if (c % 2 == 0)
-      if (this._length == 9 && this._grid[r][c] == "123456789")
-        return `_________ `;
+      if (this._grid[r][c] == `${numbers}`) return `${blanks} `;
       else return `${this._grid[r][c].padEnd(this._length)} `;
     // kropki
     else return `${this._grid[r][c]} `;
@@ -351,7 +371,7 @@ export class KropkiString implements IKropkiPuzzle {
     return edited;
   }
 
-  removeCandidate(loc: Loc, ...candidates: number[]): boolean {
+  removeCandidate(loc: Loc, candidate: number): boolean {
     const r = loc.row;
 
     const c = loc.col;
@@ -370,11 +390,11 @@ export class KropkiString implements IKropkiPuzzle {
         } (${this._length * 2 - 1})`
       );
 
-    for (const candidate of candidates)
-      this._grid[loc.row][loc.col] = this._grid[loc.row][loc.col].replace(
-        `${candidate}`,
-        "_"
-      );
+    // for (const candidate of candidates)
+    this._grid[loc.row][loc.col] = this._grid[loc.row][loc.col].replace(
+      `${candidate}`,
+      "_"
+    );
 
     return originalLength > cellCandidates(this._grid[loc.row][loc.col]).length;
   }
@@ -940,7 +960,14 @@ export class KropkiString implements IKropkiPuzzle {
     edited =
       this.removeCandidate(
         chainLocs[2],
-        Math.min(...candidatesInLocs),
+        Math.min(...candidatesInLocs)
+        // Math.max(...candidatesInLocs)
+      ) || edited;
+
+    edited =
+      this.removeCandidate(
+        chainLocs[2],
+        // Math.min(...candidatesInLocs),
         Math.max(...candidatesInLocs)
       ) || edited;
 
@@ -1091,11 +1118,11 @@ export class KropkiString implements IKropkiPuzzle {
           edited;
         break;
       case "bb":
-        edited = new KropkiChain_BB().solve(this, chainLocs) || edited;
+        // edited = new KropkiChain_BB().solve(this, chainLocs) || edited;
         break;
       case "wb":
       case "bw":
-        edited = new KropkiChain_BW().solve(this, chainLocs) || edited;
+        // edited = new KropkiChain_BW().solve(this, chainLocs) || edited;
         break;
       case "bwwbb":
         break;
@@ -1303,7 +1330,7 @@ export class KropkiString implements IKropkiPuzzle {
           leftInt.up(),
         ];
 
-        edited = new KropkiDiamondWwwe().solve(this, diamond) || edited;
+        // edited = new KropkiDiamondWwwe().solve(this, diamond) || edited;
         break;
     }
     return edited;
@@ -1518,6 +1545,39 @@ export class KropkiString implements IKropkiPuzzle {
       edited = this.removeCandidate(removeDL, 3) || edited;
 
     return edited;
+  }
+
+  solve(solvers: IKropkiSolver[]): IEdit[] {
+    const edits: IEdit[] = [];
+
+    let tempEdits: IEdit[] = [];
+
+    do {
+      // console.log("hehehehehe");
+
+      // edits.push(...tempEdits);
+
+      tempEdits = [];
+
+      for (const solver of solvers) {
+        for (let r = 0; r < this.length; r++)
+          for (let c = 0; c < this.length; c++) {
+            const edit = solver.solveCell(this, new Loc(r * 2, c * 2));
+
+            if (edit == null) continue;
+
+            tempEdits.push(edit);
+          }
+      }
+
+      // tempEdits.push(...solver.solvePuzzle(this));
+
+      if (tempEdits.length == 0) continue;
+
+      edits.push(...tempEdits);
+    } while (tempEdits.length > 0);
+
+    return edits;
   }
 }
 

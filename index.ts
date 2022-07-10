@@ -1,13 +1,21 @@
+import { IKropkiPuzzle } from "./IKropkiSolver";
+import { KropkiBlack } from "./KropkiBlack";
 import { KropkiString } from "./KropkiString";
 import { MainFunction } from "./NewMain";
 import { NewPuzzles } from "./NewPuzzles";
 
+const puzzle001 = new KropkiString(NewPuzzles._Kropki_001);
 
-MainFunction();
+puzzle001.solve([new KropkiBlack()]);
+
+console.log(puzzle001.toString());
+
+console.log("///////////////");
+const puzzle002 = new KropkiString(NewPuzzles._Kropki_002);
+
+puzzle002.solve([new KropkiBlack()]);
+
+console.log(puzzle002.toString());
 
 
-
-// const puzzle = new KropkiString(NewPuzzles._Kropki_002);
-
-
-// console.log(puzzle.toString());
+console.log("///////////////");
