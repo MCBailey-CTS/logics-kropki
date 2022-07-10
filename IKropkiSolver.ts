@@ -27,7 +27,7 @@ export interface IKropkiPuzzle {
 
   solve(solvers: IKropkiSolver[]): IEdit[];
 
-  get edits():IEdit[];
+  get edits(): IEdit[];
 
   // getWhiteCandidates
 }
