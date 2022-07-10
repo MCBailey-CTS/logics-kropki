@@ -127,9 +127,6 @@ export class KropkiEmptyDominate implements IKropkiSolver {
     const otherHash = puzzle.getCellSet(other);
 
     for (const candidate of puzzle.getCellCandidates(loc)) {
-    //   const kropkiCandidates: Set<number> =
-    //     puzzle.getKropkiCandidates(candidate);
-
       let allValid = true;
 
       for (const c of otherHash) {
@@ -138,24 +135,13 @@ export class KropkiEmptyDominate implements IKropkiSolver {
           candidate * 2 == c ||
           candidate + 1 == c ||
           candidate - 1 == c;
-
-        // console.log(`${candidate}, ${c}, ${allValid}`);
-
       }
 
       if (!allValid) continue;
 
-
-      // {
       if (!puzzle.removeCandidate(loc, candidate)) continue;
 
       return new Edit(puzzle, loc, candidate, this);
-      // }
-
-      //   console.log(`Candidate: ${candidate} == Kropki: ${[...kropkiCandidates]} Other: ${[...otherHash]}`);
-
-      //   if (!KropkiString.isSubset([...kropkiCandidates], [...otherHash]))
-      //     continue;
     }
 
     return null;
