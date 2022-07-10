@@ -109,6 +109,32 @@ export class KropkiString implements IKropkiPuzzle {
     return this._edits;
   }
 
+  getKropkiCandidates(candidate: number): Set<number> {
+    return new Set<number>([
+      ...this.getKropkiWhiteCandidates(candidate),
+      ...this.getKropkiBlackCandidates(candidate),
+    ]);
+  }
+
+  getKropkiBlackCandidates(candidate: number): Set<number> {
+    const hash = new Set<number>();
+
+    for (let c = 1; c <= this._length; c++)
+      if (candidate * 2 == c || (candidate % 2 == 0 && candidate / 2 == c))
+        hash.add(c);
+
+    return hash;
+  }
+
+  getKropkiWhiteCandidates(candidate: number): Set<number> {
+    const hash = new Set<number>();
+
+    for (let c = 1; c <= this._length; c++)
+      if (candidate + 1 == c || candidate - 1 == c) hash.add(c);
+
+    return hash;
+  }
+
   getCellList(r: number | Loc, c?: number): number[] {
     return cellCandidates(this.getCellString(r, c));
   }
@@ -118,8 +144,6 @@ export class KropkiString implements IKropkiPuzzle {
   }
 
   getCellString(r: number | Loc, c?: number): string {
-    
-
     if (typeof r == "number" && typeof c == "number") return this._grid[r][c];
 
     if (r instanceof Loc) return this._grid[r.row][r.col];

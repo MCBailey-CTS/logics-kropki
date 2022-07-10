@@ -29,7 +29,11 @@ export interface IKropkiPuzzle {
 
   get edits(): IEdit[];
 
-  // getWhiteCandidates
+  getKropkiCandidates(candidate: number): Set<number>;
+
+  getKropkiWhiteCandidates(candidate: number): Set<number>;
+  
+  getKropkiBlackCandidates(candidate: number): Set<number>;
 }
 
 export interface IEdit {
