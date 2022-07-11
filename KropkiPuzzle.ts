@@ -297,6 +297,10 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     }
   }
 
+  toPuzzleString(): string {
+    return this.toString();
+  }
+
   toIntersectionRowString(r: number, c: number): string {
     const cellLength = this._grid[0][0].length;
 

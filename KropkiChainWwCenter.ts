@@ -51,30 +51,6 @@ export class KropkiChainWwCenter extends BaseKropkiSolver {
         let str =
           puzzle.getCellString(leftInt) + puzzle.getCellString(rightInt);
 
-        // if (str !== "ww")
-        //     continue;
-
-        // const leftSet = puzzle.getCellSet(leftCell);
-
-        // const rightSet = puzzle.getCellSet(rightCell);
-
-        // const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
-
-        // const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
-
-        // if (row.size == 3 || col.size == 3)
-        //     for (const candidate of puzzle.getCellCandidates(loc)) {
-        //         if (!leftSet.has(candidate - 1) &&
-        //             !rightSet.has(candidate - 1) &&
-        //             puzzle.removeCandidate(loc, candidate))
-        //             return new Edit(puzzle, loc, candidate, this);
-
-        //         if (!leftSet.has(candidate + 1) &&
-        //             !rightSet.has(candidate + 1) &&
-        //             puzzle.removeCandidate(loc, candidate))
-        //             return new Edit(puzzle, loc, candidate, this);
-        //     }
-
         if (str !== "ww") continue;
 
         const leftSet = puzzle.getCellSet(leftCell);
@@ -82,10 +58,8 @@ export class KropkiChainWwCenter extends BaseKropkiSolver {
         const rightSet = puzzle.getCellSet(rightCell);
 
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
-        // const row = new Set<number>();
 
         const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
-        // const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
 
         let fences: Set<string> = new Set<string>();
 
@@ -95,34 +69,22 @@ export class KropkiChainWwCenter extends BaseKropkiSolver {
           fences.add(puzzle.getFence(rightCell));
         }
 
-        // if (fences.size === 1) {
-        //   console.log("fences");
+        if (!(row.size === 3 || col.size == 3 || fences.size == 1)) continue;
 
-        //   continue;
-        // }
+        for (const candidate of puzzle.getCellCandidates(loc)) {
+          if (
+            !leftSet.has(candidate - 1) &&
+            !rightSet.has(candidate - 1) &&
+            puzzle.removeCandidate(loc, candidate)
+          )
+            return new Edit(puzzle, loc, candidate, this);
 
-        if (
-          row.size === 3 ||
-          col.size == 3
-          //  || fences.size == 1
-        ) {
-          for (const candidate of puzzle.getCellCandidates(loc)) {
-            // console.log(candidate);
-
-            if (
-              !leftSet.has(candidate - 1) &&
-              !rightSet.has(candidate - 1) &&
-              puzzle.removeCandidate(loc, candidate)
-            )
-              return new Edit(puzzle, loc, candidate, this);
-
-            if (
-              !leftSet.has(candidate + 1) &&
-              !rightSet.has(candidate + 1) &&
-              puzzle.removeCandidate(loc, candidate)
-            )
-              return new Edit(puzzle, loc, candidate, this);
-          }
+          if (
+            !leftSet.has(candidate + 1) &&
+            !rightSet.has(candidate + 1) &&
+            puzzle.removeCandidate(loc, candidate)
+          )
+            return new Edit(puzzle, loc, candidate, this);
         }
       }
 

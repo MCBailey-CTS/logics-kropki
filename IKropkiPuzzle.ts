@@ -36,4 +36,6 @@ export interface IKropkiPuzzle {
   getKropkiWhiteCandidates(candidate: number): Set<number>;
 
   getKropkiBlackCandidates(candidate: number): Set<number>;
+
+  toPuzzleString(): string;
 }
