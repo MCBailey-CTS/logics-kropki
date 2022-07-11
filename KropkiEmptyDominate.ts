@@ -1,4 +1,6 @@
-import { IEdit, IKropkiPuzzle, IKropkiSolver } from "./IKropkiSolver";
+import { IKropkiSolver } from "./IKropkiSolver";
+import { IEdit } from "./IEdit";
+import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { Loc } from "./Loc";
 import { Edit } from "./Edit";
 
@@ -28,14 +30,14 @@ export class KropkiEmptyDominate implements IKropkiSolver {
 
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const surroundingCells = [
-      loc.up(),
-      loc.up().up(),
-      loc.right(),
-      loc.right().right(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
+      loc.up(), // intersection
+      loc.up().up(), // cell
+      loc.right(), // intersection
+      loc.right().right(), // cell
+      loc.down(), // intersection
+      loc.down().down(), // cell
+      loc.left(), // intersection
+      loc.left().left(), // cell
     ];
 
     for (let i = 0; i < surroundingCells.length; i += 2) {

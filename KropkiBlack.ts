@@ -1,4 +1,6 @@
-import { IEdit, IKropkiPuzzle, IKropkiSolver } from "./IKropkiSolver";
+import { IKropkiSolver } from "./IKropkiSolver";
+import { IEdit } from "./IEdit";
+import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { Loc } from "./Loc";
 import { BaseKropkiSolver } from "./BaseKropkiSolver";
 import { Edit } from "./Edit";
