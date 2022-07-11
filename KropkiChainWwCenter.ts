@@ -82,8 +82,10 @@ export class KropkiChainWwCenter extends BaseKropkiSolver {
         const rightSet = puzzle.getCellSet(rightCell);
 
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
+        // const row = new Set<number>();
 
         const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
+        // const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
 
         let fences: Set<string> = new Set<string>();
 

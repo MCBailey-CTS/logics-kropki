@@ -263,20 +263,38 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   toCellRowString(r: number, c: number): string {
-    let numbers = "";
-    let blanks = "";
+    if (this.hasFences) {
+      let numbers = "";
+      let blanks = "";
 
-    for (let i = 0; i < this._length; i++) {
-      numbers += `${i + 1}`;
-      blanks += "_";
+      for (let i = 0; i < this._length; i++) {
+        numbers += `${i + 1}`;
+        blanks += "_";
+      }
+
+      // cell
+      if (c % 2 == 0)
+        if (this._grid[r][c].startsWith(`${numbers}`))
+          return `${blanks}${this._grid[r][c][this._grid[r][c].length - 1]} `;
+        else return `${this._grid[r][c].padEnd(this._length)} `;
+      // kropki
+      else return `${this._grid[r][c]} `;
+    } else {
+      let numbers = "";
+      let blanks = "";
+
+      for (let i = 0; i < this._length; i++) {
+        numbers += `${i + 1}`;
+        blanks += "_";
+      }
+
+      // cell
+      if (c % 2 == 0)
+        if (this._grid[r][c] == `${numbers}`) return `${blanks} `;
+        else return `${this._grid[r][c].padEnd(this._length)} `;
+      // kropki
+      else return `${this._grid[r][c]} `;
     }
-
-    // cell
-    if (c % 2 == 0)
-      if (this._grid[r][c] == `${numbers}`) return `${blanks} `;
-      else return `${this._grid[r][c].padEnd(this._length)} `;
-    // kropki
-    else return `${this._grid[r][c]} `;
   }
 
   toIntersectionRowString(r: number, c: number): string {
