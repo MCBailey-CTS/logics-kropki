@@ -49,16 +49,23 @@ const puzzleStrings = [
   NewPuzzles._Kropki_001,
 ];
 
+const totalEdits = [];
+
 for (const str of puzzleStrings) {
   console.log("///////////////");
+
   const puzzle = new KropkiPuzzle(str);
 
-  puzzle.solve(solvers);
+  totalEdits.push(... [puzzle.solve(solvers)]);
 
   if (puzzle.isSolved) continue;
 
   console.log(puzzle.toString());
+
+
 }
+
+console.log(`Total edits: ${totalEdits.length}`);
 
 // const puz: IKropkiPuzzle = new KropkiPuzzle(NewPuzzles._Kropki_018);
 
