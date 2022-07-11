@@ -105,6 +105,14 @@ export class KropkiString implements IKropkiPuzzle {
       }
   }
 
+  getFenceLocs(fence: string): Loc[] {
+    throw Error("not implemented");
+  }
+
+  getFence(loc: Loc): string {
+    throw Error("not implemented");
+  }
+
   get edits(): IEdit[] {
     return this._edits;
   }

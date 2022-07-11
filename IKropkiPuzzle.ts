@@ -13,6 +13,14 @@ export interface IKropkiPuzzle {
 
   get sudokuCellLocs(): Loc[];
 
+  get hasFences(): boolean;
+
+  get fences(): string[];
+
+  getFenceLocs(fence: string): Loc[];
+
+  getFence(loc: Loc): string;
+
   getCellString(r: Loc | number, c?: number): string;
 
   getCellCandidates(r: Loc | number, c?: number): number[];
@@ -28,6 +36,4 @@ export interface IKropkiPuzzle {
   getKropkiWhiteCandidates(candidate: number): Set<number>;
 
   getKropkiBlackCandidates(candidate: number): Set<number>;
-
-  // get hasFences():boolean;
 }
