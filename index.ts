@@ -5,20 +5,21 @@ import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { KropkiBlack } from "./KropkiBlack";
 import { KropkiEmptyDominate } from "./KropkiEmptyDominate";
 import { KropkiDiamondBwww } from "./KropkiDiamondBwww";
+import { KropkiDiamondEwww } from "./KropkiDiamondEwww";
 import { KropkiWhite } from "./KropkiWhite";
 import { KropkiString } from "./KropkiString";
 import { Loc } from "./Loc";
 import { MainFunction } from "./NewMain";
 import { NewPuzzles } from "./NewPuzzles";
 
-const solvers: IKropkiSolver[] = [new KropkiDiamondBwww()];
+const solvers: IKropkiSolver[] = [new KropkiDiamondEwww()];
 
 const puzzleStrings = [
-  NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_006,
 ];
 
 for (const str of puzzleStrings) {
