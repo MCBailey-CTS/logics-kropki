@@ -106,7 +106,12 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   getFenceLocs(fence: string): Loc[] {
-    throw Error("not implemented");
+    const locs = [];
+
+    for (const loc of this.sudokuCellLocs)
+      if (fence === this.getFence(loc)) locs.push(loc);
+
+    return locs;
   }
 
   getFence(loc: Loc): string {
@@ -272,11 +277,17 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         blanks += "_";
       }
 
+      if (this.getCellString(r, c).includes("_________")) {
+      }
+      // console.log(`Temp: '${this._grid[r][c]}'`);
+
       // cell
       if (c % 2 == 0)
         if (this._grid[r][c].startsWith(`${numbers}`))
           return `${blanks}${this._grid[r][c][this._grid[r][c].length - 1]} `;
-        else return `${this._grid[r][c].padEnd(this._length)} `;
+        else if (this.getCellString(r, c).includes("_________")) {
+          return `${"empty".padEnd(this._length)}`;
+        } else return `${this._grid[r][c].padEnd(this._length)} `;
       // kropki
       else return `${this._grid[r][c]} `;
     } else {
@@ -299,6 +310,46 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
   toPuzzleString(): string {
     return this.toString();
+  }
+
+  getNeighbors(loc: Loc): Loc[] {
+    const locs = new LocSet();
+
+    for (const houseLocs of this.getRowHouses()) {
+      if (loc.row == houseLocs[0].row)
+        for (const houseLoc of houseLocs) locs.add(houseLoc);
+    }
+
+    for (const houseLocs of this.getColHouses())
+      if (loc.col == houseLocs[0].col)
+        for (const houseLoc of houseLocs) locs.add(houseLoc);
+
+    if (this.hasFences)
+      for (const fence of this.fences)
+        if (this.getFence(loc) == fence)
+          for (const houseLoc of this.getFenceLocs(fence)) locs.add(houseLoc);
+
+    locs.delete(loc);
+
+    return locs.values;
+  }
+
+  getRowHouses(): Loc[][] {
+    const houses = [];
+
+    for (let i = 0; i < this.length; i++)
+      houses.push(Loc.getKropkiCellRowHouseLocs(this.length, i));
+
+    return houses;
+  }
+
+  getColHouses(): Loc[][] {
+    const houses = [];
+
+    for (let i = 0; i < this.length; i++)
+      houses.push(Loc.getKropkiCellColHouseLocs(this.length, i));
+
+    return houses;
   }
 
   toIntersectionRowString(r: number, c: number): string {

@@ -18,7 +18,7 @@ export class KropkiEmptyDominate implements IKropkiSolver {
 
       if (otherHash.size > 0) continue;
 
-      console.log(`${candidate} [${kropkiCandidates}]`);
+      // console.log(`${candidate} [${kropkiCandidates}]`);
 
       if (!puzzle.removeCandidate(loc, candidate)) continue;
 

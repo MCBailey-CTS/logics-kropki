@@ -68,7 +68,7 @@ export class KropkiChainBwCenter extends BaseKropkiSolver {
         }
 
         if (row.size === 3 || col.size == 3 || fences.size == 1) {
-          console.log([...fences]);
+          // console.log([...fences]);
 
           if (!puzzle.removeCandidate(loc, 1)) continue;
 

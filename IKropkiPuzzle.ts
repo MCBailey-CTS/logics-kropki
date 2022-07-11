@@ -38,4 +38,10 @@ export interface IKropkiPuzzle {
   getKropkiBlackCandidates(candidate: number): Set<number>;
 
   toPuzzleString(): string;
+
+  getNeighbors(loc: Loc): Loc[];
+
+  getRowHouses(): Loc[][];
+
+  getColHouses(): Loc[][];
 }

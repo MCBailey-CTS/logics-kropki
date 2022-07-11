@@ -68,6 +68,9 @@ export class KropkiChainBbCenter extends BaseKropkiSolver {
               for (const candidate of [2, 3, 5, 6, 7]) {
                 if (puzzle.removeCandidate(leftCell, candidate))
                   return new Edit(puzzle, leftCell, candidate, this);
+
+                if (puzzle.removeCandidate(rightCell, candidate))
+                  return new Edit(puzzle, rightCell, candidate, this);
               }
 
               break;
@@ -80,6 +83,9 @@ export class KropkiChainBbCenter extends BaseKropkiSolver {
               for (const candidate of [3, 5, 6, 7, 9]) {
                 if (puzzle.removeCandidate(leftCell, candidate))
                   return new Edit(puzzle, leftCell, candidate, this);
+
+                if (puzzle.removeCandidate(rightCell, candidate))
+                  return new Edit(puzzle, rightCell, candidate, this);
               }
               break;
           }
