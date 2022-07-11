@@ -32,7 +32,7 @@ export interface IKropkiPuzzle {
   getKropkiCandidates(candidate: number): Set<number>;
 
   getKropkiWhiteCandidates(candidate: number): Set<number>;
-  
+
   getKropkiBlackCandidates(candidate: number): Set<number>;
 }
 

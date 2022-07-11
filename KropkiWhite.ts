@@ -1,17 +1,15 @@
 import { IEdit, IKropkiPuzzle, IKropkiSolver } from "./IKropkiSolver";
 import { Loc } from "./Loc";
-import { BaseKropkiSolver } from "./BaseKropkiSolver";
 import { Edit } from "./Edit";
-import { KropkiString } from "./KropkiString";
 
-export class KropkiBlack implements IKropkiSolver {
+export class KropkiWhite implements IKropkiSolver {
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
     const otherHash = puzzle.getCellSet(other);
 
     for (const candidate of puzzle.getCellCandidates(loc)) {
-      if (otherHash.has(candidate * 2)) continue;
+      if (otherHash.has(candidate + 1)) continue;
 
-      if (candidate % 2 == 0 && otherHash.has(candidate / 2)) continue;
+      if (otherHash.has(candidate - 1)) continue;
 
       if (!puzzle.removeCandidate(loc, candidate)) continue;
 
@@ -46,7 +44,7 @@ export class KropkiBlack implements IKropkiSolver {
 
       const intersection = puzzle.getCellString(surroundingCells[i]);
 
-      if (intersection != "b") continue;
+      if (intersection != "w") continue;
 
       const edit = this.solveExplicit(puzzle, loc, surrounding);
 
@@ -59,6 +57,6 @@ export class KropkiBlack implements IKropkiSolver {
   }
 
   get id(): string {
-    return "KropkiBlack";
+    return "KropkiWhite";
   }
 }

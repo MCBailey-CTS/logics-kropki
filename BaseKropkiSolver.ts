@@ -4,6 +4,8 @@ import { Loc } from "./Loc";
 export abstract class BaseKropkiSolver implements IKropkiSolver {
   abstract get id(): string;
 
+  abstract solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
+
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits: IEdit[] = [];
 
@@ -17,6 +19,4 @@ export abstract class BaseKropkiSolver implements IKropkiSolver {
 
     return edits;
   }
-
-  abstract solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
 }
