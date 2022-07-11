@@ -1,5 +1,5 @@
 import { NewPuzzles } from "./NewPuzzles";
-import { KropkiString } from "./KropkiString";
+import { KropkiPuzzle } from "./KropkiPuzzle";
 
 export function MainFunction() {
   let solvedCount = 0;
@@ -11,7 +11,7 @@ export function MainFunction() {
   for (const str of NewPuzzles.allPuzzles)
     try {
       if (str.includes(".kropki")) {
-        const puzzle = new KropkiString(str);
+        const puzzle = new KropkiPuzzle(str);
 
         puzzle.solvePuzzle();
 

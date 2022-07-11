@@ -22,7 +22,7 @@ export function cellCandidates(cell: string): number[] {
   return array;
 }
 
-export class KropkiString implements IKropkiPuzzle {
+export class KropkiPuzzle implements IKropkiPuzzle {
   private readonly _edits: IEdit[];
 
   constructor(puzzle: string) {
@@ -66,24 +66,24 @@ export class KropkiString implements IKropkiPuzzle {
       );
     }
 
-    for (let r = 0; r < this._length; r++)
-      for (let c = 0; c < this._length; c++) {
-        if (this._grid[r * 2][c * 2].length > 1) continue;
+    // for (let r = 0; r < this._length; r++)
+    //   for (let c = 0; c < this._length; c++) {
+    //     if (this._grid[r * 2][c * 2].length > 1) continue;
 
-        if (this._grid[r * 2][c * 2] == "_") {
-          this.setCellString(defaultCell, r * 2, c * 2);
-          // this._grid[r * 2][c * 2] = defaultCell;
-          continue;
-        }
+    //     if (this._grid[r * 2][c * 2] == "_") {
+    //       this.setCellString(defaultCell, r * 2, c * 2);
+    //       // this._grid[r * 2][c * 2] = defaultCell;
+    //       continue;
+    //     }
 
-        let cell = "";
+    //     let cell = "";
 
-        for (let j = 0; j < this._length; j++) {
-          if (this._grid[r * 2][c * 2][0] == `${j + 1}`) cell += `${j + 1}`;
-          else cell += "_";
-        }
-        this._grid[r * 2][c * 2] = cell;
-      }
+    //     for (let j = 0; j < this._length; j++) {
+    //       if (this._grid[r * 2][c * 2][0] == `${j + 1}`) cell += `${j + 1}`;
+    //       else cell += "_";
+    //     }
+    //     this._grid[r * 2][c * 2] = cell;
+    //   }
 
     // check if this puzzle has fences.
     // for must be length of 9, and the first cell must have a length of 10
@@ -92,17 +92,17 @@ export class KropkiString implements IKropkiPuzzle {
 
     this._dict = new Map<string, Array<Loc>>();
 
-    if (!this._hasFences) return;
+    // if (!this._hasFences) return;
 
-    for (let r = 0; r < this._length; r++)
-      for (let c = 0; c < this._length; c++) {
-        const fence = this._grid[r * 2][c * 2][9];
+    // for (let r = 0; r < this._length; r++)
+    //   for (let c = 0; c < this._length; c++) {
+    //     const fence = this._grid[r * 2][c * 2][9];
 
-        if (typeof this._dict.get(fence) == "undefined")
-          this._dict.set(fence, new Array<Loc>());
+    //     if (typeof this._dict.get(fence) == "undefined")
+    //       this._dict.set(fence, new Array<Loc>());
 
-        this._dict.get(fence)?.push(new Loc(r * 2, c * 2));
-      }
+    //     this._dict.get(fence)?.push(new Loc(r * 2, c * 2));
+    //   }
   }
 
   getFenceLocs(fence: string): Loc[] {
@@ -110,7 +110,7 @@ export class KropkiString implements IKropkiPuzzle {
   }
 
   getFence(loc: Loc): string {
-    throw Error("not implemented");
+    return this.getCellString(loc)[this.length];
   }
 
   get edits(): IEdit[] {
@@ -158,26 +158,6 @@ export class KropkiString implements IKropkiPuzzle {
 
     throw Error("invalid parameters");
   }
-
-  // getExplicitLocString(r: number | Loc, c?: number): string {
-  //   if (typeof c == "undefined") throw new Error("Method not implemented.");
-  // }
-
-  // getCellList(r: number | Loc, c?: number): number[] {
-  //   throw new Error("Method not implemented.");
-  // }
-
-  // getExplicitCellList(r: number | Loc, c?: number): number[] {
-  //   throw new Error("Method not implemented.");
-  // }
-
-  // getCellSet(r: number | Loc, c?: number): Set<number> {
-  //   throw new Error("Method not implemented.");
-  // }
-
-  // getExplicitCellSet(r: number | Loc, c?: number): Set<number> {
-  //   throw new Error("Method not implemented.");
-  // }
 
   isIntersectionSolved(c0: number, kropki: string, c1: number): boolean {
     switch (kropki) {
@@ -913,15 +893,15 @@ export class KropkiString implements IKropkiPuzzle {
 
     // 2345 => 4
     if (
-      KropkiString.equalSets([2, 3, 4, 5], candidates0) ||
-      KropkiString.isSubset([2, 3, 4, 5], candidates0)
+      KropkiPuzzle.equalSets([2, 3, 4, 5], candidates0) ||
+      KropkiPuzzle.isSubset([2, 3, 4, 5], candidates0)
     )
       edited = this.removeCandidate(other, 4) || edited;
 
     // 2346 => 3
     if (
-      KropkiString.equalSets([2, 3, 4, 6], candidates0) ||
-      KropkiString.isSubset([2, 3, 4, 6], candidates0)
+      KropkiPuzzle.equalSets([2, 3, 4, 6], candidates0) ||
+      KropkiPuzzle.isSubset([2, 3, 4, 6], candidates0)
     )
       edited = this.removeCandidate(other, 3) || edited;
 
@@ -1213,7 +1193,7 @@ export class KropkiString implements IKropkiPuzzle {
 
     const candidates = this.getCellCandidates(loc);
 
-    if (KropkiString.isSubset([1, 2, 3, 4], candidates))
+    if (KropkiPuzzle.isSubset([1, 2, 3, 4], candidates))
       edited = this.removeUpDownLeftRight(loc, 2) || edited;
 
     return edited;
@@ -1259,9 +1239,9 @@ export class KropkiString implements IKropkiPuzzle {
       leftValue == "."
     ) {
       if (
-        KropkiString.equalSets([1, 2, 6, 8], [...tlSet]) ||
-        KropkiString.equalSets([3, 4, 5], [...trSet]) ||
-        KropkiString.equalSets([2, 4, 5], [...drSet])
+        KropkiPuzzle.equalSets([1, 2, 6, 8], [...tlSet]) ||
+        KropkiPuzzle.equalSets([3, 4, 5], [...trSet]) ||
+        KropkiPuzzle.equalSets([2, 4, 5], [...drSet])
       )
         edited = this.removeCandidate(downInt.left(), 3) || edited;
     }
@@ -1286,9 +1266,9 @@ export class KropkiString implements IKropkiPuzzle {
       leftValue == "b"
     ) {
       if (
-        KropkiString.equalSets([1, 2, 4, 6, 8], [...tlSet]) ||
-        KropkiString.equalSets([2, 4, 6, 8], [...trSet]) ||
-        KropkiString.equalSets([1, 3, 6], [...dlSet])
+        KropkiPuzzle.equalSets([1, 2, 4, 6, 8], [...tlSet]) ||
+        KropkiPuzzle.equalSets([2, 4, 6, 8], [...trSet]) ||
+        KropkiPuzzle.equalSets([1, 3, 6], [...dlSet])
       )
         edited = this.removeCandidate(downInt.right(), 3) || edited;
     }
@@ -1313,9 +1293,9 @@ export class KropkiString implements IKropkiPuzzle {
       leftValue == "b"
     ) {
       if (
-        KropkiString.equalSets([1, 5, 7, 9], [...drSet]) ||
-        KropkiString.equalSets([2, 4, 8], [...trSet]) ||
-        KropkiString.equalSets([3, 6], [...dlSet])
+        KropkiPuzzle.equalSets([1, 5, 7, 9], [...drSet]) ||
+        KropkiPuzzle.equalSets([2, 4, 8], [...trSet]) ||
+        KropkiPuzzle.equalSets([3, 6], [...dlSet])
       )
         edited = this.removeCandidate(topInt.left(), 3) || edited;
     }

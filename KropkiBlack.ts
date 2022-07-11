@@ -1,10 +1,11 @@
 import { IKropkiSolver } from "./IKropkiSolver";
 import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
+
 import { Loc } from "./Loc";
 import { BaseKropkiSolver } from "./BaseKropkiSolver";
 import { Edit } from "./Edit";
-import { KropkiString } from "./KropkiString";
+import { KropkiPuzzle } from "./KropkiPuzzle";
+import { IKropkiPuzzle } from "./IKropkiPuzzle";
 
 export class KropkiBlack implements IKropkiSolver {
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {

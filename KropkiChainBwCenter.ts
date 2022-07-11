@@ -57,13 +57,19 @@ export class KropkiChainBwCenter extends BaseKropkiSolver {
         const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
         let fences: Set<string> = new Set<string>();
 
+        // const locFence = puzzle.getFence(loc);
+
+        // const fenceLocs =
+
         if (puzzle.hasFences) {
           fences.add(puzzle.getFence(leftCell));
           fences.add(puzzle.getFence(loc));
           fences.add(puzzle.getFence(rightCell));
         }
 
-        if (row.size === 3 || col.size == 3 || fences.size == 3) {
+        if (row.size === 3 || col.size == 3 || fences.size == 1) {
+          console.log([...fences]);
+
           if (!puzzle.removeCandidate(loc, 1)) continue;
 
           return new Edit(puzzle, loc, 1, this);

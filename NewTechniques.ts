@@ -1,10 +1,10 @@
-import { cellCandidates } from "./KropkiString";
+import { cellCandidates } from "./KropkiPuzzle";
 import { Loc } from "./Loc";
 import { LocSet } from "./LocSet";
 // import { GRID } from "./Types";
 // import { cellCandidates, solveSudokuCrossHatch } from "./PuzzleString";
 
-type GRID=string[][];
+type GRID = string[][];
 
 export class NewTechniques {
   // static solveKropkiIntersectionChains(grid: GRID, length: number) {
