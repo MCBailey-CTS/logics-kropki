@@ -73,6 +73,7 @@ const solvers: IKropkiSolver[] = [
   new KropkiWhite(),
   new KropkiEmptyDominate(),
   new KropkiChainBwCenter(),
+  new KropkiChainWwCenter(),
   new KropkiChainBbCenter(),
   new KropkiDiamondBwww(),
   new KropkiDiamondEwww(),

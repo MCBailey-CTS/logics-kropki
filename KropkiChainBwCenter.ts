@@ -67,7 +67,7 @@ export class KropkiChainBwCenter implements IKropkiSolver {
           fences.add(puzzle.getFence(rightCell));
         }
 
-        if (row.size === 3 || col.size == 3 || fences.size == 1) {
+        if (row.size === 1 || col.size == 1 || fences.size == 1) {
           // console.log([...fences]);
 
           if (!puzzle.removeCandidate(loc, 1)) continue;

@@ -33,7 +33,7 @@ export class KropkiChainWwCenter implements IKropkiSolver {
     ];
 
     for (let i = 0; i < leftIntersections.length; i += 2)
-      for (let j = 0; j < leftIntersections.length; j += 2) {
+      for (let j = 0; j < rightIntersections.length; j += 2) {
         const leftInt = leftIntersections[i];
 
         const rightInt = rightIntersections[j];
@@ -57,6 +57,8 @@ export class KropkiChainWwCenter implements IKropkiSolver {
 
         const rightSet = puzzle.getCellSet(rightCell);
 
+        if(leftCell.equals(rightCell)) continue;
+
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
 
         const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
@@ -69,22 +71,32 @@ export class KropkiChainWwCenter implements IKropkiSolver {
           fences.add(puzzle.getFence(rightCell));
         }
 
-        if (!(row.size === 1 || col.size == 1 || fences.size == 1)) continue;
+        if (row.size === 1 || col.size == 1 || fences.size == 1) {
+          if (puzzle.id == "004.kropki")
+            // console.log(`${row.size}${col.size}${fences.size} ${leftCell} ${loc} ${rightCell}`);
+          // if (puzzle.id != "004.kropki") continue;
+          // }
 
-        for (const candidate of puzzle.getCellCandidates(loc)) {
-          if (
-            !leftSet.has(candidate - 1) &&
-            !rightSet.has(candidate - 1) &&
-            puzzle.removeCandidate(loc, candidate)
-          )
-            return new Edit(puzzle, loc, candidate, this);
+          for (const candidate of puzzle.getCellCandidates(loc))
+          {
+            // if (puzzle.removeCandidate(loc, 1))
+            //   return new Edit(puzzle, loc, 1, this);
 
-          if (
-            !leftSet.has(candidate + 1) &&
-            !rightSet.has(candidate + 1) &&
-            puzzle.removeCandidate(loc, candidate)
-          )
-            return new Edit(puzzle, loc, candidate, this);
+            // if (puzzle.removeCandidate(loc, 9))
+            //   return new Edit(puzzle, loc, 9, this);
+            if (
+              !leftSet.has(candidate - 1) &&
+              !rightSet.has(candidate - 1) &&
+              puzzle.removeCandidate(loc, candidate)
+            )
+              return new Edit(puzzle, loc, candidate, this);
+            if (
+              !leftSet.has(candidate + 1) &&
+              !rightSet.has(candidate + 1) &&
+              puzzle.removeCandidate(loc, candidate)
+            )
+              return new Edit(puzzle, loc, candidate, this);
+          }
         }
       }
 
