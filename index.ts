@@ -10,8 +10,62 @@ import { Loc } from "./Loc";
 import { KropkiDiamondBwww } from "./KropkiDiamondBwww";
 import { KropkiDiamondEwww } from "./KropkiDiamondEwww";
 import { KropkiBlack } from "./KropkiBlack";
+import { KropkiBlack2Cells } from "./KropkiBlack2Cells";
 import { KropkiWhite } from "./KropkiWhite";
 import { KropkiEmptyDominate } from "./KropkiEmptyDominate";
+import { IEdit } from "./IEdit";
+import { NewTechniques } from "./NewTechniques";
+import { Edit } from "./Edit";
+
+export class KropkiSudoku implements IKropkiSolver {
+  get id(): string {
+    return "KropkiSudoku";
+  }
+
+  solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
+    if (!loc.equals(new Loc(0, 0))) return null;
+
+    for (let i = 0; i < puzzle.length; i++) {
+      const rowLocs = Loc.getKropkiCellRowHouseLocs(puzzle.length, i);
+
+      const colLocs = Loc.getKropkiCellColHouseLocs(puzzle.length, i);
+
+      if (
+        KropkiSudoku.solveSudokuLocs(puzzle.grid, puzzle.length, rowLocs) ||
+        KropkiSudoku.solveSudokuLocs(puzzle.grid, puzzle.length, colLocs)
+      )
+        return new Edit(puzzle, loc, 0, this);
+    }
+
+    return null;
+  }
+
+  static solveSudokuLocs(
+    _grid: string[][],
+    _length: number,
+    locs: Loc[]
+  ): boolean {
+    if (_length != locs.length)
+      throw new Error(`Invalid number of locs vs length`);
+
+    if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
+      return true;
+
+    if (NewTechniques.solveSudokuNakedPairLocs(_grid, _length, locs))
+      return true;
+
+    if (NewTechniques.solveSudokuHiddenSingleLocs(_grid, _length, locs))
+      return true;
+
+    if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
+      return true;
+
+    if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
+      return true;
+
+    return false;
+  }
+}
 
 const solvers: IKropkiSolver[] = [
   new KropkiBlack(),
@@ -22,6 +76,7 @@ const solvers: IKropkiSolver[] = [
   new KropkiDiamondBwww(),
   new KropkiDiamondEwww(),
   new KropkiCrossHatch(),
+  new KropkiBlack2Cells(),
 ];
 
 const puzzleStrings = [
@@ -39,7 +94,6 @@ const puzzleStrings = [
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
   NewPuzzles._Kropki_009,
-  //   NewPuzzles._Kropki_008,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_004,
@@ -52,8 +106,10 @@ const puzzleStrings = [
 
 let totalEdits = 0;
 
+const solvedPuzzles = [];
+
 for (const str of puzzleStrings) {
-  console.log("///////////////");
+  // console.log("///////////////");
 
   const puzzle = new KropkiPuzzle(str);
 
@@ -64,7 +120,7 @@ for (const str of puzzleStrings) {
   totalEdits += puzzle.edits.length;
 
   if (puzzle.isSolved) {
-    console.log(`Solved: ${puzzle.id} == ${puzzle.edits.length} edits`);
+    solvedPuzzles.push(puzzle);
 
     continue;
   }
@@ -72,11 +128,16 @@ for (const str of puzzleStrings) {
   console.log(puzzle.toString());
 }
 
+console.log();
+
 console.log(`Total edits: ${totalEdits}`);
 
-// const puz: IKropkiPuzzle = new KropkiPuzzle(NewPuzzles._Kropki_018);
+for (const puzzle of solvedPuzzles) {
+  console.log(`Solved: ${puzzle.id} == ${puzzle.edits.length} edits`);
+}
 
-// new KropkiChainWwCenter().solveCell(puz, new Loc(2 * 4, 2 * 6));
-// new KropkiChainWwCenter().solveCell(puz, new Loc(2 * 2, 2 * 7));
+console.log(`Total edits: ${totalEdits}`);
 
-// console.log(puz.toPuzzleString());
+console.log(`Total solved: ${solvedPuzzles.length}`);
+
+//

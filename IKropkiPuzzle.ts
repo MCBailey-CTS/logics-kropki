@@ -17,6 +17,8 @@ export interface IKropkiPuzzle {
 
   get fences(): string[];
 
+  get grid(): string[][];
+
   getFenceLocs(fence: string): Loc[];
 
   getFence(loc: Loc): string;

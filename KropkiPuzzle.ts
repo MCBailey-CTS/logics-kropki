@@ -628,72 +628,72 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     );
   }
 
-  solvePuzzle(): boolean {
-    let edited = false;
+  // solvePuzzle(): boolean {
+  //   let edited = false;
 
-    let overall = false;
+  //   let overall = false;
 
-    while (true) {
-      overall = edited || overall;
+  //   while (true) {
+  //     overall = edited || overall;
 
-      edited = false;
+  //     edited = false;
 
-      for (let r = 0; r < this._length; r++)
-        for (let c = 0; c < this._length; c++)
-          edited = this.solveCellIntersections(new Loc(r * 2, c * 2)) || edited;
+  //     for (let r = 0; r < this._length; r++)
+  //       for (let c = 0; c < this._length; c++)
+  //         edited = this.solveCellIntersections(new Loc(r * 2, c * 2)) || edited;
 
-      // for (const loc of this.getKropkiIntersectionLocs(this.length))
-      //   edited = this.solveIntersection(loc) || edited;
+  //     // for (const loc of this.getKropkiIntersectionLocs(this.length))
+  //     //   edited = this.solveIntersection(loc) || edited;
 
-      if (edited) continue;
+  //     if (edited) continue;
 
-      for (let i = 0; i < this._length; i++) {
-        edited =
-          NewTechniques.solveSudokuLocs(
-            this._grid,
-            this._length,
-            this.getCellRowHouseLocs(i)
-          ) || edited;
+  //     for (let i = 0; i < this._length; i++) {
+  //       edited =
+  //         NewTechniques.solveSudokuLocs(
+  //           this._grid,
+  //           this._length,
+  //           this.getCellRowHouseLocs(i)
+  //         ) || edited;
 
-        edited =
-          NewTechniques.solveSudokuLocs(
-            this._grid,
-            this._length,
-            this.getCellColHouseLocs(i)
-          ) || edited;
+  //       edited =
+  //         NewTechniques.solveSudokuLocs(
+  //           this._grid,
+  //           this._length,
+  //           this.getCellColHouseLocs(i)
+  //         ) || edited;
 
-        // if (this.hasFences) {
-        //   for (const fence of this.fences) {
-        //     const locs = this.fenceLocs(fence);
+  //       // if (this.hasFences) {
+  //       //   for (const fence of this.fences) {
+  //       //     const locs = this.fenceLocs(fence);
 
-        //     edited =
-        //       NewTechniques.solveSudokuLocs(this._grid, this._length, locs) ||
-        //       edited;
-        //   }
-        // }
+  //       //     edited =
+  //       //       NewTechniques.solveSudokuLocs(this._grid, this._length, locs) ||
+  //       //       edited;
+  //       //   }
+  //       // }
 
-        const fenceLocs: Loc[] = Loc.getMoreOrLessFenceLocs(
-          this._grid,
-          this._length,
-          i
-        );
+  //       const fenceLocs: Loc[] = Loc.getMoreOrLessFenceLocs(
+  //         this._grid,
+  //         this._length,
+  //         i
+  //       );
 
-        if (fenceLocs.length > 0)
-          edited =
-            NewTechniques.solveSudokuLocs(
-              this._grid,
-              this._length,
-              fenceLocs
-            ) || edited;
-      }
+  //       if (fenceLocs.length > 0)
+  //         edited =
+  //           NewTechniques.solveSudokuLocs(
+  //             this._grid,
+  //             this._length,
+  //             fenceLocs
+  //           ) || edited;
+  //     }
 
-      if (edited) continue;
+  //     if (edited) continue;
 
-      break;
-    }
+  //     break;
+  //   }
 
-    return overall;
-  }
+  //   return overall;
+  // }
 
   // isSolved(): boolean {
 
@@ -1671,3 +1671,25 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 }
 
 // 1207
+
+// static solveSudokuLocs(_grid: GRID, _length: number, locs: Loc[]): boolean {
+//   if (_length != locs.length)
+//     throw new Error(`Invalid number of locs vs length`);
+
+//   if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
+//     return true;
+
+//   if (NewTechniques.solveSudokuNakedPairLocs(_grid, _length, locs))
+//     return true;
+
+//   if (NewTechniques.solveSudokuHiddenSingleLocs(_grid, _length, locs))
+//     return true;
+
+//   if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
+//     return true;
+
+//   if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
+//     return true;
+
+//   return false;
+// }

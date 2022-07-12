@@ -483,27 +483,27 @@ export class NewTechniques {
     return edited;
   }
 
-  static solveSudokuLocs(_grid: GRID, _length: number, locs: Loc[]): boolean {
-    if (_length != locs.length)
-      throw new Error(`Invalid number of locs vs length`);
+  // static solveSudokuLocs(_grid: GRID, _length: number, locs: Loc[]): boolean {
+  //   if (_length != locs.length)
+  //     throw new Error(`Invalid number of locs vs length`);
 
-    if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
-      return true;
+  //   if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
+  //     return true;
 
-    if (NewTechniques.solveSudokuNakedPairLocs(_grid, _length, locs))
-      return true;
+  //   if (NewTechniques.solveSudokuNakedPairLocs(_grid, _length, locs))
+  //     return true;
 
-    if (NewTechniques.solveSudokuHiddenSingleLocs(_grid, _length, locs))
-      return true;
+  //   if (NewTechniques.solveSudokuHiddenSingleLocs(_grid, _length, locs))
+  //     return true;
 
-    if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
-      return true;
+  //   if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
+  //     return true;
 
-    if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
-      return true;
+  //   if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
+  //     return true;
 
-    return false;
-  }
+  //   return false;
+  // }
 
   static solveGreaterThan(_grid: GRID, loc0: Loc, loc1: Loc): boolean {
     let edited = false;
