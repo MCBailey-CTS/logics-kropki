@@ -18,7 +18,6 @@ const solvers: IKropkiSolver[] = [
   new KropkiWhite(),
   new KropkiEmptyDominate(),
   new KropkiChainBwCenter(),
-  //   new KropkiChainWwCenter(),
   new KropkiChainBbCenter(),
   new KropkiDiamondBwww(),
   new KropkiDiamondEwww(),
@@ -49,23 +48,31 @@ const puzzleStrings = [
   NewPuzzles._Kropki_001,
 ];
 
-const totalEdits = [];
+// const totalEdits = [];
+
+let totalEdits = 0;
 
 for (const str of puzzleStrings) {
   console.log("///////////////");
 
   const puzzle = new KropkiPuzzle(str);
 
-  totalEdits.push(... [puzzle.solve(solvers)]);
+  puzzle.solve(solvers);
 
-  if (puzzle.isSolved) continue;
+  // totalEdits.push(... [puzzle.solve(solvers)]);
+
+  totalEdits += puzzle.edits.length;
+
+  if (puzzle.isSolved) {
+    console.log(`Solved: ${puzzle.id} == ${puzzle.edits.length} edits`);
+
+    continue;
+  }
 
   console.log(puzzle.toString());
-
-
 }
 
-console.log(`Total edits: ${totalEdits.length}`);
+console.log(`Total edits: ${totalEdits}`);
 
 // const puz: IKropkiPuzzle = new KropkiPuzzle(NewPuzzles._Kropki_018);
 

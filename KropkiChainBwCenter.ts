@@ -1,10 +1,10 @@
-import { BaseKropkiSolver } from "./BaseKropkiSolver";
 import { IEdit } from "./IEdit";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { Loc } from "./Loc";
 import { Edit } from "./Edit";
+import { IKropkiSolver } from "./IKropkiSolver";
 
-export class KropkiChainBwCenter extends BaseKropkiSolver {
+export class KropkiChainBwCenter implements IKropkiSolver {
   get id(): string {
     return "KropkiChainBwCenter";
   }

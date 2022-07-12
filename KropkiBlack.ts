@@ -2,7 +2,7 @@ import { IKropkiSolver } from "./IKropkiSolver";
 import { IEdit } from "./IEdit";
 
 import { Loc } from "./Loc";
-import { BaseKropkiSolver } from "./BaseKropkiSolver";
+
 import { Edit } from "./Edit";
 import { KropkiPuzzle } from "./KropkiPuzzle";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";

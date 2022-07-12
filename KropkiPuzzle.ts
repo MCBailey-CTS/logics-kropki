@@ -66,6 +66,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
       );
     }
 
+    this._edits = [];
+
     // for (let r = 0; r < this._length; r++)
     //   for (let c = 0; c < this._length; c++) {
     //     if (this._grid[r * 2][c * 2].length > 1) continue;
@@ -1661,6 +1663,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
       edits.push(...tempEdits);
     } while (tempEdits.length > 0);
+
+    this._edits.push(...edits);
 
     return edits;
   }
