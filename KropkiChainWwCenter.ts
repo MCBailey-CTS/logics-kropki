@@ -72,30 +72,30 @@ export class KropkiChainWwCenter implements IKropkiSolver {
         }
 
         if (row.size === 1 || col.size == 1 || fences.size == 1) {
-          if (puzzle.id == "004.kropki")
+          // if (puzzle.id == "004.kropki")
             // console.log(`${row.size}${col.size}${fences.size} ${leftCell} ${loc} ${rightCell}`);
           // if (puzzle.id != "004.kropki") continue;
           // }
 
           for (const candidate of puzzle.getCellCandidates(loc))
           {
-            // if (puzzle.removeCandidate(loc, 1))
-            //   return new Edit(puzzle, loc, 1, this);
+            if (puzzle.removeCandidate(loc, 1))
+              return new Edit(puzzle, loc, 1, this);
 
-            // if (puzzle.removeCandidate(loc, 9))
-            //   return new Edit(puzzle, loc, 9, this);
-            if (
-              !leftSet.has(candidate - 1) &&
-              !rightSet.has(candidate - 1) &&
-              puzzle.removeCandidate(loc, candidate)
-            )
-              return new Edit(puzzle, loc, candidate, this);
-            if (
-              !leftSet.has(candidate + 1) &&
-              !rightSet.has(candidate + 1) &&
-              puzzle.removeCandidate(loc, candidate)
-            )
-              return new Edit(puzzle, loc, candidate, this);
+            if (puzzle.removeCandidate(loc, 9))
+              return new Edit(puzzle, loc, 9, this);
+            // if (
+            //   !leftSet.has(candidate - 1) &&
+            //   !rightSet.has(candidate - 1) &&
+            //   puzzle.removeCandidate(loc, candidate)
+            // )
+            //   return new Edit(puzzle, loc, candidate, this);
+            // if (
+            //   !leftSet.has(candidate + 1) &&
+            //   !rightSet.has(candidate + 1) &&
+            //   puzzle.removeCandidate(loc, candidate)
+            // )
+            //   return new Edit(puzzle, loc, candidate, this);
           }
         }
       }
