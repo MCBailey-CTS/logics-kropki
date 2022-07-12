@@ -5,6 +5,7 @@ import { KropkiChainBbCenter } from "./KropkiChainBbCenter";
 import { KropkiChainBwCenter } from "./KropkiChainBwCenter";
 import { KropkiChainWwCenter } from "./KropkiChainWwCenter";
 import { KropkiCrossHatch } from "./KropkiCrossHatch";
+import { KropkiNakedPair } from "./KropkiNakedPair";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { Loc } from "./Loc";
 import { KropkiDiamondBwww } from "./KropkiDiamondBwww";
@@ -76,6 +77,7 @@ const solvers: IKropkiSolver[] = [
   new KropkiDiamondBwww(),
   new KropkiDiamondEwww(),
   new KropkiCrossHatch(),
+  new KropkiNakedPair(),
   new KropkiBlack2Cells(),
 ];
 
