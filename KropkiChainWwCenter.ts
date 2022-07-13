@@ -91,6 +91,24 @@ export class KropkiChainWwCenter implements IKropkiSolver {
         }
 
         if (row.size === 1 || col.size == 1 || fences.size == 1) {
+          for (const c0 of puzzle.getCellCandidates(leftCell)) {
+            if (
+              !rightSet.has(c0 - 2) &&
+              !rightSet.has(c0 + 2) &&
+              puzzle.removeCandidate(leftCell, c0)
+            )
+              return new Edit(puzzle, leftCell, c0, this);
+          }
+
+          for (const c0 of puzzle.getCellCandidates(rightCell)) {
+            if (
+              !leftSet.has(c0 - 2) &&
+              !leftSet.has(c0 + 2) &&
+              puzzle.removeCandidate(rightCell, c0)
+            )
+              return new Edit(puzzle, rightCell, c0, this);
+          }
+
           for (const candidate of puzzle.getCellCandidates(loc)) {
             if (
               !leftSet.has(candidate - 1) &&
