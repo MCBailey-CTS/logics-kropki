@@ -209,7 +209,13 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   get fences(): string[] {
-    return [...this._dict.keys()];
+    const allFences = new Set<string>();
+
+    for (let r = 0; r < this._length; r++)
+      for (let c = 0; c < this._length; c++)
+        allFences.add(this._grid[r * 2][c * 2][9]);
+
+    return [...allFences];
   }
 
   get sudokuCellLocs(): Loc[] {
@@ -228,10 +234,19 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   fenceLocs(fence: string): Loc[] {
-    const locs = this._dict.get(fence);
+    const locs: Loc[] = [];
 
-    if (typeof locs == "undefined")
-      throw new Error(`Puzzle does not have fence key: '${fence}'`);
+    for (let r = 0; r < this._length; r++)
+      for (let c = 0; c < this._length; c++) {
+        const temp = this._grid[r * 2][c * 2][9];
+
+        if (temp == fence) locs.push(new Loc(r * 2, c * 2));
+      }
+
+    // locs.push(new Loc(r * 2, c * 2));
+
+    // if (typeof locs == "undefined")
+    //   throw new Error(`Puzzle does not have fence key: '${fence}'`);
 
     return locs;
   }

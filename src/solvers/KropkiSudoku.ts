@@ -39,6 +39,19 @@ export class KropkiSudoku implements IKropkiSolver {
         return new Edit(puzzle, loc, 0, this);
     }
 
+    if (puzzle.hasFences) {
+      // if (puzzle.id == "009.kropki")
+      {
+        // console.log("Made it here");
+        for (const fence of puzzle.fences) {
+          const locs = puzzle.getFenceLocs(fence);
+
+          if (KropkiSudoku.solveSudokuLocs(puzzle.grid, puzzle.length, locs))
+            return new Edit(puzzle, loc, 0, this);
+        }
+      }
+    }
+
     return null;
   }
 

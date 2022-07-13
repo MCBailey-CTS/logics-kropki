@@ -39,13 +39,13 @@ const puzzleStrings = [
   NewPuzzles._Kropki_012,
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
-  NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_009,
 ];
 
 // const totalEdits = [];
