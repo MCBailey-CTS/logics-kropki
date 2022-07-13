@@ -7,5 +7,5 @@ export interface IKropkiSolver {
 
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
 
-  solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
+  // solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
 }
