@@ -3,6 +3,7 @@ import { IKropkiPuzzle } from "./IKropkiPuzzle";
 import { Loc } from "./Loc";
 import { Edit } from "./Edit";
 import { IKropkiSolver } from "./IKropkiSolver";
+import { LocSet } from "./LocSet";
 
 export class KropkiChainWwCenter implements IKropkiSolver {
   get id(): string {
@@ -71,7 +72,11 @@ export class KropkiChainWwCenter implements IKropkiSolver {
 
         const rightSet = puzzle.getCellSet(rightCell);
 
-        if (leftCell.equals(rightCell)) continue;
+        // if (leftCell.equals(rightCell)) continue;
+
+        const locSet = puzzle.getCellSet(loc);
+
+        if (new LocSet([leftCell, loc, rightCell]).size != 3) continue;
 
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
 
@@ -86,29 +91,40 @@ export class KropkiChainWwCenter implements IKropkiSolver {
         }
 
         if (row.size === 1 || col.size == 1 || fences.size == 1) {
-          // if (puzzle.id == "004.kropki")
-          // console.log(`${row.size}${col.size}${fences.size} ${leftCell} ${loc} ${rightCell}`);
-          // if (puzzle.id != "004.kropki") continue;
-          // }
-
           for (const candidate of puzzle.getCellCandidates(loc)) {
-            if (puzzle.removeCandidate(loc, 1))
-              return new Edit(puzzle, loc, 1, this);
+            if (
+              !leftSet.has(candidate - 1) &&
+              !rightSet.has(candidate - 1) &&
+              puzzle.removeCandidate(loc, candidate)
+            )
+              return new Edit(puzzle, loc, candidate, this);
 
-            if (puzzle.removeCandidate(loc, 9))
-              return new Edit(puzzle, loc, 9, this);
-            // if (
-            //   !leftSet.has(candidate - 1) &&
-            //   !rightSet.has(candidate - 1) &&
-            //   puzzle.removeCandidate(loc, candidate)
-            // )
-            //   return new Edit(puzzle, loc, candidate, this);
-            // if (
-            //   !leftSet.has(candidate + 1) &&
-            //   !rightSet.has(candidate + 1) &&
-            //   puzzle.removeCandidate(loc, candidate)
-            // )
-            //   return new Edit(puzzle, loc, candidate, this);
+            if (
+              !leftSet.has(candidate + 1) &&
+              !rightSet.has(candidate + 1) &&
+              puzzle.removeCandidate(loc, candidate)
+            )
+              return new Edit(puzzle, loc, candidate, this);
+
+            if (
+              leftSet.has(candidate - 1) &&
+              !leftSet.has(candidate + 1) &&
+              rightSet.has(candidate + 1) &&
+              rightSet.has(candidate - 1) &&
+              !locSet.has(candidate - 2) &&
+              puzzle.removeCandidate(rightCell, candidate - 1)
+            )
+              return new Edit(puzzle, rightCell, candidate - 1, this);
+
+            if (
+              !leftSet.has(candidate - 1) &&
+              leftSet.has(candidate + 1) &&
+              rightSet.has(candidate + 1) &&
+              rightSet.has(candidate - 1) &&
+              !locSet.has(candidate + 2) &&
+              puzzle.removeCandidate(rightCell, candidate + 1)
+            )
+              return new Edit(puzzle, rightCell, candidate + 1, this);
           }
         }
       }
