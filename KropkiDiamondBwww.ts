@@ -14,6 +14,20 @@ export class KropkiDiamondBwww extends BaseKropkiDiamond {
     return "bwww";
   }
 
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits = [];
+
+    for (const loc of puzzle.sudokuCellLocs) {
+      const edit = this.solveCell(puzzle, loc);
+
+      if (edit === null) continue;
+
+      edits.push(edit);
+    }
+
+    return edits;
+  }
+
   solveDiamond(puzzle: IKropkiPuzzle, loc: Loc, diamond: Loc[]): IEdit | null {
     const leftCell = diamond[0];
 

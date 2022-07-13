@@ -9,6 +9,20 @@ export class KropkiCrossHatch implements IKropkiSolver {
     return "KropkiCrossHatch";
   }
 
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits = [];
+
+    for (const loc of puzzle.sudokuCellLocs) {
+      const edit = this.solveCell(puzzle, loc);
+
+      if (edit === null) continue;
+
+      edits.push(edit);
+    }
+
+    return edits;
+  }
+
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     for (const peer of puzzle.getNeighbors(loc)) {
       //   console.log(`Peer: ${peer.toString()}`);

@@ -10,6 +10,20 @@ export class KropkiChainBbCenter implements IKropkiSolver {
     return "KropkiChainBbCenter";
   }
 
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits = [];
+
+    for (const loc of puzzle.sudokuCellLocs) {
+      const edit = this.solveCell(puzzle, loc);
+
+      if (edit === null) continue;
+
+      edits.push(edit);
+    }
+
+    return edits;
+  }
+
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const leftIntersections = [
       loc.up(),

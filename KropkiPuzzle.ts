@@ -219,7 +219,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     const locs = [];
 
     for (let r = 0; r < this._length; r++)
-      for (let c = 0; c < this._length; c++) locs.push(new Loc(r, c));
+      for (let c = 0; c < this._length; c++) locs.push(new Loc(r * 2, c * 2));
 
     return locs;
   }
@@ -1640,26 +1640,15 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     let tempEdits: IEdit[] = [];
 
     do {
-      // console.log("hehehehehe");
-
       // edits.push(...tempEdits);
 
       tempEdits = [];
 
       for (const solver of solvers) {
-        for (let r = 0; r < this.length; r++)
-          for (let c = 0; c < this.length; c++) {
-            const edit = solver.solveCell(this, new Loc(r * 2, c * 2));
-
-            if (edit == null) continue;
-
-            tempEdits.push(edit);
-          }
+        tempEdits.push(...solver.solvePuzzle(this));
       }
 
-      // tempEdits.push(...solver.solvePuzzle(this));
-
-      if (tempEdits.length == 0) continue;
+      // if (tempEdits.length == 0) continue;
 
       edits.push(...tempEdits);
     } while (tempEdits.length > 0);

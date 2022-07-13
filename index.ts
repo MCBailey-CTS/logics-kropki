@@ -6,67 +6,13 @@ import { KropkiChainBwCenter } from "./KropkiChainBwCenter";
 import { KropkiChainWwCenter } from "./KropkiChainWwCenter";
 import { KropkiCrossHatch } from "./KropkiCrossHatch";
 import { KropkiNakedPair } from "./KropkiNakedPair";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
 import { KropkiDiamondBwww } from "./KropkiDiamondBwww";
 import { KropkiDiamondEwww } from "./KropkiDiamondEwww";
 import { KropkiBlack } from "./KropkiBlack";
 import { KropkiBlack2Cells } from "./KropkiBlack2Cells";
 import { KropkiWhite } from "./KropkiWhite";
 import { KropkiEmptyDominate } from "./KropkiEmptyDominate";
-import { IEdit } from "./IEdit";
-import { NewTechniques } from "./NewTechniques";
-import { Edit } from "./Edit";
-
-export class KropkiSudoku implements IKropkiSolver {
-  get id(): string {
-    return "KropkiSudoku";
-  }
-
-  solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
-    if (!loc.equals(new Loc(0, 0))) return null;
-
-    for (let i = 0; i < puzzle.length; i++) {
-      const rowLocs = Loc.getKropkiCellRowHouseLocs(puzzle.length, i);
-
-      const colLocs = Loc.getKropkiCellColHouseLocs(puzzle.length, i);
-
-      if (
-        KropkiSudoku.solveSudokuLocs(puzzle.grid, puzzle.length, rowLocs) ||
-        KropkiSudoku.solveSudokuLocs(puzzle.grid, puzzle.length, colLocs)
-      )
-        return new Edit(puzzle, loc, 0, this);
-    }
-
-    return null;
-  }
-
-  static solveSudokuLocs(
-    _grid: string[][],
-    _length: number,
-    locs: Loc[]
-  ): boolean {
-    if (_length != locs.length)
-      throw new Error(`Invalid number of locs vs length`);
-
-    if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
-      return true;
-
-    if (NewTechniques.solveSudokuNakedPairLocs(_grid, _length, locs))
-      return true;
-
-    if (NewTechniques.solveSudokuHiddenSingleLocs(_grid, _length, locs))
-      return true;
-
-    if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
-      return true;
-
-    if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
-      return true;
-
-    return false;
-  }
-}
+import { KropkiSudoku } from "./KropkiSudoku";
 
 const solvers: IKropkiSolver[] = [
   new KropkiBlack(),
@@ -77,8 +23,7 @@ const solvers: IKropkiSolver[] = [
   new KropkiChainBbCenter(),
   new KropkiDiamondBwww(),
   new KropkiDiamondEwww(),
-  new KropkiCrossHatch(),
-  new KropkiNakedPair(),
+  new KropkiSudoku(),
   new KropkiBlack2Cells(),
 ];
 
@@ -115,20 +60,26 @@ for (const str of puzzleStrings) {
   // console.log("///////////////");
 
   const puzzle = new KropkiPuzzle(str);
+  try {
+    puzzle.solve(solvers);
 
-  puzzle.solve(solvers);
+    // totalEdits.push(... [puzzle.solve(solvers)]);
 
-  // totalEdits.push(... [puzzle.solve(solvers)]);
+    totalEdits += puzzle.edits.length;
 
-  totalEdits += puzzle.edits.length;
+    if (puzzle.isSolved) {
+      solvedPuzzles.push(puzzle);
 
-  if (puzzle.isSolved) {
-    solvedPuzzles.push(puzzle);
+      continue;
+    }
 
-    continue;
+    console.log(puzzle.toString());
+  } catch (err) {
+    console.log("//////////");
+    console.log(puzzle.id);
+    console.log(err);
+    console.log("//////////");
   }
-
-  console.log(puzzle.toString());
 }
 
 console.log();

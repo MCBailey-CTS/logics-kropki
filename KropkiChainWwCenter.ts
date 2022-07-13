@@ -9,6 +9,20 @@ export class KropkiChainWwCenter implements IKropkiSolver {
     return "KropkiChainWwCenter";
   }
 
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits = [];
+
+    for (const loc of puzzle.sudokuCellLocs) {
+      const edit = this.solveCell(puzzle, loc);
+
+      if (edit === null) continue;
+
+      edits.push(edit);
+    }
+
+    return edits;
+  }
+
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const leftIntersections = [
       loc.up(),
@@ -57,7 +71,7 @@ export class KropkiChainWwCenter implements IKropkiSolver {
 
         const rightSet = puzzle.getCellSet(rightCell);
 
-        if(leftCell.equals(rightCell)) continue;
+        if (leftCell.equals(rightCell)) continue;
 
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
 
@@ -73,12 +87,11 @@ export class KropkiChainWwCenter implements IKropkiSolver {
 
         if (row.size === 1 || col.size == 1 || fences.size == 1) {
           // if (puzzle.id == "004.kropki")
-            // console.log(`${row.size}${col.size}${fences.size} ${leftCell} ${loc} ${rightCell}`);
+          // console.log(`${row.size}${col.size}${fences.size} ${leftCell} ${loc} ${rightCell}`);
           // if (puzzle.id != "004.kropki") continue;
           // }
 
-          for (const candidate of puzzle.getCellCandidates(loc))
-          {
+          for (const candidate of puzzle.getCellCandidates(loc)) {
             if (puzzle.removeCandidate(loc, 1))
               return new Edit(puzzle, loc, 1, this);
 

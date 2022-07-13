@@ -5,7 +5,7 @@ import { Loc } from "./Loc";
 export interface IKropkiSolver {
   get id(): string;
 
-  // solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
 
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null;
 }

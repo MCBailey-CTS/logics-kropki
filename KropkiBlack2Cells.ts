@@ -5,6 +5,20 @@ import { Edit } from "./Edit";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
 
 export class KropkiBlack2Cells implements IKropkiSolver {
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits = [];
+
+    for (const loc of puzzle.sudokuCellLocs) {
+      const edit = this.solveCell(puzzle, loc);
+
+      if (edit === null) continue;
+
+      edits.push(edit);
+    }
+
+    return edits;
+  }
+
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
     if (puzzle.id != "004.kropki") return null;
 

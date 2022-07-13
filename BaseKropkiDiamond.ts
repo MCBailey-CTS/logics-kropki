@@ -14,6 +14,8 @@ export abstract class BaseKropkiDiamond implements IKropkiSolver {
     diamond: Loc[]
   ): IEdit | null;
 
+  abstract solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
+
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const diamondCenters = [
       loc.left().up(),
