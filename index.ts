@@ -46,6 +46,7 @@ const puzzleStrings = [
   NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
+  NewPuzzles._Kropki_005,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
@@ -96,5 +97,7 @@ for (const puzzle of solvedPuzzles) {
 console.log(`Total edits: ${totalEdits}`);
 
 console.log(`Total solved: ${solvedPuzzles.length}`);
+
+
 
 //
