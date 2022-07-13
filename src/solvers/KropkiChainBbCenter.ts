@@ -1,4 +1,5 @@
 import { BaseKropkiSolveCell } from "../abstract/BaseKropkiSolveCell";
+import { Consolidate } from "../Consolidate";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
@@ -14,37 +15,17 @@ export class KropkiChainBbCenter extends BaseKropkiSolveCell {
   
 
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
-    const leftIntersections = [
-      loc.up(),
-      loc.up().up(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
-      loc.right(),
-      loc.right().right(),
-    ];
-
-    const rightIntersections = [
-      loc.up(),
-      loc.up().up(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
-      loc.right(),
-      loc.right().right(),
-    ];
+    const leftIntersections = Consolidate.surroundingIntersectionCell(loc);
 
     for (let i = 0; i < leftIntersections.length; i += 2)
       for (let j = 0; j < leftIntersections.length; j += 2) {
         const leftInt = leftIntersections[i];
 
-        const rightInt = rightIntersections[j];
+        const rightInt = leftIntersections[j];
 
         const leftCell = leftIntersections[i + 1];
 
-        const rightCell = rightIntersections[j + 1];
+        const rightCell = leftIntersections[j + 1];
 
         if (
           !leftCell.isValidKropkiLoc(puzzle.length) ||

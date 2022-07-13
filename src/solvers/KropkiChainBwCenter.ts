@@ -1,50 +1,25 @@
+import { BaseKropkiSolveCell } from "../abstract/BaseKropkiSolveCell";
+import { Consolidate } from "../Consolidate";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
-export class KropkiChainBwCenter implements IKropkiSolver {
+export class KropkiChainBwCenter extends BaseKropkiSolveCell {
   get id(): string {
     return "KropkiChainBwCenter";
   }
 
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
-    const edits = [];
-
-    for (const loc of puzzle.sudokuCellLocs) {
-      const edit = this.solveCell(puzzle, loc);
-
-      if (edit === null) continue;
-
-      edits.push(edit);
-    }
-
-    return edits;
-  }
+  
 
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
-    const leftIntersections = [
-      loc.up(),
-      loc.up().up(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
-      loc.right(),
-      loc.right().right(),
-    ];
+    const leftIntersections = Consolidate.surroundingIntersectionCell(loc);
+    const rightIntersections = Consolidate.surroundingIntersectionCell(loc);
 
-    const rightIntersections = [
-      loc.up(),
-      loc.up().up(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
-      loc.right(),
-      loc.right().right(),
-    ];
+    
+
+    
 
     for (let i = 0; i < leftIntersections.length; i += 2)
       for (let j = 0; j < leftIntersections.length; j += 2) {
