@@ -267,16 +267,6 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     throw new Error(`Invalid parameters for setCellString`);
   }
 
-  // getCellString(loc: Loc): string {
-  //   try {
-  //     return this._grid[loc.row][loc.col];
-  //   } catch (err) {
-  //     throw new Error(
-  //       `Error occurred when trying to getCellString for Loc: ${loc.toString()}.`
-  //     );
-  //   }
-  // }
-
   getCellCandidates(loc: Loc): number[] {
     return cellCandidates(this.getCellString(loc));
   }

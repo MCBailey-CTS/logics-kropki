@@ -28,7 +28,7 @@ const solvers: IKropkiSolver[] = [
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
   NewPuzzles._Kropki_021,
-  NewPuzzles._Kropki_020,
+  // NewPuzzles._Kropki_020,
   NewPuzzles._Kropki_019,
   NewPuzzles._Kropki_018,
   NewPuzzles._Kropki_017,
@@ -38,14 +38,14 @@ const puzzleStrings = [
   NewPuzzles._Kropki_013,
   NewPuzzles._Kropki_012,
   NewPuzzles._Kropki_011,
-  NewPuzzles._Kropki_010,
+  NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
-  NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_010,
 ];
 
 // const totalEdits = [];
