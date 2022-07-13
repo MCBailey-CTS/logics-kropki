@@ -4,7 +4,7 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
-export class KropkiBlack2Cells implements IKropkiSolver {
+export class KropkiWhite2Cells implements IKropkiSolver {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits = [];
 
@@ -21,7 +21,6 @@ export class KropkiBlack2Cells implements IKropkiSolver {
 
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
     // if (puzzle.id != "004.kropki") return null;
-
     const candidatesHash = new Set<number>([
       ...puzzle.getCellCandidates(loc),
       ...puzzle.getCellCandidates(other),
@@ -39,12 +38,16 @@ export class KropkiBlack2Cells implements IKropkiSolver {
 
     if (
       !(
-        candidates[0] * 2 == candidates[1] && candidates[1] * 2 == candidates[2]
+        candidates[0] + 1 == candidates[1] && candidates[1] + 1 == candidates[2]
       )
     )
       return null;
 
-    if (loc.row == other.row || loc.col == other.col)
+    if (
+      loc.row == other.row ||
+      loc.col == other.col ||
+      (puzzle.hasFences && puzzle.getFence(loc) == puzzle.getFence(other))
+    )
       for (const neighbor of puzzle.getNeighbors(loc)) {
         if (neighbor.equals(other)) continue;
 
@@ -54,6 +57,10 @@ export class KropkiBlack2Cells implements IKropkiSolver {
             puzzle.removeCandidate(neighbor, candidates[1])) ||
           (loc.col == other.col &&
             loc.col == neighbor.col &&
+            puzzle.removeCandidate(neighbor, candidates[1])) || //&&
+          (puzzle.hasFences &&
+            puzzle.getFence(loc) == puzzle.getFence(other) &&
+            puzzle.getFence(loc) == puzzle.getFence(neighbor) &&
             puzzle.removeCandidate(neighbor, candidates[1]))
         )
           return new Edit(puzzle, neighbor, candidates[1], this);
@@ -87,7 +94,7 @@ export class KropkiBlack2Cells implements IKropkiSolver {
 
       const intersection = puzzle.getCellString(surroundingCells[i]);
 
-      if (intersection != "b") continue;
+      if (intersection != "w") continue;
 
       const edit = this.solveExplicit(puzzle, loc, surrounding);
 
@@ -100,11 +107,6 @@ export class KropkiBlack2Cells implements IKropkiSolver {
   }
 
   get id(): string {
-    return "KropkiBlack2Cells";
+    return "KropkiWhite2Cells";
   }
 }
-
-
-
-
-
