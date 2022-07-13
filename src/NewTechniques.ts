@@ -1,4 +1,4 @@
-import { cellCandidates } from "./KropkiPuzzle";
+import { cellCandidates } from "./puzzles/KropkiPuzzle";
 import { Loc } from "./Loc";
 import { LocSet } from "./LocSet";
 // import { GRID } from "./Types";

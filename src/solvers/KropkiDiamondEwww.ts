@@ -1,8 +1,8 @@
-import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
-import { Edit } from "./Edit";
-import { BaseKropkiDiamond } from "./BaseKropkiDiamond";
+import { BaseKropkiDiamond } from "../abstract/BaseKropkiDiamond";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { Loc } from "../Loc";
 
 export class KropkiDiamondEwww extends BaseKropkiDiamond {
   get intersectionString(): string {

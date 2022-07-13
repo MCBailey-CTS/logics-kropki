@@ -1,10 +1,10 @@
-import { IKropkiSolver } from "./IKropkiSolver";
-import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
-import { Edit } from "./Edit";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
 
-export class KropkiWhite implements IKropkiSolver {
+export class KropkiEmptyDominate implements IKropkiSolver {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits = [];
 
@@ -20,12 +20,19 @@ export class KropkiWhite implements IKropkiSolver {
   }
 
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
-    const otherHash = puzzle.getCellSet(other);
-
     for (const candidate of puzzle.getCellCandidates(loc)) {
-      if (otherHash.has(candidate + 1)) continue;
+      const kropkiCandidates = [
+        ...puzzle.getKropkiCandidates(candidate),
+        candidate,
+      ];
 
-      if (otherHash.has(candidate - 1)) continue;
+      const otherHash = puzzle.getCellSet(other);
+
+      for (const t of kropkiCandidates) otherHash.delete(t);
+
+      if (otherHash.size > 0) continue;
+
+      // console.log(`${candidate} [${kropkiCandidates}]`);
 
       if (!puzzle.removeCandidate(loc, candidate)) continue;
 
@@ -37,14 +44,14 @@ export class KropkiWhite implements IKropkiSolver {
 
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const surroundingCells = [
-      loc.up(),
-      loc.up().up(),
-      loc.right(),
-      loc.right().right(),
-      loc.down(),
-      loc.down().down(),
-      loc.left(),
-      loc.left().left(),
+      loc.up(), // intersection
+      loc.up().up(), // cell
+      loc.right(), // intersection
+      loc.right().right(), // cell
+      loc.down(), // intersection
+      loc.down().down(), // cell
+      loc.left(), // intersection
+      loc.left().left(), // cell
     ];
 
     for (let i = 0; i < surroundingCells.length; i += 2) {
@@ -60,7 +67,7 @@ export class KropkiWhite implements IKropkiSolver {
 
       const intersection = puzzle.getCellString(surroundingCells[i]);
 
-      if (intersection != "w") continue;
+      if (intersection != ".") continue;
 
       const edit = this.solveExplicit(puzzle, loc, surrounding);
 
@@ -73,6 +80,6 @@ export class KropkiWhite implements IKropkiSolver {
   }
 
   get id(): string {
-    return "KropkiWhite";
+    return "KropkiEmptyDominate";
   }
 }

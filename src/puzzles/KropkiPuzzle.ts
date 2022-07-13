@@ -1,12 +1,9 @@
-import { Loc } from "./Loc";
-import { LocSet } from "./LocSet";
-import { NewTechniques } from "./NewTechniques";
-import { IKropkiSolver } from "./IKropkiSolver";
-import { IEdit } from "./IEdit";
-import {
-  // IHash,
-  IKropkiPuzzle,
-} from "./IKropkiPuzzle";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
+import { LocSet } from "../LocSet";
+import { NewTechniques } from "../NewTechniques";
 
 export function cellCandidates(cell: string): number[] {
   // console.log(`'${cell}'`);

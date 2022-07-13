@@ -1,9 +1,9 @@
-import { IKropkiSolver } from "./IKropkiSolver";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
-import { IEdit } from "./IEdit";
-import { NewTechniques } from "./NewTechniques";
-import { Edit } from "./Edit";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
+import { NewTechniques } from "../NewTechniques";
 
 export class KropkiSudoku implements IKropkiSolver {
   get id(): string {

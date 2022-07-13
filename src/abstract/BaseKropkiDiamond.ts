@@ -1,7 +1,7 @@
-import { IKropkiSolver } from "./IKropkiSolver";
-import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
 
 export abstract class BaseKropkiDiamond implements IKropkiSolver {
   abstract get id(): string;

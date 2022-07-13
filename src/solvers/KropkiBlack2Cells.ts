@@ -1,8 +1,8 @@
-import { IKropkiSolver } from "./IKropkiSolver";
-import { IEdit } from "./IEdit";
-import { Loc } from "./Loc";
-import { Edit } from "./Edit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
 
 export class KropkiBlack2Cells implements IKropkiSolver {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {

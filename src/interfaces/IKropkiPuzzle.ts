@@ -1,6 +1,6 @@
-import { Loc } from "./Loc";
 import { IKropkiSolver } from "./IKropkiSolver";
 import { IEdit } from "./IEdit";
+import { Loc } from "../Loc";
 
 export interface IKropkiPuzzle {
   get id(): string;

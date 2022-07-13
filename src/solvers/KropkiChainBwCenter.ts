@@ -1,12 +1,12 @@
-import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
-import { Edit } from "./Edit";
-import { IKropkiSolver } from "./IKropkiSolver";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
 
-export class KropkiChainWwRange implements IKropkiSolver {
+export class KropkiChainBwCenter implements IKropkiSolver {
   get id(): string {
-    return "KropkiChainWwRange";
+    return "KropkiChainBwCenter";
   }
 
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
@@ -69,8 +69,21 @@ export class KropkiChainWwRange implements IKropkiSolver {
 
         const row = new Set<number>([leftCell.row, loc.row, rightCell.row]);
         const col = new Set<number>([leftCell.col, loc.col, rightCell.col]);
+        let fences: Set<string> = new Set<string>();
 
-        if (row.size === 3 || col.size == 3) {
+        // const locFence = puzzle.getFence(loc);
+
+        // const fenceLocs =
+
+        if (puzzle.hasFences) {
+          fences.add(puzzle.getFence(leftCell));
+          fences.add(puzzle.getFence(loc));
+          fences.add(puzzle.getFence(rightCell));
+        }
+
+        if (row.size === 1 || col.size == 1 || fences.size == 1) {
+          // console.log([...fences]);
+
           if (!puzzle.removeCandidate(loc, 1)) continue;
 
           return new Edit(puzzle, loc, 1, this);

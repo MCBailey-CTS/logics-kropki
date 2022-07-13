@@ -1,5 +1,5 @@
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
+import { Loc } from "../Loc";
 import { IKropkiSolver } from "./IKropkiSolver";
 
 export interface IEdit {

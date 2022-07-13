@@ -1,18 +1,16 @@
-import { IKropkiSolver } from "./IKropkiSolver";
-import { KropkiPuzzle } from "./KropkiPuzzle";
-import { NewPuzzles } from "./NewPuzzles";
-import { KropkiChainBbCenter } from "./KropkiChainBbCenter";
-import { KropkiChainBwCenter } from "./KropkiChainBwCenter";
-import { KropkiChainWwCenter } from "./KropkiChainWwCenter";
-import { KropkiCrossHatch } from "./KropkiCrossHatch";
-import { KropkiNakedPair } from "./KropkiNakedPair";
-import { KropkiDiamondBwww } from "./KropkiDiamondBwww";
-import { KropkiDiamondEwww } from "./KropkiDiamondEwww";
-import { KropkiBlack } from "./KropkiBlack";
-import { KropkiBlack2Cells } from "./KropkiBlack2Cells";
-import { KropkiWhite } from "./KropkiWhite";
-import { KropkiEmptyDominate } from "./KropkiEmptyDominate";
-import { KropkiSudoku } from "./KropkiSudoku";
+import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
+import { NewPuzzles } from "./src/NewPuzzles";
+import { KropkiBlack } from "./src/solvers/KropkiBlack";
+import { KropkiBlack2Cells } from "./src/solvers/KropkiBlack2Cells";
+import { KropkiChainBbCenter } from "./src/solvers/KropkiChainBbCenter";
+import { KropkiChainBwCenter } from "./src/solvers/KropkiChainBwCenter";
+import { KropkiChainWwCenter } from "./src/solvers/KropkiChainWwCenter";
+import { KropkiDiamondBwww } from "./src/solvers/KropkiDiamondBwww";
+import { KropkiDiamondEwww } from "./src/solvers/KropkiDiamondEwww";
+import { KropkiEmptyDominate } from "./src/solvers/KropkiEmptyDominate";
+import { KropkiSudoku } from "./src/solvers/KropkiSudoku";
+import { KropkiWhite } from "./src/solvers/KropkiWhite";
+import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 
 const solvers: IKropkiSolver[] = [
   new KropkiBlack(),

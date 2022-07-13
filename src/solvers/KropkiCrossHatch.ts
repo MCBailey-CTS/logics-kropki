@@ -1,8 +1,8 @@
-import { IEdit } from "./IEdit";
-import { IKropkiPuzzle } from "./IKropkiPuzzle";
-import { Loc } from "./Loc";
-import { Edit } from "./Edit";
-import { IKropkiSolver } from "./IKropkiSolver";
+import { Edit } from "../Edit";
+import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { Loc } from "../Loc";
 
 export class KropkiCrossHatch implements IKropkiSolver {
   get id(): string {
