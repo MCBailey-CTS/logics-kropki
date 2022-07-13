@@ -20,7 +20,7 @@ export class KropkiBlack2Cells implements IKropkiSolver {
   }
 
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
-    if (puzzle.id != "004.kropki") return null;
+    // if (puzzle.id != "004.kropki") return null;
 
     const candidatesHash = new Set<number>([
       ...puzzle.getCellCandidates(loc),
