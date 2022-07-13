@@ -46,4 +46,6 @@ export interface IKropkiPuzzle {
   getRowHouses(): Loc[][];
 
   getColHouses(): Loc[][];
+
+  getCellIntersections(loc:Loc):Loc[];
 }

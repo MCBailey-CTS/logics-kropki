@@ -12,6 +12,7 @@ import { KropkiSudoku } from "./src/solvers/KropkiSudoku";
 import { KropkiWhite } from "./src/solvers/KropkiWhite";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { KropkiWhite2Cells } from "./src/solvers/KropkiWhite2Cells";
+// import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
   new KropkiBlack(),
@@ -25,6 +26,7 @@ const solvers: IKropkiSolver[] = [
   new KropkiSudoku(),
   new KropkiBlack2Cells(),
   new KropkiWhite2Cells(),
+  // new KropkiChain2()
 ];
 
 const puzzleStrings = [

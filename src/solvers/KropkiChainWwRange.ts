@@ -1,28 +1,16 @@
+import { BaseKropkiSolveCell } from "../abstract/BaseKropkiSolveCell";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
-export class KropkiChainWwRange implements IKropkiSolver {
+export class KropkiChainWwRange  extends BaseKropkiSolveCell {
   get id(): string {
     return "KropkiChainWwRange";
   }
 
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
-    const edits = [];
-
-    for (const loc of puzzle.sudokuCellLocs) {
-      const edit = this.solveCell(puzzle, loc);
-
-      if (edit === null) continue;
-
-      edits.push(edit);
-    }
-
-    return edits;
-  }
-
+  
   solveCell(puzzle: IKropkiPuzzle, loc: Loc): IEdit | null {
     const leftIntersections = [
       loc.up(),

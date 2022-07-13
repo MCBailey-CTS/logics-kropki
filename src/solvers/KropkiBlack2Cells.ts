@@ -1,23 +1,12 @@
+import { BaseKropkiSolveCell } from "../abstract/BaseKropkiSolveCell";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
-export class KropkiBlack2Cells implements IKropkiSolver {
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
-    const edits = [];
-
-    for (const loc of puzzle.sudokuCellLocs) {
-      const edit = this.solveCell(puzzle, loc);
-
-      if (edit === null) continue;
-
-      edits.push(edit);
-    }
-
-    return edits;
-  }
+export class KropkiBlack2Cells extends BaseKropkiSolveCell {
+  
 
   solveExplicit(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit | null {
     // if (puzzle.id != "004.kropki") return null;

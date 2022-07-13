@@ -138,6 +138,22 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return hash;
   }
 
+  getCellIntersections(loc: Loc): Loc[] {
+    // leftIntersections = [
+    //   cellLoc.up(),
+    //   cellLoc.up().up(),
+    //   cellLoc.down(),
+    //   cellLoc.down().down(),
+    //   cellLoc.left(),
+    //   cellLoc.left().left(),
+    //   cellLoc.right(),
+    //   cellLoc.right().right(),
+    // ];
+    return  [loc.up(), loc.down(), loc.left(), loc.right()].filter((l)=>{
+      
+    });
+  }
+
   getKropkiWhiteCandidates(candidate: number): Set<number> {
     const hash = new Set<number>();
 
