@@ -5,7 +5,7 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { NewBaseKropkiChain } from "./NewBaseKropkiChain";
 
 export class ChainE extends NewBaseKropkiChain {
-  isValidString(puzzle: IKropkiPuzzle, kropkiStr: string): boolean {
+  isValidString(_puzzle: IKropkiPuzzle, kropkiStr: string): boolean {
     return kropkiStr == ".";
   }
 
