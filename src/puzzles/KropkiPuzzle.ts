@@ -104,6 +104,20 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     //   }
   }
 
+  getSurroundingCellLocs(cellLoc: Loc): Loc[] {
+    if (cellLoc.row % 2 != 0 || cellLoc.col % 2 != 0)
+      throw Error(`Loc ${cellLoc} is not a valid kropki cell loc.`);
+
+    return [
+      cellLoc.up(2),
+      cellLoc.right(2),
+      cellLoc.down(2),
+      cellLoc.left(2),
+    ].filter((loc) => {
+      return loc.isValidKropkiLoc(this.length);
+    });
+  }
+
   getFenceLocs(fence: string): Loc[] {
     const locs = [];
 
@@ -149,9 +163,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     //   cellLoc.right(),
     //   cellLoc.right().right(),
     // ];
-    return  [loc.up(), loc.down(), loc.left(), loc.right()].filter((l)=>{
-      
-    });
+    return [loc.up(), loc.down(), loc.left(), loc.right()].filter((l) => {});
   }
 
   getKropkiWhiteCandidates(candidate: number): Set<number> {

@@ -1,4 +1,4 @@
-import { Loc } from "../Loc";
+import { LocSet } from "../LocSet";
 import { IEdit } from "./IEdit";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
 

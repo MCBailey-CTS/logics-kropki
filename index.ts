@@ -11,22 +11,24 @@ import { KropkiEmptyDominate } from "./src/solvers/KropkiEmptyDominate";
 import { KropkiSudoku } from "./src/solvers/KropkiSudoku";
 import { KropkiWhite } from "./src/solvers/KropkiWhite";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
+import { BaseKropkiChain } from "./src/new_solvers/BaseKropkiChain";
 import { KropkiWhite2Cells } from "./src/solvers/KropkiWhite2Cells";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
-  new KropkiBlack(),
-  new KropkiWhite(),
-  new KropkiEmptyDominate(),
-  new KropkiChainBwCenter(),
-  new KropkiChainWwCenter(),
-  new KropkiChainBbCenter(),
-  new KropkiDiamondBwww(),
-  new KropkiDiamondEwww(),
+  // new KropkiBlack(),
+  // new KropkiWhite(),
+  // new KropkiEmptyDominate(),
+  // new KropkiChainBwCenter(),
+  // new KropkiChainWwCenter(),
+  // new KropkiChainBbCenter(),
+  // new KropkiDiamondBwww(),
+  // new KropkiDiamondEwww(),
   new KropkiSudoku(),
-  new KropkiBlack2Cells(),
-  new KropkiWhite2Cells(),
+  // new KropkiBlack2Cells(),
+  // new KropkiWhite2Cells(),
   // new KropkiChain2()
+  new BaseKropkiChain(),
 ];
 
 const puzzleStrings = [
@@ -46,12 +48,11 @@ const puzzleStrings = [
   NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
-  NewPuzzles._Kropki_005,
+  // NewPuzzles._Kropki_005,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
-
 ];
 
 // const totalEdits = [];
@@ -97,7 +98,5 @@ for (const puzzle of solvedPuzzles) {
 console.log(`Total edits: ${totalEdits}`);
 
 console.log(`Total solved: ${solvedPuzzles.length}`);
-
-
 
 //

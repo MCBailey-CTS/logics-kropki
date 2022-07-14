@@ -17,20 +17,28 @@ export class Loc {
     return this._col;
   }
 
-  up(): Loc {
-    return new Loc(this._row - 1, this._col);
+  up(offset?: number): Loc {
+    if (typeof offset == "undefined") offset = 1;
+
+    return new Loc(this._row - offset, this._col);
   }
 
-  down(): Loc {
-    return new Loc(this._row + 1, this._col);
+  down(offset?: number): Loc {
+    if (typeof offset == "undefined") offset = 1;
+
+    return new Loc(this._row + offset, this._col);
   }
 
-  left(): Loc {
-    return new Loc(this._row, this._col - 1);
+  left(offset?: number): Loc {
+    if (typeof offset == "undefined") offset = 1;
+
+    return new Loc(this._row, this._col - offset);
   }
 
-  right(): Loc {
-    return new Loc(this._row, this._col + 1);
+  right(offset?: number): Loc {
+    if (typeof offset == "undefined") offset = 1;
+
+    return new Loc(this._row, this._col + offset);
   }
 
   equals(other: Loc): boolean {
