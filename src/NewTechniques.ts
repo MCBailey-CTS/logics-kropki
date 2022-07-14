@@ -91,23 +91,33 @@ export class NewTechniques {
   }
 
   static solveSudokuQuadTriple(length: number, house: string[]) {
-    for (let i = 0; i < length; i++)
-      for (let ii = 0; ii < length; ii++)
-        for (let iii = 0; iii < length; iii++)
-          for (let iiii = 0; iiii < length; iiii++) {
+    for (let i = 0; i < length-3; i++)
+      for (let ii = i + 1; ii < length-2; ii++)
+        for (let iii = ii + 1; iii < length - 1; iii++)
+          for (let iiii = iii + 1; iiii < length; iiii++) {
             const indexes = new Set<number>([i, ii, iii, iiii]);
 
             if (indexes.size != 4) continue;
 
             const candidates = [];
 
-            candidates.push(...cellCandidates(house[i]));
+            const candidates0 = cellCandidates(house[i]);
+            const candidates1 = cellCandidates(house[ii]);
+            const candidates2 = cellCandidates(house[iii]);
+            const candidates3 = cellCandidates(house[iiii]);
 
-            candidates.push(...cellCandidates(house[ii]));
+            if (candidates0.length > 4) continue;
+            if (candidates1.length > 4) continue;
+            if (candidates2.length > 4) continue;
+            if (candidates3.length > 4) continue;
 
-            candidates.push(...cellCandidates(house[iii]));
+            candidates.push(...candidates0);
 
-            candidates.push(...cellCandidates(house[iiii]));
+            candidates.push(...candidates1);
+
+            candidates.push(...candidates2);
+
+            candidates.push(...candidates3);
 
             const hash = new Set<number>(candidates);
 

@@ -75,8 +75,8 @@ export class KropkiSudoku implements IKropkiSolver {
     // if (NewTechniques.solveSudokuNakedTripleLocs(_grid, _length, locs))
     //   return true;
 
-    // if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
-    //   return true;
+    if (NewTechniques.solveSudokuNakedQuadLocs(_grid, _length, locs))
+      return true;
 
     return false;
   }
