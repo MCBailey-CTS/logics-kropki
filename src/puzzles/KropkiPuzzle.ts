@@ -166,6 +166,42 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return [loc.up(), loc.down(), loc.left(), loc.right()].filter((l) => {});
   }
 
+  getRowHouse(loc: Loc): Loc[] {
+    return Loc.getKropkiCellRowHouseLocs(this.length, loc.row / 2);
+  }
+
+  getColHouse(loc: Loc): Loc[] {
+    return Loc.getKropkiCellRowHouseLocs(this.length, loc.col / 2);
+  }
+
+  getCommonHouses(chain: Loc[]): Loc[][] {
+    const houses: Loc[][] = [];
+
+    if (
+      chain.every((loc) => {
+        return chain[0].row == loc.row;
+      })
+    )
+      houses.push(this.getRowHouse(chain[0]));
+
+    if (
+      chain.every((loc) => {
+        return chain[0].col == loc.col;
+      })
+    )
+      houses.push(this.getColHouse(chain[0]));
+
+    if (
+      this.hasFences &&
+      chain.every((loc) => {
+        return this.getFence(chain[0]) == this.getFence(loc);
+      })
+    )
+      houses.push(this.getFenceLocs(this.getFence(chain[0])));
+
+    return houses;
+  }
+
   getKropkiWhiteCandidates(candidate: number): Set<number> {
     const hash = new Set<number>();
 
@@ -189,6 +225,17 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     if (r instanceof Loc) return this._grid[r.row][r.col];
 
     throw Error("invalid parameters");
+  }
+
+  getIntersection(loc0: Loc, loc1: Loc): Loc {
+    const chain = [loc0, loc1];
+
+    if (chain[0].up(2).equals(chain[1])) return chain[0].up();
+    if (chain[0].right(2).equals(chain[1])) return chain[0].right();
+    if (chain[0].down(2).equals(chain[1])) return chain[0].down();
+    if (chain[0].left(2).equals(chain[1])) return chain[0].left();
+
+    throw Error(`Cannot find intersection between ${loc0} and ${loc1}`);
   }
 
   isIntersectionSolved(c0: number, kropki: string, c1: number): boolean {

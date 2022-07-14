@@ -3,6 +3,7 @@ import { Loc } from "../Loc";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { LocSet } from "../LocSet";
 
 export class BaseKropkiChain implements IKropkiSolver {
   get id(): string {
@@ -22,54 +23,99 @@ export class BaseKropkiChain implements IKropkiSolver {
       }
     }
 
+    for (const cellLoc of puzzle.sudokuCellLocs) {
+      for (const other of puzzle.getSurroundingCellLocs(cellLoc))
+        for (const other1 of puzzle.getSurroundingCellLocs(other)) {
+          const locs = [cellLoc, other, other1];
+
+          const locSet = new LocSet(locs);
+
+          if (locSet.size != 3) continue;
+
+          if (
+            !locs.every((loc) => {
+              return loc.isValidKropkiLoc(puzzle.length);
+            })
+          )
+            continue;
+
+          const results: IEdit[] = this.solveChain(
+            puzzle,
+            cellLoc,
+            other,
+            other1
+          );
+
+          edits.push(...results);
+        }
+    }
+
     return edits;
   }
 
   solveChain(puzzle: IKropkiPuzzle, ...chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (chain.length != 2) return edits;
+    if (chain.length == 2) {
+      const intersection = puzzle.getIntersection(chain[0], chain[1]);
 
-    if (
-      (chain[0].up(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].up()) == "b") ||
-      (chain[0].right(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].right()) == "b") ||
-      (chain[0].down(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].down()) == "b") ||
-      (chain[0].left(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].left()) == "b")
-    ) {
-      edits.push(...this.solveExplicitBlack(puzzle, chain[0], chain[1]));
-      edits.push(...this.solveExplicitBlack(puzzle, chain[1], chain[0]));
+      switch (puzzle.getCellString(intersection)) {
+        case "b":
+          edits.push(...this.solveExplicitBlack(puzzle, chain[0], chain[1]));
+          edits.push(...this.solveExplicitBlack(puzzle, chain[1], chain[0]));
+          break;
+        case ".":
+          edits.push(...this.solveExplicitDominate(puzzle, chain[0], chain[1]));
+          edits.push(...this.solveExplicitDominate(puzzle, chain[1], chain[0]));
+          break;
+        case "w":
+          edits.push(...this.solveExplicitWhite(puzzle, chain[0], chain[1]));
+          edits.push(...this.solveExplicitWhite(puzzle, chain[1], chain[0]));
+          break;
+        default:
+          throw Error(
+            `Unknown string for intersection: '${puzzle.getCellString(
+              intersection
+            )}'`
+          );
+      }
     }
 
-    if (
-      (chain[0].up(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].up()) == ".") ||
-      (chain[0].right(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].right()) == ".") ||
-      (chain[0].down(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].down()) == ".") ||
-      (chain[0].left(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].left()) == ".")
-    ) {
-      edits.push(...this.solveExplicitDominate(puzzle, chain[0], chain[1]));
-      edits.push(...this.solveExplicitDominate(puzzle, chain[1], chain[0]));
-    }
+    if (chain.length == 3) {
+      const int0 = puzzle.getIntersection(chain[0], chain[1]);
+      const int1 = puzzle.getIntersection(chain[1], chain[2]);
+      const intStr = puzzle.getCellString(int0) + puzzle.getCellString(int1);
 
-    if (
-      (chain[0].up(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].up()) == "w") ||
-      (chain[0].right(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].right()) == "w") ||
-      (chain[0].down(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].down()) == "w") ||
-      (chain[0].left(2).equals(chain[1]) &&
-        puzzle.getCellString(chain[0].left()) == "w")
-    ) {
-      edits.push(...this.solveExplicitWhite(puzzle, chain[0], chain[1]));
-      edits.push(...this.solveExplicitWhite(puzzle, chain[1], chain[0]));
+      for (const house of puzzle.getCommonHouses(chain)) {
+        const locset = new LocSet(house);
+
+        for (const loc of chain) locset.delete(loc);
+
+        switch (intStr) {
+          case "ww":
+            if (puzzle.removeCandidate(chain[1], 1))
+              edits.push(new Edit(puzzle, chain[1], 1, this));
+            break;
+
+          case "bb":
+            if (puzzle.length != 9) break;
+            if (puzzle.removeCandidate(chain[1], 1))
+              edits.push(new Edit(puzzle, chain[1], 1, this));
+            if (puzzle.removeCandidate(chain[1], 3))
+              edits.push(new Edit(puzzle, chain[1], 3, this));
+            if (puzzle.removeCandidate(chain[1], 5))
+              edits.push(new Edit(puzzle, chain[1], 5, this));
+            if (puzzle.removeCandidate(chain[1], 6))
+              edits.push(new Edit(puzzle, chain[1], 6, this));
+            if (puzzle.removeCandidate(chain[1], 7))
+              edits.push(new Edit(puzzle, chain[1], 7, this));
+            if (puzzle.removeCandidate(chain[1], 8))
+              edits.push(new Edit(puzzle, chain[1], 8, this));
+            if (puzzle.removeCandidate(chain[1], 9))
+              edits.push(new Edit(puzzle, chain[1], 9, this));
+            break;
+        }
+      }
     }
 
     return edits;

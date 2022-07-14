@@ -50,4 +50,12 @@ export interface IKropkiPuzzle {
   getCellIntersections(loc: Loc): Loc[];
 
   getSurroundingCellLocs(cellLoc: Loc): Loc[];
+
+  getIntersection(loc0: Loc, loc1: Loc): Loc;
+
+  getCommonHouses(chain: Loc[]): Loc[][];
+
+  getRowHouse(loc: Loc): Loc[];
+
+  getColHouse(loc: Loc): Loc[];
 }

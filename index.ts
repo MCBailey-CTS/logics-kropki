@@ -95,8 +95,6 @@ for (const puzzle of solvedPuzzles) {
   console.log(`${puzzle.id} == ${puzzle.edits.length} edits`);
 }
 
-console.log(`Total edits: ${totalEdits}`);
-
 console.log(`Total solved: ${solvedPuzzles.length}`);
 
 //
