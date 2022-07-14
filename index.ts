@@ -7,6 +7,7 @@ import { ChainE } from "./src/new_solvers/ChainE";
 import { ChainW } from "./src/new_solvers/ChainW";
 import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { ChainBB } from "./src/new_solvers/ChainBB";
+import { ChainBW } from "./src/new_solvers/ChainBW";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -69,7 +70,8 @@ for (const str of puzzleStrings) {
       // new ChainW(),
       // new HiddenSingle(),
       // new HiddenPair(), exists in row [3] of 003.kropki
-      new ChainBB()
+      // new ChainBB(),
+      new ChainBW(),
     ]).length;
 
     if (puzzle.isSolved) {

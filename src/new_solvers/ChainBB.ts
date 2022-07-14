@@ -55,20 +55,16 @@ export class ChainBB extends BaseKropkiChain {
         if (puzzle.removeCandidate(cellChainLocs[1], candidate))
           edits.push(new Edit(puzzle, cellChainLocs[1], candidate, this));
 
-          // outsiders
+      // outsiders
       for (const house of commonHouses) {
         for (const loc of house) {
           if (loc.equals(cellChainLocs[0])) continue;
           if (loc.equals(cellChainLocs[1])) continue;
           if (loc.equals(cellChainLocs[2])) continue;
 
-
-
-
-
           if (puzzle.removeCandidate(loc, 2))
             edits.push(new Edit(puzzle, loc, 2, this));
-            if (puzzle.removeCandidate(loc, 4))
+          if (puzzle.removeCandidate(loc, 4))
             edits.push(new Edit(puzzle, loc, 4, this));
         }
       }
@@ -99,3 +95,5 @@ export class ChainBB extends BaseKropkiChain {
     return edits;
   }
 }
+
+
