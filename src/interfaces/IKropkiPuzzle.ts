@@ -29,6 +29,8 @@ export interface IKropkiPuzzle {
 
   getCellSet(r: Loc | number, c?: number): Set<number>;
 
+  get expectedCandidates():number[];
+
   removeCandidate(loc: Loc, candidate: number): boolean;
 
   solve(solvers: IKropkiSolver[]): IEdit[];

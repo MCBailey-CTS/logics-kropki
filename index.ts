@@ -1,23 +1,12 @@
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { NewPuzzles } from "./src/NewPuzzles";
-import { KropkiBlack } from "./src/solvers/KropkiBlack";
-import { KropkiBlack2Cells } from "./src/solvers/KropkiBlack2Cells";
-import { KropkiChainBbCenter } from "./src/solvers/KropkiChainBbCenter";
-import { KropkiChainBwCenter } from "./src/solvers/KropkiChainBwCenter";
-import { KropkiChainWwCenter } from "./src/solvers/KropkiChainWwCenter";
-import { KropkiDiamondBwww } from "./src/solvers/KropkiDiamondBwww";
-import { KropkiDiamondEwww } from "./src/solvers/KropkiDiamondEwww";
-import { KropkiEmptyDominate } from "./src/solvers/KropkiEmptyDominate";
-import { KropkiSudoku } from "./src/solvers/KropkiSudoku";
-import { KropkiWhite } from "./src/solvers/KropkiWhite";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
-import { BaseKropkiChain } from "./src/new_solvers/BaseKropkiChain";
-import { ChainW } from "./src/new_solvers/ChainW";
-import { ChainE } from "./src/new_solvers/ChainE";
 import { ChainB } from "./src/new_solvers/ChainB";
-import { NewBaseKropkiChain } from "./src/new_solvers/NewBaseKropkiChain";
+import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
+import { ChainE } from "./src/new_solvers/ChainE";
+import { ChainW } from "./src/new_solvers/ChainW";
 import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
-import { KropkiWhite2Cells } from "./src/solvers/KropkiWhite2Cells";
+import { ChainBB } from "./src/new_solvers/ChainBB";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -29,11 +18,11 @@ const solvers: IKropkiSolver[] = [
   // new KropkiChainBbCenter(),
   // new KropkiDiamondBwww(),
   // new KropkiDiamondEwww(),
-  new KropkiSudoku(),
+  // new KropkiSudoku(),
   // new KropkiBlack2Cells(),
   // new KropkiWhite2Cells(),
   // new KropkiChain2()
-  new BaseKropkiChain(),
+  // new BaseKropkiChain(),
 ];
 
 const puzzleStrings = [
@@ -73,11 +62,13 @@ for (const str of puzzleStrings) {
   try {
     // puzzle.solve(solvers);
 
-    totalEdits += NewBaseKropkiChain.solve(puzzle, [
-      new ChainB(),
-      new ChainE(),
-      new ChainW(),
-      new HiddenSingle(),
+    totalEdits += BaseKropkiChain.solve(puzzle, [
+      // new ChainB(),
+      // new ChainE(),
+      // new ChainW(),
+      // new HiddenSingle(),
+      // new HiddenPair(), exists in row [3] of 003.kropki
+      new ChainBB()
     ]).length;
 
     if (puzzle.isSolved) {

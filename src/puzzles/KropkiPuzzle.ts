@@ -142,6 +142,14 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     ]);
   }
 
+  get expectedCandidates(): number[] {
+    const candidates = [];
+
+    for (let i = 1; i <= this.length; i++) candidates.push(i);
+
+    return candidates;
+  }
+
   getKropkiBlackCandidates(candidate: number): Set<number> {
     const hash = new Set<number>();
 
