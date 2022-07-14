@@ -91,6 +91,10 @@ export class NewTechniques {
   }
 
   static solveSudokuQuadTriple(length: number, house: string[]) {
+    // let valid 
+
+
+
     for (let i = 0; i < length-3; i++)
       for (let ii = i + 1; ii < length-2; ii++)
         for (let iii = ii + 1; iii < length - 1; iii++)

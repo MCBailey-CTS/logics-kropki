@@ -108,6 +108,14 @@ export class BaseKropkiChain implements IKropkiSolver {
 
             break;
 
+          case "bw":
+          case "wb":
+            if (puzzle.removeCandidate(chain[1], 1))
+              edits.push(new Edit(puzzle, chain[1], 1, this));
+
+
+            break;
+
           case "bb":
             if (puzzle.length != 9) break;
             if (puzzle.removeCandidate(chain[1], 1))
@@ -124,11 +132,6 @@ export class BaseKropkiChain implements IKropkiSolver {
               edits.push(new Edit(puzzle, chain[1], 8, this));
             if (puzzle.removeCandidate(chain[1], 9))
               edits.push(new Edit(puzzle, chain[1], 9, this));
-
-            // if(puzzle.id == "004.kropki")
-            // console.log([...locset.values]);
-
-            // console.log(`Length: ${locset.size}`);
 
             if (locset.size == 6)
               for (const loc of locset.values) {
