@@ -179,7 +179,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   getColHouse(loc: Loc): Loc[] {
-    return Loc.getKropkiCellRowHouseLocs(this.length, loc.col / 2);
+    return Loc.getKropkiCellColHouseLocs(this.length, loc.col / 2);
   }
 
   getCommonHouses(chain: Loc[]): Loc[][] {
@@ -189,23 +189,33 @@ export class KropkiPuzzle implements IKropkiPuzzle {
       chain.every((loc) => {
         return chain[0].row == loc.row;
       })
-    )
+    ) {
+      // console.log(`valid row: ${chain}`);
       houses.push(this.getRowHouse(chain[0]));
+    }
 
     if (
       chain.every((loc) => {
         return chain[0].col == loc.col;
       })
-    )
+    ) {
+      // console.log(`valid col: ${chain}`);
+
       houses.push(this.getColHouse(chain[0]));
+    }
 
     if (
       this.hasFences &&
       chain.every((loc) => {
         return this.getFence(chain[0]) == this.getFence(loc);
       })
-    )
+    ) {
+      // console.log(`valid fence: ${chain}`);
+
       houses.push(this.getFenceLocs(this.getFence(chain[0])));
+    }
+
+    // console.log('////////////////////////')
 
     return houses;
   }
