@@ -5,6 +5,18 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { LocSet } from "../LocSet";
 
+export class KropkiChainString implements IKropkiSolver {
+  get id(): string {
+    return "KropkiChainString";
+  }
+
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits: IEdit[] = [];
+
+    return edits;
+  }
+}
+
 export class BaseKropkiChain implements IKropkiSolver {
   get id(): string {
     return "BaseKropkiChain";
@@ -13,20 +25,19 @@ export class BaseKropkiChain implements IKropkiSolver {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const cellLoc of puzzle.sudokuCellLocs) {
-      for (const other of puzzle.getSurroundingCellLocs(cellLoc)) {
-        if (!other.isValidKropkiLoc(puzzle.length)) continue;
+    for (const cellLoc of puzzle.sudokuCellLocs)
+      for (const other0 of puzzle.getSurroundingCellLocs(cellLoc)) {
+        if (!other0.isValidKropkiLoc(puzzle.length)) continue;
 
-        const results: IEdit[] = this.solveChain(puzzle, cellLoc, other);
+        const results: IEdit[] = this.solveChain(puzzle, cellLoc, other0);
 
         edits.push(...results);
       }
-    }
 
-    for (const cellLoc of puzzle.sudokuCellLocs) {
-      for (const other of puzzle.getSurroundingCellLocs(cellLoc))
-        for (const other1 of puzzle.getSurroundingCellLocs(other)) {
-          const locs = [cellLoc, other, other1];
+    for (const cellLoc of puzzle.sudokuCellLocs)
+      for (const other0 of puzzle.getSurroundingCellLocs(cellLoc))
+        for (const other1 of puzzle.getSurroundingCellLocs(other0)) {
+          const locs = [cellLoc, other0, other1];
 
           const locSet = new LocSet(locs);
 
@@ -42,13 +53,12 @@ export class BaseKropkiChain implements IKropkiSolver {
           const results: IEdit[] = this.solveChain(
             puzzle,
             cellLoc,
-            other,
+            other0,
             other1
           );
 
           edits.push(...results);
         }
-    }
 
     return edits;
   }
@@ -61,16 +71,16 @@ export class BaseKropkiChain implements IKropkiSolver {
 
       switch (puzzle.getCellString(intersection)) {
         case "b":
-          edits.push(...this.solveExplicitBlack(puzzle, chain[0], chain[1]));
-          edits.push(...this.solveExplicitBlack(puzzle, chain[1], chain[0]));
+          // edits.push(...this.solveExplicitBlack(puzzle, chain[0], chain[1]));
+          // edits.push(...this.solveExplicitBlack(puzzle, chain[1], chain[0]));
           break;
         case ".":
-          edits.push(...this.solveExplicitDominate(puzzle, chain[0], chain[1]));
-          edits.push(...this.solveExplicitDominate(puzzle, chain[1], chain[0]));
+          // edits.push(...this.solveExplicitDominate(puzzle, chain[0], chain[1]));
+          // edits.push(...this.solveExplicitDominate(puzzle, chain[1], chain[0]));
           break;
         case "w":
-          edits.push(...this.solveExplicitWhite(puzzle, chain[0], chain[1]));
-          edits.push(...this.solveExplicitWhite(puzzle, chain[1], chain[0]));
+          // edits.push(...this.solveExplicitWhite(puzzle, chain[0], chain[1]));
+          // edits.push(...this.solveExplicitWhite(puzzle, chain[1], chain[0]));
           break;
         default:
           throw Error(
@@ -113,7 +123,6 @@ export class BaseKropkiChain implements IKropkiSolver {
             if (puzzle.removeCandidate(chain[1], 1))
               edits.push(new Edit(puzzle, chain[1], 1, this));
 
-
             break;
 
           case "bb":
@@ -144,64 +153,6 @@ export class BaseKropkiChain implements IKropkiSolver {
             break;
         }
       }
-    }
-
-    return edits;
-  }
-
-  solveExplicitBlack(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit[] {
-    const otherHash = puzzle.getCellSet(other);
-
-    const edits: IEdit[] = [];
-
-    for (const candidate of puzzle.getCellCandidates(loc)) {
-      if (otherHash.has(candidate * 2)) continue;
-
-      if (candidate % 2 == 0 && otherHash.has(candidate / 2)) continue;
-
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
-
-      edits.push(new Edit(puzzle, loc, candidate, this));
-    }
-
-    return edits;
-  }
-
-  solveExplicitWhite(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit[] {
-    const edits: IEdit[] = [];
-
-    const otherHash = puzzle.getCellSet(other);
-
-    for (const candidate of puzzle.getCellCandidates(loc)) {
-      if (otherHash.has(candidate + 1)) continue;
-
-      if (otherHash.has(candidate - 1)) continue;
-
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
-
-      edits.push(new Edit(puzzle, loc, candidate, this));
-    }
-
-    return edits;
-  }
-
-  solveExplicitDominate(puzzle: IKropkiPuzzle, loc: Loc, other: Loc): IEdit[] {
-    const edits: IEdit[] = [];
-    for (const candidate of puzzle.getCellCandidates(loc)) {
-      const kropkiCandidates = [
-        ...puzzle.getKropkiCandidates(candidate),
-        candidate,
-      ];
-
-      const otherHash = puzzle.getCellSet(other);
-
-      for (const t of kropkiCandidates) otherHash.delete(t);
-
-      if (otherHash.size > 0) continue;
-
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
-
-      edits.push(new Edit(puzzle, loc, candidate, this));
     }
 
     return edits;

@@ -227,6 +227,21 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     throw Error("invalid parameters");
   }
 
+  getHouses(): Loc[][] {
+    const houses: Loc[][] = [];
+
+    for (let i = 0; i < this.length; i++) {
+      houses.push(this.getRowHouse(new Loc(i * 2, 0)));
+      houses.push(this.getColHouse(new Loc(0, i * 2)));
+    }
+
+    if (!this.hasFences) return houses;
+
+    for (const fence of this.fences) houses.push(this.getFenceLocs(fence));
+
+    return houses;
+  }
+
   getIntersection(loc0: Loc, loc1: Loc): Loc {
     const chain = [loc0, loc1];
 

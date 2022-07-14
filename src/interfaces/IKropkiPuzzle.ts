@@ -58,4 +58,6 @@ export interface IKropkiPuzzle {
   getRowHouse(loc: Loc): Loc[];
 
   getColHouse(loc: Loc): Loc[];
+
+  getHouses(): Loc[][];
 }

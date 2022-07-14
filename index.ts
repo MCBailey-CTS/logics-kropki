@@ -12,6 +12,11 @@ import { KropkiSudoku } from "./src/solvers/KropkiSudoku";
 import { KropkiWhite } from "./src/solvers/KropkiWhite";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { BaseKropkiChain } from "./src/new_solvers/BaseKropkiChain";
+import { ChainW } from "./src/new_solvers/ChainW";
+import { ChainE } from "./src/new_solvers/ChainE";
+import { ChainB } from "./src/new_solvers/ChainB";
+import { NewBaseKropkiChain } from "./src/new_solvers/NewBaseKropkiChain";
+import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { KropkiWhite2Cells } from "./src/solvers/KropkiWhite2Cells";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
@@ -66,11 +71,14 @@ for (const str of puzzleStrings) {
 
   const puzzle = new KropkiPuzzle(str);
   try {
-    puzzle.solve(solvers);
+    // puzzle.solve(solvers);
 
-    // totalEdits.push(... [puzzle.solve(solvers)]);
-
-    totalEdits += puzzle.edits.length;
+    totalEdits += NewBaseKropkiChain.solve(puzzle, [
+      new ChainB(),
+      new ChainE(),
+      new ChainW(),
+      new HiddenSingle(),
+    ]).length;
 
     if (puzzle.isSolved) {
       solvedPuzzles.push(puzzle);
@@ -92,7 +100,8 @@ console.log();
 console.log(`Total edits: ${totalEdits}`);
 
 for (const puzzle of solvedPuzzles) {
-  console.log(`${puzzle.id} == ${puzzle.edits.length} edits`);
+  console.log(`${puzzle.id}`);
+  // console.log(`${puzzle.id} == ${puzzle.edits.length} edits`);
 }
 
 console.log(`Total solved: ${solvedPuzzles.length}`);
