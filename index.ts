@@ -8,8 +8,9 @@ import { ChainW } from "./src/new_solvers/ChainW";
 import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { ChainBB } from "./src/new_solvers/ChainBB";
 import { ChainBWW } from "./src/new_solvers/ChainBWW";
-import { ChainDBWW } from "./src/new_solvers/ChainDBWW";
+import { ChainDBWWW } from "./src/new_solvers/ChainDBWWW";
 import { ChainBW } from "./src/new_solvers/ChainBW";
+import { ChainDWBBE } from "./src/new_solvers/ChainDWBBE";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -74,7 +75,9 @@ for (const str of puzzleStrings) {
       // new HiddenPair(), exists in row [3] of 003.kropki
       // new ChainBB(),
       // new ChainBW(),
-      new ChainDBWW(),
+      // new ChainDBWWW(),
+      // new ChainDWBBE(),
+      new ChainDWBBE(),
     ]).length;
 
     if (puzzle.isSolved) {
