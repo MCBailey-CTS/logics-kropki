@@ -17,6 +17,7 @@ import { ChainWWW } from "./src/new_solvers/ChainWWW";
 import { ChainWWWWW } from "./src/new_solvers/ChainWWWWW";
 import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
 import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
+import { ChainWW } from "./src/new_solvers/ChainWW";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -76,6 +77,7 @@ for (const str of puzzleStrings) {
       new ChainB(),
       new ChainE(),
       new ChainW(),
+      new ChainWW(),
       new HiddenSingle(),
       new ChainBB(),
       new ChainBW(),
