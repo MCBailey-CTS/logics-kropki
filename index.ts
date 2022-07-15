@@ -48,6 +48,7 @@ const puzzleStrings = [
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
   NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_008,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_005,
