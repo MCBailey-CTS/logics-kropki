@@ -193,22 +193,22 @@ export class XWing extends BaseKropkiChain {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    const col0 = cellChainLocs.splice(0, cellChainLocs.length / 2);
+    const house0 = cellChainLocs.splice(0, cellChainLocs.length / 2);
 
-    const col1 = cellChainLocs;
+    const house1 = cellChainLocs;
     if (
-      col0.every((loc) => {
-        return col0[0].col == loc.col;
+      house0.every((loc) => {
+        return house0[0].col == loc.col;
       }) &&
-      col1.every((loc) => {
-        return col1[0].col == loc.col;
+      house1.every((loc) => {
+        return house1[0].col == loc.col;
       })
     ) {
       for (const candidate of puzzle.expectedCandidates) {
-        const col0Locs = puzzle.getColLocsWithCandidate(col0[0], candidate);
-        const col1Locs = puzzle.getColLocsWithCandidate(col1[0], candidate);
+        const house0Locs = puzzle.getColLocsWithCandidate(house0[0], candidate);
+        const house1Locs = puzzle.getColLocsWithCandidate(house1[0], candidate);
 
-        const allLocs = [...col0Locs, ...col1Locs];
+        const allLocs = [...house0Locs, ...house1Locs];
 
         const xwingSet = new LocSet(allLocs);
 
@@ -238,21 +238,19 @@ export class XWing extends BaseKropkiChain {
       }
     }
 
-
-
     if (
-      col0.every((loc) => {
-        return col0[0].row == loc.row;
+      house0.every((loc) => {
+        return house0[0].row == loc.row;
       }) &&
-      col1.every((loc) => {
-        return col1[0].row == loc.row;
+      house1.every((loc) => {
+        return house1[0].row == loc.row;
       })
     ) {
       for (const candidate of puzzle.expectedCandidates) {
-        const col0Locs = puzzle.getRowLocsWithCandidate(col0[0], candidate);
-        const col1Locs = puzzle.getRowLocsWithCandidate(col1[0], candidate);
+        const house0Locs = puzzle.getRowLocsWithCandidate(house0[0], candidate);
+        const house1Locs = puzzle.getRowLocsWithCandidate(house1[0], candidate);
 
-        const allLocs = [...col0Locs, ...col1Locs];
+        const allLocs = [...house0Locs, ...house1Locs];
 
         const xwingSet = new LocSet(allLocs);
 
@@ -273,7 +271,7 @@ export class XWing extends BaseKropkiChain {
         if (colIndexes.size != 2 || rowIndexes.size != 2) return edits;
 
         for (const locs of [...colIndexes].map((index) => {
-          return puzzle.getRowHouse(new Loc(0,index));
+          return puzzle.getRowHouse(new Loc(0, index));
         })) {
           for (const loc of locs)
             if (!xwingSet.has(loc) && puzzle.removeCandidate(loc, candidate))

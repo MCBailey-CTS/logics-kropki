@@ -16,6 +16,7 @@ import { ChainDWBBE } from "./src/new_solvers/ChainDWBBE";
 import { ChainWWW } from "./src/new_solvers/ChainWWW";
 import { ChainWWWWW } from "./src/new_solvers/ChainWWWWW";
 import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
+import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -71,7 +72,7 @@ for (const str of puzzleStrings) {
   try {
     // puzzle.solve(solvers);
 
-    totalEdits += BaseKropkiChain.solve(puzzle, [
+    const resultingEdits = BaseKropkiChain.solve(puzzle, [
       new ChainB(),
       new ChainE(),
       new ChainW(),
@@ -83,11 +84,14 @@ for (const str of puzzleStrings) {
       new ChainDWBBE(),
       new ChainDWBBE(),
       new ChainWWW(),
-      // new ChainWWWW(),
+      new ChainWWWW(),
       // new ChainWWWWW(),
-      // new HiddenPair(),
+      new HiddenPair(),
+      // new HiddenTriple(),
       // new XWing(),
-    ]).length;
+    ]);
+
+    totalEdits += resultingEdits.length;
 
     if (puzzle.isSolved) {
       solvedPuzzles.push(puzzle);
@@ -95,10 +99,15 @@ for (const str of puzzleStrings) {
       continue;
     }
 
-    if(puzzle.id == "004.kropki")
-    console.log(`Column [4] has a hidden triple, should be faster than naked quad`);
+    if (puzzle.id == "004.kropki")
+      console.log(
+        `Column [4] has a hidden triple, should be faster than naked quad`
+      );
 
     console.log(puzzle.toString());
+    console.log(`Edits: ${resultingEdits.length}`);
+
+    console.log("//////////");
   } catch (err) {
     console.log("//////////");
     console.log(puzzle.id);
