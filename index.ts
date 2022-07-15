@@ -5,7 +5,7 @@ import { ChainB } from "./src/new_solvers/ChainB";
 import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
 import { ChainE } from "./src/new_solvers/ChainE";
 import { ChainW } from "./src/new_solvers/ChainW";
-import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
+import { HiddenPairs, HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { ChainBB } from "./src/new_solvers/ChainBB";
 import { ChainBWW } from "./src/new_solvers/ChainBWW";
 import { ChainDBWWW } from "./src/new_solvers/ChainDBWWW";
@@ -69,11 +69,10 @@ for (const str of puzzleStrings) {
 
     totalEdits += BaseKropkiChain.solve(puzzle, [
       new ChainB(),
-      // new ChainE(),
+      new ChainE(),
       // new ChainW(),
       // new HiddenSingle(),
       // new HiddenPair(),
-      //exists in row [3] of 003.kropki
       // new ChainBB(),
       // new ChainBW(),
       // new ChainBWW(),
@@ -83,6 +82,7 @@ for (const str of puzzleStrings) {
       // new ChainWWW(),
       // new ChainWWWW(),
       // new ChainWWWWW(),
+      new HiddenPairs(),
     ]).length;
 
     if (puzzle.isSolved) {
