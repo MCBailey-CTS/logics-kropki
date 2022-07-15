@@ -35,26 +35,26 @@ const solvers: IKropkiSolver[] = [
 ];
 
 const puzzleStrings = [
-  // NewPuzzles._Kropki_022,
-  // NewPuzzles._Kropki_021,
-  // NewPuzzles._Kropki_019,
-  // NewPuzzles._Kropki_018,
-  // NewPuzzles._Kropki_017,
-  // NewPuzzles._Kropki_016,
-  // NewPuzzles._Kropki_015,
-  // NewPuzzles._Kropki_014,
-  // NewPuzzles._Kropki_013,
-  // NewPuzzles._Kropki_012,
-  // NewPuzzles._Kropki_011,
-  // NewPuzzles._Kropki_010,
-  // NewPuzzles._Kropki_009,
-  // NewPuzzles._Kropki_007,
-  // NewPuzzles._Kropki_006,
-  // NewPuzzles._Kropki_005,
-  // NewPuzzles._Kropki_004,
-  // NewPuzzles._Kropki_001,
-  // NewPuzzles._Kropki_002,
+  NewPuzzles._Kropki_022,
+  NewPuzzles._Kropki_021,
+  NewPuzzles._Kropki_019,
+  NewPuzzles._Kropki_018,
+  NewPuzzles._Kropki_017,
+  NewPuzzles._Kropki_016,
+  NewPuzzles._Kropki_015,
+  NewPuzzles._Kropki_014,
+  NewPuzzles._Kropki_013,
+  NewPuzzles._Kropki_012,
+  NewPuzzles._Kropki_011,
+  NewPuzzles._Kropki_010,
+  NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_007,
+  NewPuzzles._Kropki_006,
+  NewPuzzles._Kropki_005,
+  NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
+  NewPuzzles._Kropki_002,
+  NewPuzzles._Kropki_001,
 ];
 
 // const totalEdits = [];
@@ -72,20 +72,20 @@ for (const str of puzzleStrings) {
 
     totalEdits += BaseKropkiChain.solve(puzzle, [
       new ChainB(),
-      // new ChainE(),
-      // new ChainW(),
-      // new HiddenSingle(),
-      // new ChainBB(),
-      // new ChainBW(),
-      // new ChainBWW(),
-      // new ChainDBWWW(),
-      // new ChainDWBBE(),
-      // new ChainDWBBE(),
-      // new ChainWWW(),
+      new ChainE(),
+      new ChainW(),
+      new HiddenSingle(),
+      new ChainBB(),
+      new ChainBW(),
+      new ChainBWW(),
+      new ChainDBWWW(),
+      new ChainDWBBE(),
+      new ChainDWBBE(),
+      new ChainWWW(),
       // new ChainWWWW(),
       // new ChainWWWWW(),
-      new HiddenPair(),
-      new XWing(),
+      // new HiddenPair(),
+      // new XWing(),
     ]).length;
 
     if (puzzle.isSolved) {
@@ -93,6 +93,9 @@ for (const str of puzzleStrings) {
 
       continue;
     }
+
+    if(puzzle.id == "004.kropki")
+    console.log(`Column [4] has a hidden triple, should be faster than naked quad`);
 
     console.log(puzzle.toString());
   } catch (err) {

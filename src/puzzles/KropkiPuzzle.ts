@@ -510,6 +510,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   toIntersectionRowString(r: number, c: number): string {
     const cellLength = this._grid[0][0].length;
 
+    // console.log(`'${this._grid[0][0]}'`);
     let initialOffset: string;
 
     let kropkiToNon: string;
@@ -544,7 +545,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         break;
       default:
         throw new Error(
-          `Unknown length for toIntersectionRowString '${cellLength}'`
+          `Unknown length for toIntersectionRowString '${cellLength}' when accessing [${r}, ${c}]`
         );
     }
 
