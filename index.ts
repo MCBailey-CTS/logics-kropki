@@ -18,6 +18,7 @@ import { ChainWWWWW } from "./src/new_solvers/ChainWWWWW";
 import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
 import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
 import { ChainWW } from "./src/new_solvers/ChainWW";
+import { ChainDEBWB } from "./src/new_solvers/ChainDEBWB";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -87,10 +88,8 @@ for (const str of puzzleStrings) {
       new ChainDWBBE(),
       new ChainWWW(),
       new ChainWWWW(),
-      // new ChainWWWWW(),
       new HiddenPair(),
-      // new HiddenTriple(),
-      // new XWing(),
+      new ChainDEBWB()
     ]);
 
     totalEdits += resultingEdits.length;
