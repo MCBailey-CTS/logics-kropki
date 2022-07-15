@@ -260,6 +260,41 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return houses;
   }
 
+  getRowLocsWithCandidate(row: number | Loc, candidate: number): Loc[] {
+    if (typeof row == "number")
+      return this.getRowLocsWithCandidate(new Loc(row, 0), candidate).filter(
+        (loc) => {
+          return this.getCellSet(loc).has(candidate);
+        }
+      );
+
+    return this.getRowHouse(row).filter((loc) => {
+      return this.getCellSet(loc).has(candidate);
+    });
+  }
+
+  getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[] {
+    if (typeof col == "number")
+      return this.getColLocsWithCandidate(new Loc(0, col), candidate).filter(
+        (loc) => {
+          return this.getCellSet(loc).has(candidate);
+        }
+      );
+
+    return this.getColHouse(col).filter((loc) => {
+      return this.getCellSet(loc).has(candidate);
+    });
+  }
+
+  getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[] {
+    if (typeof fence == "string")
+      return this.getFenceLocs(fence).filter((loc) => {
+        return this.getCellSet(loc).has(candidate);
+      });
+
+    return this.getFenceLocsWithCandidate(this.getFence(fence), candidate);
+  }
+
   getIntersection(loc0: Loc, loc1: Loc): Loc {
     const chain = [loc0, loc1];
 

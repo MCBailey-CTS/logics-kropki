@@ -5,7 +5,9 @@ import { ChainB } from "./src/new_solvers/ChainB";
 import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
 import { ChainE } from "./src/new_solvers/ChainE";
 import { ChainW } from "./src/new_solvers/ChainW";
-import { HiddenPairs, HiddenSingle } from "./src/new_solvers/HiddenSingle";
+import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
+import { XWing } from "./src/new_solvers/XWing";
+import { HiddenPair } from "./src/new_solvers/HiddenPair";
 import { ChainBB } from "./src/new_solvers/ChainBB";
 import { ChainBWW } from "./src/new_solvers/ChainBWW";
 import { ChainDBWWW } from "./src/new_solvers/ChainDBWWW";
@@ -34,24 +36,25 @@ const solvers: IKropkiSolver[] = [
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
-  // NewPuzzles._Kropki_021,
-  // NewPuzzles._Kropki_019,
-  // NewPuzzles._Kropki_017,
-  // NewPuzzles._Kropki_016,
-  // NewPuzzles._Kropki_015,
-  // NewPuzzles._Kropki_014,
+  NewPuzzles._Kropki_021,
+  NewPuzzles._Kropki_019,
+  NewPuzzles._Kropki_018,
+  NewPuzzles._Kropki_017,
+  NewPuzzles._Kropki_016,
+  NewPuzzles._Kropki_015,
+  NewPuzzles._Kropki_014,
   NewPuzzles._Kropki_013,
-  // NewPuzzles._Kropki_012,
-  // NewPuzzles._Kropki_011,
-  // NewPuzzles._Kropki_010,
-  // NewPuzzles._Kropki_009,
-  // NewPuzzles._Kropki_007,
-  // NewPuzzles._Kropki_006,
-  // NewPuzzles._Kropki_018,
-  // NewPuzzles._Kropki_004,
-  // NewPuzzles._Kropki_002,
-  // NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_012,
+  NewPuzzles._Kropki_011,
+  NewPuzzles._Kropki_010,
+  NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_007,
+  NewPuzzles._Kropki_006,
+  NewPuzzles._Kropki_005,
+  NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
+  NewPuzzles._Kropki_002,
+  NewPuzzles._Kropki_001,
 ];
 
 // const totalEdits = [];
@@ -69,10 +72,9 @@ for (const str of puzzleStrings) {
 
     totalEdits += BaseKropkiChain.solve(puzzle, [
       new ChainB(),
-      new ChainE(),
+      // new ChainE(),
       // new ChainW(),
       // new HiddenSingle(),
-      // new HiddenPair(),
       // new ChainBB(),
       // new ChainBW(),
       // new ChainBWW(),
@@ -82,7 +84,8 @@ for (const str of puzzleStrings) {
       // new ChainWWW(),
       // new ChainWWWW(),
       // new ChainWWWWW(),
-      new HiddenPairs(),
+      new HiddenPair(),
+      new XWing(),
     ]).length;
 
     if (puzzle.isSolved) {

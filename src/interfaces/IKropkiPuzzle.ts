@@ -29,7 +29,7 @@ export interface IKropkiPuzzle {
 
   getCellSet(r: Loc | number, c?: number): Set<number>;
 
-  get expectedCandidates():number[];
+  get expectedCandidates(): number[];
 
   removeCandidate(loc: Loc, candidate: number): boolean;
 
@@ -62,4 +62,10 @@ export interface IKropkiPuzzle {
   getColHouse(loc: Loc): Loc[];
 
   getHouses(): Loc[][];
+
+  getRowLocsWithCandidate(row: number | Loc, candidate: number): Loc[];
+
+  getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[];
+
+  getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[];
 }
