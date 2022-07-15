@@ -8,6 +8,9 @@ import { NewTechniques } from "../NewTechniques";
 export function cellCandidates(cell: string): number[] {
   // console.log(`'${cell}'`);
 
+  if (cell == null || typeof cell == "undefined")
+    throw Error(`cell is ${cell}`);
+
   const array = [];
 
   for (const candidate of cell) {
@@ -274,12 +277,17 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   }
 
   getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[] {
+
+    // console.log(`getColLocsWithCandidate, ${col}, ${candidate} `);
+
     if (typeof col == "number")
       return this.getColLocsWithCandidate(new Loc(0, col), candidate).filter(
         (loc) => {
           return this.getCellSet(loc).has(candidate);
         }
       );
+
+
 
     return this.getColHouse(col).filter((loc) => {
       return this.getCellSet(loc).has(candidate);
@@ -621,6 +629,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
           this._length
         } (${this._length * 2 - 1})`
       );
+
+    const cell = this._grid[loc.row][loc.col];
+
+    if (cell === null || typeof cell == "undefined")
+      throw Error(`Cell: [${loc.toString()} is ${cell}]`);
 
     // for (const candidate of candidates)
     this._grid[loc.row][loc.col] = this._grid[loc.row][loc.col].replace(

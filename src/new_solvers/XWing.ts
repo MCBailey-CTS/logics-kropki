@@ -165,7 +165,10 @@ import { Edit } from "../Edit";
 
 export class XWing extends BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
+
     const chains: Loc[][] = [];
+
+    if(puzzle.length < 7)return chains;
 
     const col0 = puzzle.getColHouse(new Loc(0, 4));
 
@@ -179,13 +182,9 @@ export class XWing extends BaseKropkiChain {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    // console.log(cellChainLocs);
-
     const col0 = cellChainLocs.splice(0, cellChainLocs.length / 2);
 
     const col1 = cellChainLocs;
-
-    // for (const candidate of puzzle.expectedCandidates)
     if (
       col0.every((loc) => {
         return col0[0].col == loc.col;
@@ -218,10 +217,11 @@ export class XWing extends BaseKropkiChain {
 
         if (colIndexes.size != 2 || rowIndexes.size != 2) return edits;
 
+
+
         for (const locs of [...rowIndexes].map((index) => {
           return puzzle.getRowHouse(new Loc(index, 0));
         })) {
-          //   console.log(locs);
           for (const loc of locs)
             if (!xwingSet.has(loc) && puzzle.removeCandidate(loc, candidate))
               edits.push(new Edit(puzzle, loc, candidate, this));
