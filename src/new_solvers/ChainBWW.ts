@@ -5,7 +5,6 @@ import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
 import { LocSet } from "../LocSet";
 import { Edit } from "../Edit";
 
-
 export class ChainBWW extends BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
@@ -13,8 +12,7 @@ export class ChainBWW extends BaseKropkiChain {
       for (const loc1 of puzzle.getSurroundingCellLocs(loc0))
         for (const loc2 of puzzle.getSurroundingCellLocs(loc1))
           for (const loc3 of puzzle.getSurroundingCellLocs(loc2)) {
-            if (new LocSet([loc0, loc1, loc2, loc3]).size != 4)
-              continue;
+            if (new LocSet([loc0, loc1, loc2, loc3]).size != 4) continue;
 
             chains.push([loc0, loc1, loc2, loc3]);
           }
@@ -39,13 +37,11 @@ export class ChainBWW extends BaseKropkiChain {
 
     const iStr2 = puzzle.getCellString(iLoc2);
 
-    if (iStr0 + iStr1 + iStr2 != "bww")
-      return edits;
+    if (iStr0 + iStr1 + iStr2 != "bww") return edits;
 
     const commonHouses = puzzle.getCommonHouses(cellChainLocs);
 
-    if (commonHouses.length == 0)
-      return edits;
+    if (commonHouses.length == 0) return edits;
 
     // console.log(cellChainLocs);
     if (puzzle.removeCandidate(cellChainLocs[3], 3))
@@ -102,3 +98,5 @@ export class ChainBWW extends BaseKropkiChain {
     return edits;
   }
 }
+
+
