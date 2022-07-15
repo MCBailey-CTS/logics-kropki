@@ -4,19 +4,11 @@ import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
 import { LocSet } from "../LocSet";
+import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
 
-export class ChainB extends BaseKropkiChain {
-  findChains(puzzle: IKropkiPuzzle): Loc[][] {
-    const chains: Loc[][] = [];
-
-    for (const cellLoc of puzzle.sudokuCellLocs)
-      for (const other0 of puzzle.getSurroundingCellLocs(cellLoc)) {
-        if (new LocSet([cellLoc, other0]).size != 2) continue;
-
-        chains.push([cellLoc, other0]);
-      }
-
-    return chains;
+export class ChainB extends BaseExplicitChainLength {
+  get chainLength(): number {
+    return 2;
   }
 
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {

@@ -4,27 +4,15 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
 import { LocSet } from "../LocSet";
 import { Edit } from "../Edit";
+import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
 
-export class ChainBB extends BaseKropkiChain {
-  findChains(puzzle: IKropkiPuzzle): Loc[][] {
-    const chains: Loc[][] = [];
-    for (const loc0 of puzzle.sudokuCellLocs)
-      for (const loc1 of puzzle.getSurroundingCellLocs(loc0))
-        for (const loc2 of puzzle.getSurroundingCellLocs(loc1)) {
-          if (new LocSet([loc0, loc1, loc2]).size != 3) continue;
-
-          chains.push([loc0, loc1, loc2]);
-        }
-
-    return chains;
+export class ChainBB extends BaseExplicitChainLength {
+  get chainLength(): number {
+    return 3;
   }
 
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
-
-    // if (cellChainLocs.length != 3) return edits;
-
-    // if (puzzle.id != "002.kropki") return edits;
 
     const iLoc0 = puzzle.getIntersection(cellChainLocs[0], cellChainLocs[1]);
 
@@ -95,5 +83,3 @@ export class ChainBB extends BaseKropkiChain {
     return edits;
   }
 }
-
-

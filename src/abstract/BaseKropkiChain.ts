@@ -4,7 +4,6 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiChain } from "../new_solvers/IKropkiChain";
 import { NewTechniques } from "../NewTechniques";
 import { cellCandidates } from "../puzzles/KropkiPuzzle";
-import { LocSet } from "../LocSet";
 
 export abstract class BaseKropkiChain implements IKropkiChain {
   abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
@@ -32,3 +31,5 @@ export abstract class BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 }
+
+
