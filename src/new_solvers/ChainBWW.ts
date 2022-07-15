@@ -98,5 +98,3 @@ export class ChainBWW extends BaseKropkiChain {
     return edits;
   }
 }
-
-

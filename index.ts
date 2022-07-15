@@ -11,6 +11,9 @@ import { ChainBWW } from "./src/new_solvers/ChainBWW";
 import { ChainDBWWW } from "./src/new_solvers/ChainDBWWW";
 import { ChainBW } from "./src/new_solvers/ChainBW";
 import { ChainDWBBE } from "./src/new_solvers/ChainDWBBE";
+import { ChainWWW } from "./src/new_solvers/ChainWWW";
+import { ChainWWWWW } from "./src/new_solvers/ChainWWWWW";
+import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -31,27 +34,24 @@ const solvers: IKropkiSolver[] = [
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
-  NewPuzzles._Kropki_021,
-  // NewPuzzles._Kropki_020,
-  NewPuzzles._Kropki_019,
-  NewPuzzles._Kropki_017,
-  NewPuzzles._Kropki_016,
-  NewPuzzles._Kropki_015,
-  NewPuzzles._Kropki_014,
+  // NewPuzzles._Kropki_021,
+  // NewPuzzles._Kropki_019,
+  // NewPuzzles._Kropki_017,
+  // NewPuzzles._Kropki_016,
+  // NewPuzzles._Kropki_015,
+  // NewPuzzles._Kropki_014,
   NewPuzzles._Kropki_013,
-  NewPuzzles._Kropki_012,
-  NewPuzzles._Kropki_011,
-  NewPuzzles._Kropki_010,
-  NewPuzzles._Kropki_009,
-  NewPuzzles._Kropki_007,
-  NewPuzzles._Kropki_006,
-  // NewPuzzles._Kropki_005,
-  NewPuzzles._Kropki_018,
-
-  NewPuzzles._Kropki_004,
+  // NewPuzzles._Kropki_012,
+  // NewPuzzles._Kropki_011,
+  // NewPuzzles._Kropki_010,
+  // NewPuzzles._Kropki_009,
+  // NewPuzzles._Kropki_007,
+  // NewPuzzles._Kropki_006,
+  // NewPuzzles._Kropki_018,
+  // NewPuzzles._Kropki_004,
+  // NewPuzzles._Kropki_002,
+  // NewPuzzles._Kropki_001,
   NewPuzzles._Kropki_003,
-  NewPuzzles._Kropki_002,
-  NewPuzzles._Kropki_001,
 ];
 
 // const totalEdits = [];
@@ -68,16 +68,21 @@ for (const str of puzzleStrings) {
     // puzzle.solve(solvers);
 
     totalEdits += BaseKropkiChain.solve(puzzle, [
-      // new ChainB(),
+      new ChainB(),
       // new ChainE(),
       // new ChainW(),
       // new HiddenSingle(),
-      // new HiddenPair(), exists in row [3] of 003.kropki
+      // new HiddenPair(),
+      //exists in row [3] of 003.kropki
       // new ChainBB(),
       // new ChainBW(),
+      // new ChainBWW(),
       // new ChainDBWWW(),
       // new ChainDWBBE(),
-      new ChainDWBBE(),
+      // new ChainDWBBE(),
+      // new ChainWWW(),
+      // new ChainWWWW(),
+      // new ChainWWWWW(),
     ]).length;
 
     if (puzzle.isSolved) {
