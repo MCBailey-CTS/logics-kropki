@@ -19,6 +19,7 @@ import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
 import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
 import { ChainWW } from "./src/new_solvers/ChainWW";
 import { ChainDEBWB } from "./src/new_solvers/ChainDEBWB";
+import { ChainDEWBB } from "./src/new_solvers/ChainDEWBB";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -75,21 +76,22 @@ for (const str of puzzleStrings) {
     // puzzle.solve(solvers);
 
     const resultingEdits = BaseKropkiChain.solve(puzzle, [
-      new ChainB(),
-      new ChainE(),
-      new ChainW(),
-      new ChainWW(),
-      new HiddenSingle(),
-      new ChainBB(),
-      new ChainBW(),
-      new ChainBWW(),
-      new ChainDBWWW(),
-      new ChainDWBBE(),
-      new ChainDWBBE(),
-      new ChainWWW(),
-      new ChainWWWW(),
-      new HiddenPair(),
-      new ChainDEBWB()
+      // new ChainB(),
+      // new ChainE(),
+      // new ChainW(),
+      // new ChainWW(),
+      // new HiddenSingle(),
+      // new ChainBB(),
+      // new ChainBW(),
+      // new ChainBWW(),
+      // new ChainDBWWW(),
+      // new ChainDWBBE(),
+      // new ChainDWBBE(),
+      // new ChainWWW(),
+      // new ChainWWWW(),
+      // new HiddenPair(),
+      // new ChainDEBWB(),
+      new ChainDEWBB(),
     ]);
 
     totalEdits += resultingEdits.length;
