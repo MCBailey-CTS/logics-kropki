@@ -43,6 +43,7 @@ const solvers: IKropkiSolver[] = [
   // new KropkiWhite2Cells(),
   // new KropkiChain2()
   // new BaseKropkiChain(),
+  // new Chain_Debww(),
 ];
 
 const puzzleStrings = [
@@ -56,7 +57,6 @@ const puzzleStrings = [
 
   NewPuzzles._Kropki_022,
   NewPuzzles._Kropki_021,
-  NewPuzzles._Kropki_019,
   NewPuzzles._Kropki_018,
   NewPuzzles._Kropki_017,
   NewPuzzles._Kropki_016,
@@ -67,8 +67,10 @@ const puzzleStrings = [
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
 
-  NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_007,
+  NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_019,
+
 ];
 
 // const totalEdits = [];
@@ -96,6 +98,7 @@ const masterSolvers: IKropkiChain[] = [
   // // new ChainDEBWB(),
   // new ChainDEWBB(),
   // // new ChainDEWWW(),
+  new Chain_Debww()
 ];
 
 for (const str of puzzleStrings) {
@@ -122,6 +125,7 @@ for (const str of puzzleStrings) {
 
         break;
       case "009.kropki":
+        case "019.kropki":
         resultingEdits.push(
           ...BaseKropkiChain.solve(puzzle, [
             // new ChainB(),
@@ -288,7 +292,7 @@ for (const str of puzzleStrings) {
       case "016.kropki":
       case "017.kropki":
 
-      case "019.kropki":
+      // case "019.kropki":
       case "020.kropki":
       case "021.kropki":
       case "022.kropki":
