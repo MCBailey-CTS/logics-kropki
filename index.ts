@@ -23,7 +23,7 @@ import { ChainWWWW } from "./src/new_solvers/ChainWWWW";
 import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
 import { ChainWW } from "./src/new_solvers/ChainWW";
 import { ChainDEBWB } from "./src/new_solvers/ChainDEBWB";
-import { ChainDEWBB } from "./src/new_solvers/ChainDEWBB";
+import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
 import { ChainDEWWW } from "./src/new_solvers/ChainDEWWW";
 import { IEdit } from "./src/interfaces/IEdit";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
@@ -46,14 +46,13 @@ const solvers: IKropkiSolver[] = [
 ];
 
 const puzzleStrings = [
-  NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_008,
-  NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_005,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_006,
 
   NewPuzzles._Kropki_022,
   NewPuzzles._Kropki_021,
@@ -69,6 +68,7 @@ const puzzleStrings = [
   NewPuzzles._Kropki_010,
 
   NewPuzzles._Kropki_009,
+  NewPuzzles._Kropki_007,
 ];
 
 // const totalEdits = [];
@@ -143,7 +143,7 @@ for (const str of puzzleStrings) {
             new ChainWWWW(),
             new HiddenPair(),
             new ChainDEBWB(),
-            new ChainDEWBB(),
+            new Chain_Debww(),
             new ChainDEWWW(),
           ])
         );
@@ -172,7 +172,7 @@ for (const str of puzzleStrings) {
             new ChainWWWW(),
             new HiddenPair(),
             new ChainDEBWB(),
-            new ChainDEWBB(),
+            new Chain_Debww(),
             new ChainDEWWW(),
           ])
         );
@@ -187,7 +187,7 @@ for (const str of puzzleStrings) {
             new ChainE(),
             new ChainW(),
             new NakedPair(),
-            new ChainDEWBB(),
+            new Chain_Debww(),
           ])
         );
         break;
@@ -213,7 +213,7 @@ for (const str of puzzleStrings) {
             new ChainWWWW(),
             new HiddenPair(),
             new ChainDEBWB(),
-            new ChainDEWBB(),
+            new Chain_Debww(),
             new ChainDEWWW(),
           ])
         );
@@ -242,7 +242,7 @@ for (const str of puzzleStrings) {
             new ChainWWWW(),
             new HiddenPair(),
             new ChainDEBWB(),
-            new ChainDEWBB(),
+            new Chain_Debww(),
             new ChainDEWWW(),
           ])
         );
@@ -250,6 +250,35 @@ for (const str of puzzleStrings) {
         break;
 
       case "007.kropki":
+        
+          resultingEdits.push(
+            ...BaseKropkiChain.solve(puzzle, [
+              new ChainB(),
+              new ChainE(),
+              new ChainW(),
+              new Chain_Debww(),
+              // new NakedPair(),
+              // new HiddenSingle(),
+              // new ChainDEWWW(),
+              // new ChainWWW(),
+              // new ChainWW(),
+              // new ChainDEBWB(),
+              // new ChainBB(),
+              // new ChainBW(),
+              // new ChainBWW(),
+              // new ChainDBWWW(),
+              // new ChainDWBBE(),
+              // new ChainDWBBE(),
+              // new ChainWWW(),
+              // new ChainWWWW(),
+              // new HiddenPair(),
+              // new ChainDEBWB(),
+              // new ChainDEWBB(),
+              // new ChainDEWWW(),
+            ])
+          );
+  
+          break;
       case "008.kropki":
 
       case "011.kropki":
