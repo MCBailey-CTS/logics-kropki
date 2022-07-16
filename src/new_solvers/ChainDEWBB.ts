@@ -27,47 +27,33 @@ export class ChainDEWBB extends BaseDiamondChain {
     let black_black: Loc;
 
     switch (str) {
-      case "w.bb":
-        black_white = chain[0];
-        white_empty = chain[1];
-        empty_black = chain[2];
-        black_black = chain[3];
-        break;
-      case ".bbw":
-        black_white = chain[3];
-        white_empty = chain[0];
-        empty_black = chain[1];
-        black_black = chain[2];
-        break;
-      case "wbb.": // reverse
-        const reverse = [...chain];
-
-        reverse.reverse();
-
-        edits.push(...this.solve(puzzle, reverse));
-        return edits;
-
       case "b.wb": //
-        for (const candidate of [1, 3, 6])
-          for (const loc of [chain[3], chain[0], chain[1]])
-            if (puzzle.removeCandidate(loc, candidate))
-              edits.push(new Edit(puzzle, loc, candidate, this));
-
-        return edits;
+        return this.solveExplicit(puzzle, chain, 0, 1, 3);
       case "bbw.": //
-        for (const candidate of [1, 3, 6])
-          for (const loc of [chain[0], chain[1], chain[2]])
-            if (puzzle.removeCandidate(loc, candidate))
-              edits.push(new Edit(puzzle, loc, candidate, this));
-
-        return edits;
+        return this.solveExplicit(puzzle, chain, 0, 1, 2);
       case ".wbb": //
-        for (const candidate of [1, 3, 6])
-          for (const loc of [chain[0], chain[3], chain[2]])
-            if (puzzle.removeCandidate(loc, candidate))
-              edits.push(new Edit(puzzle, loc, candidate, this));
+        return this.solveExplicit(puzzle, chain, 0, 2, 3);
+      case "w.bb":
+        return this.solveExplicit(puzzle, chain, 0, 2, 3);
 
-        return edits;
+      // black_white = chain[0];
+      // white_empty = chain[1];
+      // empty_black = chain[2];
+      // black_black = chain[3];
+      // break;
+      case ".bbw":
+      // black_white = chain[3];
+      // white_empty = chain[0];
+      // empty_black = chain[1];
+      // black_black = chain[2];
+      // break;
+      case "wbb.": // reverse
+      // const reverse = [...chain];
+
+      // reverse.reverse();
+
+      // edits.push(...this.solve(puzzle, reverse));
+      // return edits;
       case "bw.b":
       case "bb.w":
         console.log(`unknown ${str}`);
@@ -79,6 +65,24 @@ export class ChainDEWBB extends BaseDiamondChain {
 
     for (const candidate of [1, 3, 6])
       for (const loc of [black_white, black_black, empty_black])
+        if (puzzle.removeCandidate(loc, candidate))
+          edits.push(new Edit(puzzle, loc, candidate, this));
+
+    return edits;
+  }
+
+  solveExplicit(
+    puzzle: IKropkiPuzzle,
+    chain: Loc[],
+    ...indexes: number[]
+  ): IEdit[] {
+    const edits: IEdit[] = [];
+    for (const candidate of [1, 3, 6])
+      for (const loc of [
+        chain[indexes[0]],
+        chain[indexes[1]],
+        chain[indexes[2]],
+      ])
         if (puzzle.removeCandidate(loc, candidate))
           edits.push(new Edit(puzzle, loc, candidate, this));
 
