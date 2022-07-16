@@ -4,7 +4,15 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
 import { Edit } from "../Edit";
 
+const BLACK_WHITE = [1, 5, 7, 9];
+const WHITE_EMPTY = [3, 5, 7, 9];
+const EMPTY_BLACK = [5, 7, 9];
+
+const WHITE_WHITE = [1, 4, 6, 8, 9];
+
 export class Chain_Debww extends BaseDiamondChain {
+  // solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
+
   solve(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
@@ -20,85 +28,42 @@ export class Chain_Debww extends BaseDiamondChain {
 
     str += puzzle.getCellString(puzzle.getIntersection(chain[3], chain[0]));
 
-    let black_white: Loc;
-    let white_empty: Loc;
-    let empty_black: Loc;
-    let black_black: Loc;
+    let blackWhite: Loc;
+    let whiteWhite: Loc;
+    let whiteEmpty: Loc;
+    let emptyBlack: Loc;
 
     switch (str) {
       case "ww.b":
-        {
-          const blackWhite = chain[0]; // top left
-          const whiteWhite = chain[1]; // top right
-          const whiteEmpty = chain[2]; // bottom right
-          const emptyBlack = chain[3]; // bottom left
-
-          // black -> white
-          for (const candidate of [1, 5, 7, 9])
-            if (puzzle.removeCandidate(blackWhite, candidate))
-              edits.push(new Edit(puzzle, blackWhite, candidate, this));
-
-          // white -> white
-          for (const candidate of [1, 4, 6, 8, 9])
-            if (puzzle.removeCandidate(whiteWhite, candidate))
-              edits.push(new Edit(puzzle, whiteWhite, candidate, this));
-
-          // white -> empty
-          for (const candidate of [3, 5, 7, 9])
-            if (puzzle.removeCandidate(whiteEmpty, candidate))
-              edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
-
-          // empty -> black
-          for (const candidate of [5, 7, 9])
-            if (puzzle.removeCandidate(emptyBlack, candidate))
-              edits.push(new Edit(puzzle, emptyBlack, candidate, this));
-        }
-
-        return edits;
-
+        blackWhite = chain[0]; // top left
+        whiteWhite = chain[1]; // top right
+        whiteEmpty = chain[2]; // bottom right
+        emptyBlack = chain[3]; // bottom left
+        break;
       case "b.ww":
-        {
-          const blackWhite = chain[0]; // top left
-          const whiteWhite = chain[3]; // top right
-          // const whiteEmpty = chain[0]; // bottom right
-          // const emptyBlack = chain[3]; // bottom left
+        blackWhite = chain[0]; // top left
+        whiteWhite = chain[3]; // top right
+        whiteEmpty = chain[2]; // bottom right
+        emptyBlack = chain[1]; // bottom left
 
-          // black -> white
-          for (const candidate of [1, 5, 7, 9])
-            if (puzzle.removeCandidate(blackWhite, candidate))
-              edits.push(new Edit(puzzle, blackWhite, candidate, this));
-
-          // white -> white
-          for (const candidate of [1, 4, 6, 8, 9])
-            if (puzzle.removeCandidate(whiteWhite, candidate))
-              edits.push(new Edit(puzzle, whiteWhite, candidate, this));
-
-          // white -> empty
-          // for (const candidate of [3, 5, 7, 9])
-          //   if (puzzle.removeCandidate(whiteEmpty, candidate))
-          //     edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
-
-          // empty -> black
-          // for (const candidate of [5, 7, 9])
-          //   if (puzzle.removeCandidate(emptyBlack, candidate))
-          //     edits.push(new Edit(puzzle, emptyBlack, candidate, this));
-        }
-
-        return edits;
+        break;
+      case "bww.":
+        blackWhite = chain[1]; // top right
+        whiteWhite = chain[2]; // bottom right
+        whiteEmpty = chain[3]; // bottom left 
+        emptyBlack = chain[0]; // top left
+        break;
       case ".wwb":
 
-      // return edits;
-      // for (const candidate of [1, 3, 5, 6, 7, 9])
-      //   if (puzzle.removeCandidate(chain[0], candidate))
-      //     edits.push(new Edit(puzzle, chain[0], candidate, this));
-      // return edits;
       case ".bww":
       case "wwb.":
 
       case "bww.":
       case "w.bw":
       case "wb.w":
-        console.log(`${str} == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`);
+        console.log(
+          `${puzzle.id} '${str}' == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`
+        );
 
         return edits;
       default:
@@ -108,6 +73,26 @@ export class Chain_Debww extends BaseDiamondChain {
       // default:
       //   return edits;
     }
+
+    // black -> white
+    for (const candidate of BLACK_WHITE)
+      if (puzzle.removeCandidate(blackWhite, candidate))
+        edits.push(new Edit(puzzle, blackWhite, candidate, this));
+
+    // // white -> white
+    for (const candidate of WHITE_WHITE)
+      if (puzzle.removeCandidate(whiteWhite, candidate))
+        edits.push(new Edit(puzzle, whiteWhite, candidate, this));
+
+    // white -> empty
+    for (const candidate of WHITE_EMPTY)
+      if (puzzle.removeCandidate(whiteEmpty, candidate))
+        edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
+
+    // empty -> black
+    for (const candidate of EMPTY_BLACK)
+      if (puzzle.removeCandidate(emptyBlack, candidate))
+        edits.push(new Edit(puzzle, emptyBlack, candidate, this));
 
     return edits;
   }
