@@ -36,6 +36,36 @@ export class ChainB extends BaseExplicitChainLength {
       edits.push(new Edit(puzzle, loc, candidate, this));
     }
 
+    const hash = new Set<number>();
+
+    for (const loc of cellChainLocs)
+      for (const candidate of puzzle.getCellCandidates(loc))
+        hash.add(candidate);
+
+    if (hash.size != 3) return edits;
+
+    const list = [...hash];
+
+    list.sort((a, b) => {
+      return a - b;
+    });
+
+    if (list[0] * 2 == list[1] && list[1] * 2 == list[2]) {
+      // if (puzzle.id != "008.kropki") return edits;
+
+      const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+
+      if (commonHouses.length == 0) return edits;
+
+      for (const house of commonHouses)
+        for (const loc of house)
+          if (
+            !loc.equals(cellChainLocs[0]) &&
+            !loc.equals(cellChainLocs[1]) &&
+            puzzle.removeCandidate(loc, list[1])
+          )
+            edits.push(new Edit(puzzle, loc, list[1], this));
+    }
     return edits;
   }
 }

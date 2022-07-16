@@ -5,7 +5,11 @@ import { ChainB } from "./src/new_solvers/ChainB";
 import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
 import { ChainE } from "./src/new_solvers/ChainE";
 import { ChainW } from "./src/new_solvers/ChainW";
-import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
+import {
+  HiddenSingle,
+  NakedPair,
+  NakedQuad,
+} from "./src/new_solvers/HiddenSingle";
 import { XWing } from "./src/new_solvers/XWing";
 import { HiddenPair } from "./src/new_solvers/HiddenPair";
 import { ChainBB } from "./src/new_solvers/ChainBB";
@@ -94,19 +98,63 @@ for (const str of puzzleStrings) {
 
         break;
 
-      case "012.kropki":
-      case "019.kropki":
+      case "004.kropki":
         resultingEdits.push(
           ...BaseKropkiChain.solve(puzzle, [
             new ChainB(),
             new ChainE(),
             new ChainW(),
-            new HiddenSingle(),
+            // new HiddenSingle(),
+            // new NakedPair(),
+            // new NakedQuad(),
+            new ChainDEWBB(),
+            // new ChainBB(),
           ])
         );
 
         break;
+
+      // case "005.kropki":
+      // case "006.kropki":
+      // case "007.kropki":
+      // case "008.kropki":
+      // case "009.kropki":
+      // case "010.kropki":
+      // case "011.kropki":
+      // case "012.kropki":
+      // case "013.kropki":
+      // case "014.kropki":
+      // case "015.kropki":
+      // case "016.kropki":
+      // case "017.kropki":
+      // case "018.kropki":
+      // case "019.kropki":
+      // case "020.kropki":
+      // case "021.kropki":
+      // case "022.kropki":
+      //   resultingEdits.push(
+      //     ...BaseKropkiChain.solve(puzzle, [
+      //       // new ChainB(),
+      //       // new ChainE(),
+      //       // new ChainW(),
+      //       // new HiddenSingle(),
+      //       new ChainDEWBB(),
+      //     ])
+      //   );
+
+      //   break;
+        // resultingEdits.push(
+        //   ...BaseKropkiChain.solve(puzzle, [
+        //     new ChainB(),
+        //     new ChainE(),
+        //     new ChainW(),
+        //     new HiddenSingle(),
+        //   ])
+        // );
+
+        break;
       default:
+        // console.log(`Unknown puzzle: '${puzzle.id}'`);
         resultingEdits.push(
           ...BaseKropkiChain.solve(puzzle, [
             new ChainB(),
