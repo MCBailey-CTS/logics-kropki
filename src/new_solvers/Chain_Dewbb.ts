@@ -4,7 +4,7 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
 import { Edit } from "../Edit";
 
-export class ChainDEWBB extends BaseDiamondChain {
+export class Chain_Dewbb extends BaseDiamondChain {
   solve(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
@@ -27,6 +27,8 @@ export class ChainDEWBB extends BaseDiamondChain {
     let black_black: Loc;
 
     switch (str) {
+      // case ".wbb":
+
       case "w.bb":
         black_white = chain[0];
         black_black = chain[3];
@@ -45,43 +47,21 @@ export class ChainDEWBB extends BaseDiamondChain {
             edits.push(new Edit(puzzle, empty_black, candidate, this));
 
         return edits;
-      case ".wbb": //
-
-      case "b.wb": //
-      // return this.solveExplicit(puzzle, chain, 0, 1, 3);
-      case "bbw.": //
-      // return this.solveExplicit(puzzle, chain, 0, 1, 2);
-      // return this.solveExplicit(puzzle, chain, 0, 2, 3);
-      // return this.solveExplicit(puzzle, chain, 0, 2, 3);
-
-      // black_white = chain[0];
-      // white_empty = chain[1];
-      // empty_black = chain[2];
-      // black_black = chain[3];
-      // break;
+        case ".wbb":
+        
+      case "b.wb":
+      case "bbw.":
       case ".bbw":
-      // black_white = chain[3];
-      // white_empty = chain[0];
-      // empty_black = chain[1];
-      // black_black = chain[2];
-      // break;
-      case "wbb.": // reverse
-      // const reverse = [...chain];
-
-      // reverse.reverse();
-
-      // edits.push(...this.solve(puzzle, reverse));
-      // return edits;
+      case "wbb.":
       case "bw.b":
       case "bb.w":
-        console.log(`unknown ${str} == `);
-
+        console.log(
+          `${puzzle.id} ${this.id} '${str}' == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`
+        );
         return edits;
       default:
         return edits;
     }
-
-    return edits;
   }
 
   solveExplicit(
@@ -126,5 +106,3 @@ export class ChainDEWBB extends BaseDiamondChain {
   //   return edits;
   // }
 }
-
-

@@ -58,19 +58,31 @@ export class Chain_Debww extends BaseDiamondChain {
         whiteEmpty = chain[1]; // top right
         emptyBlack = chain[0]; // top left
         break;
-      case "wwb.": 
+      case ".bww": // 10, 14, 18
+        whiteWhite = chain[3]; // bottom left
+        whiteEmpty = chain[0]; // top left
+        emptyBlack = chain[1]; // top right
+        blackWhite = chain[2]; // bottom right
+
+        break;
+      case "w.bw": // 18
+        whiteWhite = chain[0]; // top left
+        whiteEmpty = chain[1]; // top right
+        emptyBlack = chain[2]; // bottom right
+        blackWhite = chain[3]; // bottom left
+
+        break;
+      case "wwb.":
         blackWhite = chain[2]; // bottom right
         whiteWhite = chain[1]; // top right
         whiteEmpty = chain[0]; // top left
         emptyBlack = chain[3]; // bottom left
         break;
-      case ".bww": // 10, 14, 18
 
       case "bww.":
-      case "w.bw": // 18
       case "wb.w":
         console.log(
-          `${puzzle.id} '${str}' == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`
+          `${puzzle.id} ${this.id} '${str}' == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`
         );
         return edits;
       default:
@@ -100,24 +112,6 @@ export class Chain_Debww extends BaseDiamondChain {
       for (const candidate of EMPTY_BLACK)
         if (puzzle.removeCandidate(emptyBlack, candidate))
           edits.push(new Edit(puzzle, emptyBlack, candidate, this));
-
-    return edits;
-  }
-
-  solveExplicit(
-    puzzle: IKropkiPuzzle,
-    chain: Loc[],
-    ...indexes: number[]
-  ): IEdit[] {
-    const edits: IEdit[] = [];
-    for (const candidate of [1, 3, 6])
-      for (const loc of [
-        chain[indexes[0]],
-        chain[indexes[1]],
-        chain[indexes[2]],
-      ])
-        if (puzzle.removeCandidate(loc, candidate))
-          edits.push(new Edit(puzzle, loc, candidate, this));
 
     return edits;
   }
