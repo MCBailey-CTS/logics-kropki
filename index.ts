@@ -20,6 +20,8 @@ import { HiddenTriple } from "./src/new_solvers/HiddenTriple";
 import { ChainWW } from "./src/new_solvers/ChainWW";
 import { ChainDEBWB } from "./src/new_solvers/ChainDEBWB";
 import { ChainDEWBB } from "./src/new_solvers/ChainDEWBB";
+import { ChainDEWWW } from "./src/new_solvers/ChainDEWWW";
+import { IEdit } from "./src/interfaces/IEdit";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -52,14 +54,14 @@ const puzzleStrings = [
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
   NewPuzzles._Kropki_009,
-  NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_008,
   NewPuzzles._Kropki_007,
   NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_005,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
-  NewPuzzles._Kropki_008,
+  NewPuzzles._Kropki_001,
 ];
 
 // const totalEdits = [];
@@ -75,24 +77,59 @@ for (const str of puzzleStrings) {
   try {
     // puzzle.solve(solvers);
 
-    const resultingEdits = BaseKropkiChain.solve(puzzle, [
-      // new ChainB(),
-      // new ChainE(),
-      // new ChainW(),
-      // new ChainWW(),
-      // new HiddenSingle(),
-      // new ChainBB(),
-      // new ChainBW(),
-      // new ChainBWW(),
-      // new ChainDBWWW(),
-      // new ChainDWBBE(),
-      // new ChainDWBBE(),
-      // new ChainWWW(),
-      // new ChainWWWW(),
-      // new HiddenPair(),
-      // new ChainDEBWB(),
-      new ChainDEWBB(),
-    ]);
+    const resultingEdits: IEdit[] = [];
+
+    switch (puzzle.id) {
+      case "001.kropki":
+      case "002.kropki":
+      case "003.kropki":
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new HiddenSingle(),
+          ])
+        );
+
+        break;
+
+      case "012.kropki":
+      case "019.kropki":
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new HiddenSingle(),
+          ])
+        );
+
+        break;
+      default:
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new ChainWW(),
+            new HiddenSingle(),
+            new ChainBB(),
+            new ChainBW(),
+            new ChainBWW(),
+            new ChainDBWWW(),
+            new ChainDWBBE(),
+            new ChainDWBBE(),
+            new ChainWWW(),
+            // new ChainWWWW(),
+            // new HiddenPair(),
+            new ChainDEBWB(),
+            new ChainDEWBB(),
+            new ChainDEWWW(),
+          ])
+        );
+        break;
+    }
 
     totalEdits += resultingEdits.length;
 

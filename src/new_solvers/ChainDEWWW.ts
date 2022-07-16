@@ -4,7 +4,7 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
 import { Edit } from "../Edit";
 
-export class ChainDEWBB extends BaseDiamondChain {
+export class ChainDEWWW extends BaseDiamondChain {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
@@ -22,15 +22,7 @@ export class ChainDEWBB extends BaseDiamondChain {
 
       str += puzzle.getCellString(puzzle.getIntersection(temp[3], temp[0]));
 
-      if (str == "bbw.") {
-        const newTemp = [...temp];
-
-        newTemp.reverse();
-        edits.push(...this.solveExplicit(puzzle, newTemp));
-        break;
-      }
-
-      if (str == ".wbb") {
+      if (str == ".www") {
         edits.push(...this.solveExplicit(puzzle, temp));
         break;
       }
@@ -48,28 +40,17 @@ export class ChainDEWBB extends BaseDiamondChain {
   solveExplicit(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
+    const white_empty = locs[0];
     const empty_white = locs[1];
-    const white_black = locs[2];
-    const black_black = locs[3];
-    const black_empty = locs[0];
+    const white_white0 = locs[2];
+    const white_white1 = locs[3];
 
-    // puzzle.removeCandidate(temp[0], 1);
-    for (const candidate of [3, 6])
-      for (const corner of [white_black, black_black, black_empty])
-        if (puzzle.removeCandidate(corner, candidate))
-          edits.push(new Edit(puzzle, corner, candidate, this));
-    // puzzle.removeCandidate(white_black, 6);
+    if (puzzle.removeCandidate(white_empty, 3))
+      edits.push(new Edit(puzzle, white_empty, 3, this));
 
-    // puzzle.removeCandidate(black_black, 3);
-    // puzzle.removeCandidate(black_black, 6);
-
-    // puzzle.removeCandidate(black_empty, 3);
-    // puzzle.removeCandidate(black_empty, 6);
+    if (puzzle.removeCandidate(empty_white, 3))
+      edits.push(new Edit(puzzle, empty_white, 3, this));
 
     return edits;
   }
 }
-
-
-
-

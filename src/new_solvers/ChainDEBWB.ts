@@ -36,7 +36,7 @@ export class ChainDEBWB extends BaseDiamondChain {
 
         const allCandidates = new Set<number>([...set0, ...set1]);
 
-        console.log(allCandidates);
+        // console.log(allCandidates);
 
         if (
           puzzle.getCellString(loc234_0) == "_234_____" &&
