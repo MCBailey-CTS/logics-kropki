@@ -26,6 +26,7 @@ import { ChainDEBWB } from "./src/new_solvers/ChainDEBWB";
 import { ChainDEWBB } from "./src/new_solvers/ChainDEWBB";
 import { ChainDEWWW } from "./src/new_solvers/ChainDEWWW";
 import { IEdit } from "./src/interfaces/IEdit";
+import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
 // import { KropkiChain2 } from "./src/new_solvers/KropkiChain";
 
 const solvers: IKropkiSolver[] = [
@@ -74,6 +75,27 @@ let totalEdits = 0;
 
 const solvedPuzzles = [];
 
+const masterSolvers: IKropkiChain[] = [
+  new ChainB(),
+  new ChainE(),
+  new ChainW(),
+  // new ChainWW(),
+  // new HiddenSingle(),
+  new ChainBB(),
+  new ChainBW(),
+  new ChainBWW(),
+  new ChainDBWWW(),
+  new ChainDWBBE(),
+  new ChainDWBBE(),
+  new NakedPair(),
+  new ChainWWW(),
+  new ChainWWWW(),
+  // new HiddenPair(),
+  // new ChainDEBWB(),
+  new ChainDEWBB(),
+  // new ChainDEWWW(),
+];
+
 for (const str of puzzleStrings) {
   // console.log("///////////////");
 
@@ -104,57 +126,13 @@ for (const str of puzzleStrings) {
             new ChainB(),
             new ChainE(),
             new ChainW(),
-            // new HiddenSingle(),
-            // new NakedPair(),
-            // new NakedQuad(),
+            new NakedPair(),
             new ChainDEWBB(),
-            // new ChainBB(),
           ])
         );
 
         break;
-
-      // case "005.kropki":
-      // case "006.kropki":
-      // case "007.kropki":
-      // case "008.kropki":
-      // case "009.kropki":
-      // case "010.kropki":
-      // case "011.kropki":
-      // case "012.kropki":
-      // case "013.kropki":
-      // case "014.kropki":
-      // case "015.kropki":
-      // case "016.kropki":
-      // case "017.kropki":
-      // case "018.kropki":
-      // case "019.kropki":
-      // case "020.kropki":
-      // case "021.kropki":
-      // case "022.kropki":
-      //   resultingEdits.push(
-      //     ...BaseKropkiChain.solve(puzzle, [
-      //       // new ChainB(),
-      //       // new ChainE(),
-      //       // new ChainW(),
-      //       // new HiddenSingle(),
-      //       new ChainDEWBB(),
-      //     ])
-      //   );
-
-      //   break;
-        // resultingEdits.push(
-        //   ...BaseKropkiChain.solve(puzzle, [
-        //     new ChainB(),
-        //     new ChainE(),
-        //     new ChainW(),
-        //     new HiddenSingle(),
-        //   ])
-        // );
-
-        break;
-      default:
-        // console.log(`Unknown puzzle: '${puzzle.id}'`);
+      case "006.kropki":
         resultingEdits.push(
           ...BaseKropkiChain.solve(puzzle, [
             new ChainB(),
@@ -168,14 +146,42 @@ for (const str of puzzleStrings) {
             new ChainDBWWW(),
             new ChainDWBBE(),
             new ChainDWBBE(),
+            new NakedPair(),
             new ChainWWW(),
-            // new ChainWWWW(),
+            new ChainWWWW(),
             // new HiddenPair(),
-            new ChainDEBWB(),
+            // new ChainDEBWB(),
             new ChainDEWBB(),
-            new ChainDEWWW(),
+            // new ChainDEWWW(),
           ])
         );
+
+        break;
+      case "005.kropki":
+
+      case "007.kropki":
+      case "008.kropki":
+      case "009.kropki":
+      case "010.kropki":
+      case "011.kropki":
+      case "012.kropki":
+      case "013.kropki":
+      case "014.kropki":
+      case "015.kropki":
+      case "016.kropki":
+      case "017.kropki":
+      case "018.kropki":
+      case "019.kropki":
+      case "020.kropki":
+      case "021.kropki":
+      case "022.kropki":
+        resultingEdits.push(...BaseKropkiChain.solve(puzzle, masterSolvers));
+
+        break;
+
+      default:
+        console.log(`Unknown puzzle: '${puzzle.id}'`);
+
         break;
     }
 
