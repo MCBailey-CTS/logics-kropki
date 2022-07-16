@@ -27,34 +27,62 @@ export class Chain_Debww extends BaseDiamondChain {
 
     switch (str) {
       case "ww.b":
-        const topLeft_blackWhite = chain[0];
-        const topRight_whiteWhite = chain[1];
-        const bottomRight_whiteEmpty = chain[2];
-        const bottomLeft_emptyBlack = chain[3];
+        {
+          const blackWhite = chain[0]; // top left
+          const whiteWhite = chain[1]; // top right
+          const whiteEmpty = chain[2]; // bottom right
+          const emptyBlack = chain[3]; // bottom left
 
-        // black -> white
-        for (const candidate of [1, 5, 7, 9])
-          if (puzzle.removeCandidate(topLeft_blackWhite, candidate))
-            edits.push(new Edit(puzzle, topLeft_blackWhite, candidate, this));
+          // black -> white
+          for (const candidate of [1, 5, 7, 9])
+            if (puzzle.removeCandidate(blackWhite, candidate))
+              edits.push(new Edit(puzzle, blackWhite, candidate, this));
 
-        // white -> white
-        for (const candidate of [1, 4, 6, 8, 9])
-          if (puzzle.removeCandidate(topRight_whiteWhite, candidate))
-            edits.push(new Edit(puzzle, topRight_whiteWhite, candidate, this));
+          // white -> white
+          for (const candidate of [1, 4, 6, 8, 9])
+            if (puzzle.removeCandidate(whiteWhite, candidate))
+              edits.push(new Edit(puzzle, whiteWhite, candidate, this));
 
-        // white -> empty
-        for (const candidate of [3, 5, 7, 9])
-          if (puzzle.removeCandidate(bottomRight_whiteEmpty, candidate))
-            edits.push(
-              new Edit(puzzle, bottomRight_whiteEmpty, candidate, this)
-            );
+          // white -> empty
+          for (const candidate of [3, 5, 7, 9])
+            if (puzzle.removeCandidate(whiteEmpty, candidate))
+              edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
 
-        // empty -> black
-        for (const candidate of [5, 7, 9])
-          if (puzzle.removeCandidate(bottomLeft_emptyBlack, candidate))
-            edits.push(
-              new Edit(puzzle, bottomLeft_emptyBlack, candidate, this)
-            );
+          // empty -> black
+          for (const candidate of [5, 7, 9])
+            if (puzzle.removeCandidate(emptyBlack, candidate))
+              edits.push(new Edit(puzzle, emptyBlack, candidate, this));
+        }
+
+        return edits;
+
+      case "b.ww":
+        {
+          const blackWhite = chain[0]; // top left
+          const whiteWhite = chain[3]; // top right
+          // const whiteEmpty = chain[0]; // bottom right
+          // const emptyBlack = chain[3]; // bottom left
+
+          // black -> white
+          for (const candidate of [1, 5, 7, 9])
+            if (puzzle.removeCandidate(blackWhite, candidate))
+              edits.push(new Edit(puzzle, blackWhite, candidate, this));
+
+          // white -> white
+          for (const candidate of [1, 4, 6, 8, 9])
+            if (puzzle.removeCandidate(whiteWhite, candidate))
+              edits.push(new Edit(puzzle, whiteWhite, candidate, this));
+
+          // white -> empty
+          // for (const candidate of [3, 5, 7, 9])
+          //   if (puzzle.removeCandidate(whiteEmpty, candidate))
+          //     edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
+
+          // empty -> black
+          // for (const candidate of [5, 7, 9])
+          //   if (puzzle.removeCandidate(emptyBlack, candidate))
+          //     edits.push(new Edit(puzzle, emptyBlack, candidate, this));
+        }
 
         return edits;
       case ".wwb":
@@ -64,7 +92,6 @@ export class Chain_Debww extends BaseDiamondChain {
       //   if (puzzle.removeCandidate(chain[0], candidate))
       //     edits.push(new Edit(puzzle, chain[0], candidate, this));
       // return edits;
-      case "b.ww":
       case ".bww":
       case "wwb.":
 

@@ -250,35 +250,34 @@ for (const str of puzzleStrings) {
         break;
 
       case "007.kropki":
-        
-          resultingEdits.push(
-            ...BaseKropkiChain.solve(puzzle, [
-              new ChainB(),
-              new ChainE(),
-              new ChainW(),
-              new Chain_Debww(),
-              // new NakedPair(),
-              // new HiddenSingle(),
-              // new ChainDEWWW(),
-              // new ChainWWW(),
-              // new ChainWW(),
-              // new ChainDEBWB(),
-              // new ChainBB(),
-              // new ChainBW(),
-              // new ChainBWW(),
-              // new ChainDBWWW(),
-              // new ChainDWBBE(),
-              // new ChainDWBBE(),
-              // new ChainWWW(),
-              // new ChainWWWW(),
-              // new HiddenPair(),
-              // new ChainDEBWB(),
-              // new ChainDEWBB(),
-              // new ChainDEWWW(),
-            ])
-          );
-  
-          break;
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            // new ChainB(),
+            // new ChainE(),
+            // new ChainW(),
+            new Chain_Debww(),
+            // new NakedPair(),
+            // new HiddenSingle(),
+            // new ChainDEWWW(),
+            // new ChainWWW(),
+            // new ChainWW(),
+            // new ChainDEBWB(),
+            // new ChainBB(),
+            // new ChainBW(),
+            // new ChainBWW(),
+            // new ChainDBWWW(),
+            // new ChainDWBBE(),
+            // new ChainDWBBE(),
+            // new ChainWWW(),
+            // new ChainWWWW(),
+            // new HiddenPair(),
+            // new ChainDEBWB(),
+            // new ChainDEWBB(),
+            // new ChainDEWWW(),
+          ])
+        );
+
+        break;
       case "008.kropki":
 
       case "011.kropki":
