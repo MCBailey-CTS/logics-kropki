@@ -46,6 +46,15 @@ const solvers: IKropkiSolver[] = [
 ];
 
 const puzzleStrings = [
+  NewPuzzles._Kropki_006,
+  NewPuzzles._Kropki_008,
+  NewPuzzles._Kropki_007,
+  NewPuzzles._Kropki_005,
+  NewPuzzles._Kropki_004,
+  NewPuzzles._Kropki_003,
+  NewPuzzles._Kropki_002,
+  NewPuzzles._Kropki_001,
+
   NewPuzzles._Kropki_022,
   NewPuzzles._Kropki_021,
   NewPuzzles._Kropki_019,
@@ -58,15 +67,8 @@ const puzzleStrings = [
   NewPuzzles._Kropki_012,
   NewPuzzles._Kropki_011,
   NewPuzzles._Kropki_010,
+
   NewPuzzles._Kropki_009,
-  NewPuzzles._Kropki_008,
-  NewPuzzles._Kropki_007,
-  NewPuzzles._Kropki_006,
-  NewPuzzles._Kropki_005,
-  NewPuzzles._Kropki_004,
-  NewPuzzles._Kropki_003,
-  NewPuzzles._Kropki_002,
-  NewPuzzles._Kropki_001,
 ];
 
 // const totalEdits = [];
@@ -76,24 +78,24 @@ let totalEdits = 0;
 const solvedPuzzles = [];
 
 const masterSolvers: IKropkiChain[] = [
-  new ChainB(),
-  new ChainE(),
-  new ChainW(),
-  // new ChainWW(),
-  // new HiddenSingle(),
-  new ChainBB(),
-  new ChainBW(),
-  new ChainBWW(),
-  new ChainDBWWW(),
-  new ChainDWBBE(),
-  new ChainDWBBE(),
-  new NakedPair(),
-  new ChainWWW(),
-  new ChainWWWW(),
-  // new HiddenPair(),
-  // new ChainDEBWB(),
-  new ChainDEWBB(),
-  // new ChainDEWWW(),
+  // new ChainB(),
+  // new ChainE(),
+  // new ChainW(),
+  // // new ChainWW(),
+  // // new HiddenSingle(),
+  // new ChainBB(),
+  // new ChainBW(),
+  // new ChainBWW(),
+  // new ChainDBWWW(),
+  // new ChainDWBBE(),
+  // new ChainDWBBE(),
+  // new NakedPair(),
+  // new ChainWWW(),
+  // new ChainWWWW(),
+  // // new HiddenPair(),
+  // // new ChainDEBWB(),
+  // new ChainDEWBB(),
+  // // new ChainDEWWW(),
 ];
 
 for (const str of puzzleStrings) {
@@ -119,8 +121,66 @@ for (const str of puzzleStrings) {
         );
 
         break;
+      case "009.kropki":
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new NakedPair(),
+            new HiddenSingle(),
+            new ChainDEWWW(),
+            new ChainWWW(),
+            new ChainWW(),
+            new ChainDEBWB(),
+            new ChainBB(),
+            new ChainBW(),
+            new ChainBWW(),
+            new ChainDBWWW(),
+            new ChainDWBBE(),
+            new ChainDWBBE(),
+            new ChainWWW(),
+            new ChainWWWW(),
+            new HiddenPair(),
+            new ChainDEBWB(),
+            new ChainDEWBB(),
+            new ChainDEWWW(),
+          ])
+        );
+
+        break;
+
+      case "018.kropki":
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new NakedPair(),
+            new HiddenSingle(),
+            new ChainDEWWW(),
+            new ChainWWW(),
+            new ChainWW(),
+            new ChainDEBWB(),
+            new ChainBB(),
+            new ChainBW(),
+            new ChainBWW(),
+            new ChainDBWWW(),
+            new ChainDWBBE(),
+            new ChainDWBBE(),
+            new ChainWWW(),
+            new ChainWWWW(),
+            new HiddenPair(),
+            new ChainDEBWB(),
+            new ChainDEWBB(),
+            new ChainDEWWW(),
+          ])
+        );
+
+        break;
 
       case "004.kropki":
+      case "005.kropki":
         resultingEdits.push(
           ...BaseKropkiChain.solve(puzzle, [
             new ChainB(),
@@ -130,7 +190,6 @@ for (const str of puzzleStrings) {
             new ChainDEWBB(),
           ])
         );
-
         break;
       case "006.kropki":
         resultingEdits.push(
@@ -138,31 +197,61 @@ for (const str of puzzleStrings) {
             new ChainB(),
             new ChainE(),
             new ChainW(),
-            new ChainWW(),
+            new NakedPair(),
             new HiddenSingle(),
+            new ChainDEWWW(),
+            new ChainWWW(),
+            new ChainWW(),
+            new ChainDEBWB(),
             new ChainBB(),
             new ChainBW(),
             new ChainBWW(),
             new ChainDBWWW(),
             new ChainDWBBE(),
             new ChainDWBBE(),
-            new NakedPair(),
             new ChainWWW(),
             new ChainWWWW(),
-            // new HiddenPair(),
-            // new ChainDEBWB(),
+            new HiddenPair(),
+            new ChainDEBWB(),
             new ChainDEWBB(),
-            // new ChainDEWWW(),
+            new ChainDEWWW(),
           ])
         );
 
         break;
-      case "005.kropki":
+
+      case "010.kropki":
+        resultingEdits.push(
+          ...BaseKropkiChain.solve(puzzle, [
+            new ChainB(),
+            new ChainE(),
+            new ChainW(),
+            new NakedPair(),
+            new HiddenSingle(),
+            new ChainDEWWW(),
+            new ChainWWW(),
+            new ChainWW(),
+            new ChainDEBWB(),
+            new ChainBB(),
+            new ChainBW(),
+            new ChainBWW(),
+            new ChainDBWWW(),
+            new ChainDWBBE(),
+            new ChainDWBBE(),
+            new ChainWWW(),
+            new ChainWWWW(),
+            new HiddenPair(),
+            new ChainDEBWB(),
+            new ChainDEWBB(),
+            new ChainDEWWW(),
+          ])
+        );
+
+        break;
 
       case "007.kropki":
       case "008.kropki":
-      case "009.kropki":
-      case "010.kropki":
+
       case "011.kropki":
       case "012.kropki":
       case "013.kropki":
@@ -170,7 +259,7 @@ for (const str of puzzleStrings) {
       case "015.kropki":
       case "016.kropki":
       case "017.kropki":
-      case "018.kropki":
+
       case "019.kropki":
       case "020.kropki":
       case "021.kropki":

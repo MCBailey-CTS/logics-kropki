@@ -27,14 +27,32 @@ export class ChainDEWBB extends BaseDiamondChain {
     let black_black: Loc;
 
     switch (str) {
-      case "b.wb": //
-        return this.solveExplicit(puzzle, chain, 0, 1, 3);
-      case "bbw.": //
-        return this.solveExplicit(puzzle, chain, 0, 1, 2);
-      case ".wbb": //
-        return this.solveExplicit(puzzle, chain, 0, 2, 3);
       case "w.bb":
-        return this.solveExplicit(puzzle, chain, 0, 2, 3);
+        black_white = chain[0];
+        black_black = chain[3];
+        empty_black = chain[2];
+
+        for (const candidate of [1, 3, 5, 6, 7, 9])
+          if (puzzle.removeCandidate(black_white, candidate))
+            edits.push(new Edit(puzzle, black_white, candidate, this));
+
+        for (const candidate of [1, 3, 5, 6, 7, 8, 9])
+          if (puzzle.removeCandidate(black_black, candidate))
+            edits.push(new Edit(puzzle, black_black, candidate, this));
+
+        for (const candidate of [3, 5, 6, 7, 9])
+          if (puzzle.removeCandidate(empty_black, candidate))
+            edits.push(new Edit(puzzle, empty_black, candidate, this));
+
+        return edits;
+      case ".wbb": //
+
+      case "b.wb": //
+      // return this.solveExplicit(puzzle, chain, 0, 1, 3);
+      case "bbw.": //
+      // return this.solveExplicit(puzzle, chain, 0, 1, 2);
+      // return this.solveExplicit(puzzle, chain, 0, 2, 3);
+      // return this.solveExplicit(puzzle, chain, 0, 2, 3);
 
       // black_white = chain[0];
       // white_empty = chain[1];
@@ -56,17 +74,12 @@ export class ChainDEWBB extends BaseDiamondChain {
       // return edits;
       case "bw.b":
       case "bb.w":
-        console.log(`unknown ${str}`);
+        console.log(`unknown ${str} == `);
 
         return edits;
       default:
         return edits;
     }
-
-    for (const candidate of [1, 3, 6])
-      for (const loc of [black_white, black_black, empty_black])
-        if (puzzle.removeCandidate(loc, candidate))
-          edits.push(new Edit(puzzle, loc, candidate, this));
 
     return edits;
   }

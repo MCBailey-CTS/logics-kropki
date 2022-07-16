@@ -51,6 +51,18 @@ export class ChainDEWWW extends BaseDiamondChain {
     if (puzzle.removeCandidate(empty_white, 3))
       edits.push(new Edit(puzzle, empty_white, 3, this));
 
+    if (puzzle.removeCandidate(white_white0, 1))
+      edits.push(new Edit(puzzle, white_white0, 1, this));
+
+    if (puzzle.removeCandidate(white_white0, 9))
+      edits.push(new Edit(puzzle, white_white0, 9, this));
+
+    if (puzzle.removeCandidate(white_white1, 1))
+      edits.push(new Edit(puzzle, white_white1, 1, this));
+
+    if (puzzle.removeCandidate(white_white1, 9))
+      edits.push(new Edit(puzzle, white_white1, 9, this));
+
     return edits;
   }
 }
