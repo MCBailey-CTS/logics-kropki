@@ -4,6 +4,7 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiChain } from "../new_solvers/IKropkiChain";
 import { NewTechniques } from "../NewTechniques";
 import { cellCandidates } from "../puzzles/KropkiPuzzle";
+import { Edit } from "../Edit";
 
 export abstract class BaseKropkiChain implements IKropkiChain {
   abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
@@ -30,6 +31,18 @@ export abstract class BaseKropkiChain implements IKropkiChain {
 
     return edits;
   }
+
+  remove(puzzle:IKropkiPuzzle, loc:Loc, ...candidates:number[] ):IEdit[] {
+    const edits:IEdit[] = [];
+    
+    for (const candidate of candidates)
+      if (puzzle.removeCandidate(loc, candidate))
+        edits.push(new Edit(puzzle, loc, candidate, this));
+
+        return edits;
+  }
+
+
 }
 
 

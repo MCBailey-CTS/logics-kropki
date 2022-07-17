@@ -10,109 +10,60 @@ const EMPTY_BLACK = [5, 7, 9];
 const WHITE_WHITE = [1, 4, 6, 8, 9];
 
 export class Chain_Debww extends BaseDiamondChain {
-  // solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
+  solve1(
+    puzzle: IKropkiPuzzle,
+    blackWhite: Loc | undefined,
+    whiteWhite: Loc | undefined,
+    whiteEmpty: Loc | undefined,
+    emptyBlack: Loc | undefined
+  ): IEdit[] {
+    const edits: IEdit[] = [];
+
+    // black -> white
+    if (blackWhite)
+      edits.push(...this.remove(puzzle, blackWhite, ...BLACK_WHITE));
+
+    // white -> white
+    if (whiteWhite)
+      edits.push(...this.remove(puzzle, whiteWhite, ...WHITE_WHITE));
+
+    // white -> empty
+    if (whiteEmpty)
+      edits.push(...this.remove(puzzle, whiteEmpty, ...WHITE_EMPTY));
+
+    // empty -> black
+    if (emptyBlack)
+      edits.push(...this.remove(puzzle, emptyBlack, ...EMPTY_BLACK));
+
+    return edits;
+  }
 
   solve(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    // const chain = [...chain];
-    let str = "";
-
-    for (let i = 0; i < chain.length - 1; i++) {
-      const loc0 = chain[i];
-      const loc1 = chain[i + 1];
-
-      str += puzzle.getCellString(puzzle.getIntersection(loc0, loc1));
-    }
-
-    str += puzzle.getCellString(puzzle.getIntersection(chain[3], chain[0]));
-
-    let blackWhite: Loc | undefined;
-    let whiteWhite: Loc | undefined;
-    let whiteEmpty: Loc | undefined;
-    let emptyBlack: Loc | undefined;
+    let str = this.getKropkiString(puzzle, chain);
 
     switch (str) {
       case "ww.b":
-        blackWhite = chain[0]; // top left
-        whiteWhite = chain[1]; // top right
-        whiteEmpty = chain[2]; // bottom right
-        emptyBlack = chain[3]; // bottom left
-        break;
+        return this.solve1(puzzle, chain[0], chain[1], chain[2], chain[3]);
+      case "bww.":
+        return this.solve1(puzzle, chain[1], chain[2], chain[3], chain[0]);
+      case ".bww":
+        return this.solve1(puzzle, chain[2], chain[3], chain[0], chain[1]);
+      case "w.bw":
+        return this.solve1(puzzle, chain[3], chain[0], chain[1], chain[2]);
+
       case "b.ww":
-        blackWhite = chain[0]; // top left
-        whiteWhite = chain[3]; // top right
-        whiteEmpty = chain[2]; // bottom right
-        emptyBlack = chain[1]; // bottom left
-
-        break;
-      case "bww.":
-        blackWhite = chain[1]; // top right
-        whiteWhite = chain[2]; // bottom right
-        whiteEmpty = chain[3]; // bottom left
-        emptyBlack = chain[0]; // top left
-        break;
-      case ".wwb":
-        blackWhite = chain[3]; // bottom left
-        whiteWhite = chain[2]; // bottom right
-        whiteEmpty = chain[1]; // top right
-        emptyBlack = chain[0]; // top left
-        break;
-      case ".bww": // 10, 14, 18
-        whiteWhite = chain[3]; // bottom left
-        whiteEmpty = chain[0]; // top left
-        emptyBlack = chain[1]; // top right
-        blackWhite = chain[2]; // bottom right
-
-        break;
-      case "w.bw": // 18
-        whiteWhite = chain[0]; // top left
-        whiteEmpty = chain[1]; // top right
-        emptyBlack = chain[2]; // bottom right
-        blackWhite = chain[3]; // bottom left
-
-        break;
-      case "wwb.":
-        blackWhite = chain[2]; // bottom right
-        whiteWhite = chain[1]; // top right
-        whiteEmpty = chain[0]; // top left
-        emptyBlack = chain[3]; // bottom left
-        break;
-
-      case "bww.":
+        return this.solve1(puzzle, chain[0], chain[3], chain[2], chain[1]);
       case "wb.w":
-        console.log(
-          `${puzzle.id} ${this.id} '${str}' == ${chain[0]}${chain[1]}${chain[2]}${chain[3]}`
-        );
-        return edits;
+        return this.solve1(puzzle, chain[1], chain[0], chain[3], chain[2]);
+      case "wwb.":
+        return this.solve1(puzzle, chain[2], chain[1], chain[0], chain[3]);
+      case ".wwb":
+        return this.solve1(puzzle, chain[3], chain[2], chain[1], chain[0]);
+
       default:
         return edits;
     }
-
-    // black -> white
-    if (blackWhite)
-      for (const candidate of BLACK_WHITE)
-        if (puzzle.removeCandidate(blackWhite, candidate))
-          edits.push(new Edit(puzzle, blackWhite, candidate, this));
-
-    // white -> white
-    if (whiteWhite)
-      for (const candidate of WHITE_WHITE)
-        if (puzzle.removeCandidate(whiteWhite, candidate))
-          edits.push(new Edit(puzzle, whiteWhite, candidate, this));
-
-    // white -> empty
-    if (whiteEmpty)
-      for (const candidate of WHITE_EMPTY)
-        if (puzzle.removeCandidate(whiteEmpty, candidate))
-          edits.push(new Edit(puzzle, whiteEmpty, candidate, this));
-
-    // empty -> black
-    if (emptyBlack)
-      for (const candidate of EMPTY_BLACK)
-        if (puzzle.removeCandidate(emptyBlack, candidate))
-          edits.push(new Edit(puzzle, emptyBlack, candidate, this));
-
-    return edits;
   }
 }

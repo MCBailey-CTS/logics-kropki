@@ -47,8 +47,8 @@ const masterSolvers: IKropkiChain[] = [
   // new ChainW(),
   // new HiddenSingle(),
   // new ChainBB(),
-  new Chain_Dewbb(),
-  // new Chain_Debww(),
+  // new Chain_Dewbb(),
+  new Chain_Debww(),
 ];
 
 for (const str of puzzleStrings) {
