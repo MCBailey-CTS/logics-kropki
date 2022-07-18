@@ -2,9 +2,7 @@ import { IEdit } from "./interfaces/IEdit";
 import { IKropkiPuzzle } from "./interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "./interfaces/IKropkiSolver";
 import { Loc } from "./Loc";
-import { IKropkiChain } from "./new_solvers/IKropkiChain";
-
-// MainFunction();
+import { IKropkiChain } from "./solvers/IKropkiChain";
 
 export class Edit implements IEdit {
   private readonly _candidate: number;

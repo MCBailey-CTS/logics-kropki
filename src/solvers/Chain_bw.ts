@@ -1,10 +1,10 @@
-import { Loc } from "../Loc";
+import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Edit } from "../Edit";
-import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
+import { Loc } from "../Loc";
 
-export class Chain_ww extends BaseExplicitChainLength {
+export class Chain_bw extends _BaseExplicitChainLength {
   get chainLength(): number {
     return 3;
   }
@@ -20,7 +20,7 @@ export class Chain_ww extends BaseExplicitChainLength {
 
     const iStr1 = puzzle.getCellString(iLoc1);
 
-    if (iStr0 + iStr1 != "ww") return edits;
+    if (iStr0 + iStr1 != "bw" && iStr0 + iStr1 != "wb") return edits;
 
     const commonHouses = puzzle.getCommonHouses(cellChainLocs);
 
@@ -28,17 +28,6 @@ export class Chain_ww extends BaseExplicitChainLength {
 
     if (puzzle.removeCandidate(cellChainLocs[1], 1))
       edits.push(new Edit(puzzle, cellChainLocs[1], 1, this));
-
-    if (puzzle.removeCandidate(cellChainLocs[1], puzzle.length))
-      edits.push(new Edit(puzzle, cellChainLocs[1], puzzle.length, this));
-
-    if (
-      !puzzle.getCellSet(cellChainLocs[0]).has(1) &&
-      puzzle.getCellSet(cellChainLocs[1]).has(2) &&
-      !puzzle.getCellSet(cellChainLocs[2]).has(1) &&
-      puzzle.removeCandidate(cellChainLocs[1], 2)
-    )
-      edits.push(new Edit(puzzle, cellChainLocs[1], 2, this));
 
     return edits;
   }

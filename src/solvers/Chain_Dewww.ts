@@ -1,10 +1,9 @@
-import { Loc } from "../Loc";
+import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
-import { Edit } from "../Edit";
+import { Loc } from "../Loc";
 
-export class Chain_Dewww extends BaseDiamondChain {
+export class Chain_Dewww extends _BaseDiamondChain {
   get expectedKropkiString(): string {
     return "www.";
   }

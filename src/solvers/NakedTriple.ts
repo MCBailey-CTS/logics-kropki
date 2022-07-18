@@ -1,12 +1,11 @@
-import { Loc } from "../Loc";
+import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Edit } from "../Edit";
-import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
+import { Loc } from "../Loc";
 import { NewTechniques } from "../NewTechniques";
 
-
-export class NakedQuad extends BaseKropkiChain {
+export class NakedTriple extends _BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 
@@ -19,7 +18,7 @@ export class NakedQuad extends BaseKropkiChain {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (NewTechniques.solveSudokuNakedQuadLocs(
+    if (NewTechniques.solveSudokuNakedTripleLocs(
       puzzle.grid,
       puzzle.length,
       cellChainLocs

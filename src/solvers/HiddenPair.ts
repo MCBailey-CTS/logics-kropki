@@ -1,10 +1,10 @@
-import { Loc } from "../Loc";
+import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Edit } from "../Edit";
-import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
+import { Loc } from "../Loc";
 
-export class HiddenPair extends BaseKropkiChain {
+export class HiddenPair extends _BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 

@@ -1,23 +1,24 @@
-import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
+
+import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
 import { IEdit } from "./src/interfaces/IEdit";
 import { NewPuzzles } from "./src/NewPuzzles";
-import { Chain_b } from "./src/new_solvers/Chain_b";
-import { Chain_bb } from "./src/new_solvers/Chain_bb";
-import { Chain_e } from "./src/new_solvers/Chain_e";
-import { Chain_bw } from "./src/new_solvers/Chain_bw";
-import { Chain_Dbwww } from "./src/new_solvers/Chain_Dbwww";
-import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
-import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
-import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
-import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
-import { Chain_w } from "./src/new_solvers/Chain_w";
-import { Chain_ww } from "./src/new_solvers/Chain_ww";
-import { CrossHatch } from "./src/new_solvers/CrossHatch";
-import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
-import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
-import { NakedPair } from "./src/new_solvers/NakedPair";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
-import { Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
+import { Chain_b } from "./src/solvers/Chain_b";
+import { Chain_bb } from "./src/solvers/Chain_bb";
+import { Chain_bw } from "./src/solvers/Chain_bw";
+import { Chain_Dbwww } from "./src/solvers/Chain_Dbwww";
+import { Chain_Debwb } from "./src/solvers/Chain_Debwb";
+import { Chain_Debww } from "./src/solvers/Chain_Debww";
+import { Chain_Dewbb } from "./src/solvers/Chain_Dewbb";
+import { Chain_Dewbw } from "./src/solvers/Chain_Dewbw";
+import { Chain_Dewww } from "./src/solvers/Chain_Dewww";
+import { Chain_e } from "./src/solvers/Chain_e";
+import { Chain_w } from "./src/solvers/Chain_w";
+import { Chain_ww } from "./src/solvers/Chain_ww";
+import { CrossHatch } from "./src/solvers/CrossHatch";
+import { HiddenSingle } from "./src/solvers/HiddenSingle";
+import { IKropkiChain } from "./src/solvers/IKropkiChain";
+import { NakedPair } from "./src/solvers/NakedPair";
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
@@ -99,7 +100,7 @@ for (const str of puzzleStrings) {
       case "020.kropki":
       case "021.kropki":
       case "022.kropki":
-        resultingEdits.push(...BaseKropkiChain.solve(puzzle, masterSolvers));
+        resultingEdits.push(..._BaseKropkiChain.solve(puzzle, masterSolvers));
 
         break;
 

@@ -1,9 +1,9 @@
-import { Loc } from "../Loc";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { Loc } from "../Loc";
 import { LocSet } from "../LocSet";
-import { BaseKropkiChain } from "./BaseKropkiChain";
+import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
-export abstract class BaseExplicitChainLength extends BaseKropkiChain {
+export abstract class _BaseExplicitChainLength extends _BaseKropkiChain {
   abstract get chainLength(): number;
 
   findChains(puzzle: IKropkiPuzzle): Loc[][] {

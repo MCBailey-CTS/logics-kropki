@@ -1,9 +1,9 @@
-import { Loc } from "../Loc";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { BaseKropkiChain } from "./BaseKropkiChain";
 import { IEdit } from "../interfaces/IEdit";
+import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { Loc } from "../Loc";
+import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
-export abstract class BaseDiamondChain extends BaseKropkiChain {
+export abstract class _BaseDiamondChain extends _BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 

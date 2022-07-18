@@ -1,14 +1,13 @@
 import { Loc } from "../Loc";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
-
+import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
 const BLACK_WHITE = [1, 5, 7, 9];
 const WHITE_EMPTY = [3, 5, 7, 9];
 const EMPTY_BLACK = [5, 7, 9];
 const WHITE_WHITE = [1, 4, 6, 8, 9];
 
-export class Chain_Debww extends BaseDiamondChain {
+export class Chain_Debww extends _BaseDiamondChain {
   get expectedKropkiString(): string {
     return "ww.b";
   }

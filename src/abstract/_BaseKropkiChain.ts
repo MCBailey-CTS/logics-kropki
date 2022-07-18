@@ -1,12 +1,11 @@
-import { Loc } from "../Loc";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { IKropkiChain } from "../new_solvers/IKropkiChain";
-import { NewTechniques } from "../NewTechniques";
-import { cellCandidates } from "../puzzles/KropkiPuzzle";
-import { Edit } from "../Edit";
+import { Loc } from "../Loc";
+import { IKropkiChain } from "../solvers/IKropkiChain";
 
-export abstract class BaseKropkiChain implements IKropkiChain {
+
+export abstract class _BaseKropkiChain implements IKropkiChain {
   abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
 
   get id(): string {

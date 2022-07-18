@@ -1,12 +1,12 @@
-import { Loc } from "../Loc";
+import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Edit } from "../Edit";
-import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
+import { Loc } from "../Loc";
 import { NewTechniques } from "../NewTechniques";
 
 
-export class CrossHatch extends BaseKropkiChain {
+export class NakedPair extends _BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 
@@ -19,7 +19,7 @@ export class CrossHatch extends BaseKropkiChain {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (NewTechniques.solveSudokuCrossHatchLocs(
+    if (NewTechniques.solveSudokuNakedPairLocs(
       puzzle.grid,
       puzzle.length,
       cellChainLocs

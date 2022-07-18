@@ -1,12 +1,10 @@
-import { Loc } from "../Loc";
+import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
+import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
-import { LocSet } from "../LocSet";
-import { Edit } from "../Edit";
-import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
+import { Loc } from "../Loc";
 
-export class Chain_bb extends BaseExplicitChainLength {
+export class Chain_bb extends _BaseExplicitChainLength {
   get chainLength(): number {
     return 3;
   }
