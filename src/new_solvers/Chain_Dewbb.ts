@@ -10,7 +10,7 @@ export class Chain_Dewbb extends BaseDiamondChain {
   }
   solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
-
+    // [0]
     for (const candidate of [1, 3, 5, 6, 7, 9])
       if (puzzle.removeCandidate(chain[0], candidate))
         edits.push(new Edit(puzzle, chain[0], candidate, this));

@@ -6,7 +6,7 @@ import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
 import { LocSet } from "../LocSet";
 import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
 
-export class ChainB extends BaseExplicitChainLength {
+export class Chain_w extends BaseExplicitChainLength {
   get chainLength(): number {
     return 2;
   }
@@ -22,14 +22,18 @@ export class ChainB extends BaseExplicitChainLength {
 
     const intersectionStr = puzzle.getCellString(interSectionLoc);
 
-    if (intersectionStr != "b") return edits;
+    if (intersectionStr != "w") return edits;
+
+    const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+
+    if (commonHouses.length == 0) return edits;
 
     const otherHash = puzzle.getCellSet(other);
 
     for (const candidate of puzzle.getCellCandidates(loc)) {
-      if (otherHash.has(candidate * 2)) continue;
+      if (otherHash.has(candidate + 1)) continue;
 
-      if (candidate % 2 == 0 && otherHash.has(candidate / 2)) continue;
+      if (otherHash.has(candidate - 1)) continue;
 
       if (!puzzle.removeCandidate(loc, candidate)) continue;
 
@@ -50,12 +54,8 @@ export class ChainB extends BaseExplicitChainLength {
       return a - b;
     });
 
-    if (list[0] * 2 == list[1] && list[1] * 2 == list[2]) {
+    if (list[0] + 1 == list[1] && list[1] + 1 == list[2]) {
       // if (puzzle.id != "008.kropki") return edits;
-
-      const commonHouses = puzzle.getCommonHouses(cellChainLocs);
-
-      if (commonHouses.length == 0) return edits;
 
       for (const house of commonHouses)
         for (const loc of house)
@@ -66,6 +66,7 @@ export class ChainB extends BaseExplicitChainLength {
           )
             edits.push(new Edit(puzzle, loc, list[1], this));
     }
+
     return edits;
   }
 }

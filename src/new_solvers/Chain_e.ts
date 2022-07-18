@@ -6,7 +6,7 @@ import { BaseKropkiChain } from "../abstract/BaseKropkiChain";
 import { LocSet } from "../LocSet";
 import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
 
-export class ChainE extends BaseExplicitChainLength {
+export class Chain_e extends BaseExplicitChainLength {
   get chainLength(): number {
     return 2;
   }

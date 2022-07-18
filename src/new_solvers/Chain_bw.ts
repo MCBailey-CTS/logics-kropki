@@ -6,7 +6,7 @@ import { LocSet } from "../LocSet";
 import { Edit } from "../Edit";
 import { BaseExplicitChainLength } from "../abstract/BaseExplicitChainLength";
 
-export class ChainBW extends BaseExplicitChainLength {
+export class Chain_bw extends BaseExplicitChainLength {
   get chainLength(): number {
     return 3;
   }

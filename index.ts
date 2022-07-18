@@ -1,20 +1,21 @@
-import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
-import { NewPuzzles } from "./src/NewPuzzles";
-import { ChainB } from "./src/new_solvers/ChainB";
 import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
-
-import { HiddenSingle, NakedPair } from "./src/new_solvers/HiddenSingle";
-import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
-import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
-import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
-import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
-import { Chain_Dbwww } from "./src/new_solvers/Chain_Dbwww";
 import { IEdit } from "./src/interfaces/IEdit";
+import { NewPuzzles } from "./src/NewPuzzles";
+import { Chain_b } from "./src/new_solvers/Chain_b";
+import { Chain_bb } from "./src/new_solvers/Chain_bb";
+import { Chain_e } from "./src/new_solvers/Chain_e";
+import { Chain_bw } from "./src/new_solvers/Chain_bw";
+import { Chain_Dbwww } from "./src/new_solvers/Chain_Dbwww";
+import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
+import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
+import { Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
+import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
+import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
+import { Chain_w } from "./src/new_solvers/Chain_w";
+import { Chain_ww } from "./src/new_solvers/Chain_ww";
+import { HiddenSingle, NakedPair } from "./src/new_solvers/HiddenSingle";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
-import { Chain_Dewbb as Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
-import { ChainBB } from "./src/new_solvers/ChainBB";
-import { ChainE } from "./src/new_solvers/ChainE";
-import { ChainW } from "./src/new_solvers/ChainW";
+import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
@@ -47,12 +48,14 @@ let totalEdits = 0;
 const solvedPuzzles = [];
 
 const masterSolvers: IKropkiChain[] = [
-  new ChainB(),
-  new ChainE(),
-  new ChainW(),
+  new Chain_b(),
+  new Chain_e(),
+  new Chain_w(),
   new HiddenSingle(),
   new NakedPair(),
-  new ChainBB(),
+  new Chain_bb(),
+  new Chain_bw(),
+  new Chain_ww(),
   new Chain_Dewbb(),
   new Chain_Debww(),
   new Chain_Dewww(),
