@@ -8,20 +8,16 @@ import { Chain_bw } from "./src/new_solvers/Chain_bw";
 import { Chain_Dbwww } from "./src/new_solvers/Chain_Dbwww";
 import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
 import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
-import { Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
 import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
 import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
 import { Chain_w } from "./src/new_solvers/Chain_w";
 import { Chain_ww } from "./src/new_solvers/Chain_ww";
-import {
-  CrossHatch,
-  HiddenSingle,
-  NakedPair,
-  NakedTriple,
-} from "./src/new_solvers/HiddenSingle";
+import { CrossHatch } from "./src/new_solvers/CrossHatch";
+import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
+import { NakedPair } from "./src/new_solvers/NakedPair";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
-import { XWing } from "./src/new_solvers/XWing";
+import { Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
