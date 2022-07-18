@@ -47,8 +47,8 @@ export class Chain_Dewbb extends BaseDiamondChain {
             edits.push(new Edit(puzzle, empty_black, candidate, this));
 
         return edits;
-        case ".wbb":
-        
+      case ".wbb":
+
       case "b.wb":
       case "bbw.":
       case ".bbw":
@@ -63,46 +63,4 @@ export class Chain_Dewbb extends BaseDiamondChain {
         return edits;
     }
   }
-
-  solveExplicit(
-    puzzle: IKropkiPuzzle,
-    chain: Loc[],
-    ...indexes: number[]
-  ): IEdit[] {
-    const edits: IEdit[] = [];
-    for (const candidate of [1, 3, 6])
-      for (const loc of [
-        chain[indexes[0]],
-        chain[indexes[1]],
-        chain[indexes[2]],
-      ])
-        if (puzzle.removeCandidate(loc, candidate))
-          edits.push(new Edit(puzzle, loc, candidate, this));
-
-    return edits;
-  }
-
-  // solveExplicit(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
-  //   const edits: IEdit[] = [];
-
-  //   const empty_white = locs[1];
-  //   const white_black = locs[2];
-  //   const black_black = locs[3];
-  //   const black_empty = locs[0];
-
-  //   // puzzle.removeCandidate(temp[0], 1);
-  //   for (const candidate of [3, 6])
-  //     for (const corner of [white_black, black_black, black_empty])
-  //       if (puzzle.removeCandidate(corner, candidate))
-  //         edits.push(new Edit(puzzle, corner, candidate, this));
-  //   // puzzle.removeCandidate(white_black, 6);
-
-  //   // puzzle.removeCandidate(black_black, 3);
-  //   // puzzle.removeCandidate(black_black, 6);
-
-  //   // puzzle.removeCandidate(black_empty, 3);
-  //   // puzzle.removeCandidate(black_empty, 6);
-
-  //   return edits;
-  // }
 }

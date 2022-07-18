@@ -3,14 +3,12 @@ import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
 
-export class Chain_Dewww extends BaseDiamondChain {
+export class Chain_Debwb extends BaseDiamondChain {
   solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    edits.push(...this.remove(puzzle, chain[0], 3));
-    edits.push(...this.remove(puzzle, chain[1], 1, 9));
-    edits.push(...this.remove(puzzle, chain[2], 1, 9));
-    edits.push(...this.remove(puzzle, chain[3], 3));
+    edits.push(...this.remove(puzzle, chain[0], 1));
+    edits.push(...this.remove(puzzle, chain[1], 1));
 
     return edits;
   }
@@ -22,7 +20,7 @@ export class Chain_Dewww extends BaseDiamondChain {
     const chain1 = [...chain];
 
     for (let i = 0; i < chain.length; i++) {
-      if (this.getKropkiString(puzzle, chain1) == "www.")
+      if (this.getKropkiString(puzzle, chain1) == "wb.b")
         return this.solve1(puzzle, chain1);
 
       this.pop_push(chain1);

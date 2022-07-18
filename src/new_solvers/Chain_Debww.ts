@@ -45,7 +45,7 @@ export class Chain_Debww extends BaseDiamondChain {
     const chain1 = [...chain];
 
     for (let i = 0; i < chain.length; i++) {
-      if (this.getKropkiString(puzzle, chain1) == "ww.b")
+      if (this.getKropkiString(puzzle, chain1) == ".wbb")
         return this.solve1(puzzle, chain1[0], chain1[1], chain1[2], chain1[3]);
 
       this.pop_push(chain1);

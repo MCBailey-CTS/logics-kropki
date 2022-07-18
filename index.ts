@@ -7,6 +7,9 @@ import { ChainW } from "./src/new_solvers/ChainW";
 import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
 import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
 import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
+import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
+import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
+import { Chain_Dbwww } from "./src/new_solvers/Chain_Dbwww";
 import { IEdit } from "./src/interfaces/IEdit";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
 import { Chain_Dewbb as Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
@@ -48,9 +51,12 @@ const masterSolvers: IKropkiChain[] = [
   // new ChainW(),
   // new HiddenSingle(),
   // new ChainBB(),
-  // new Chain_Dewbb(),
-  new Chain_Debww(),
+  new Chain_Dewbb(),
+  // new Chain_Debww(),
   // new Chain_Dewww(),
+  // new Chain_Debwb(),
+  // new Chain_Dewbw(),
+  // new Chain_Dbwww(),
 ];
 
 for (const str of puzzleStrings) {
