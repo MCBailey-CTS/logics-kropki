@@ -9,6 +9,14 @@ const WHITE_EMPTY = [3, 5, 7, 9];
 const EMPTY_BLACK = [5, 7, 9];
 const WHITE_WHITE = [1, 4, 6, 8, 9];
 
+export function pop_push(chain1: Loc[]) {
+  const item = chain1.shift();
+
+  if (typeof item == "undefined") throw Error();
+
+  chain1.push(item);
+}
+
 export class Chain_Debww extends BaseDiamondChain {
   solve1(
     puzzle: IKropkiPuzzle,
@@ -45,10 +53,10 @@ export class Chain_Debww extends BaseDiamondChain {
     const chain1 = [...chain];
 
     for (let i = 0; i < chain.length; i++) {
-      if (this.getKropkiString(puzzle, chain1) == ".wbb")
+      if (this.getKropkiString(puzzle, chain1) == "ww.b")
         return this.solve1(puzzle, chain1[0], chain1[1], chain1[2], chain1[3]);
 
-      this.pop_push(chain1);
+      pop_push(chain1);
     }
 
     if (!reverse) return new Array<IEdit>();

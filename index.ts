@@ -46,17 +46,17 @@ let totalEdits = 0;
 const solvedPuzzles = [];
 
 const masterSolvers: IKropkiChain[] = [
-  // new ChainB(),
-  // new ChainE(),
-  // new ChainW(),
-  // new HiddenSingle(),
-  // new ChainBB(),
+  new ChainB(),
+  new ChainE(),
+  new ChainW(),
+  new HiddenSingle(),
+  new ChainBB(),
   new Chain_Dewbb(),
-  // new Chain_Debww(),
-  // new Chain_Dewww(),
-  // new Chain_Debwb(),
-  // new Chain_Dewbw(),
-  // new Chain_Dbwww(),
+  new Chain_Debww(),
+  new Chain_Dewww(),
+  new Chain_Debwb(),
+  new Chain_Dewbw(),
+  new Chain_Dbwww(),
 ];
 
 for (const str of puzzleStrings) {
