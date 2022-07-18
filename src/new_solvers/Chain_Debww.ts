@@ -38,32 +38,23 @@ export class Chain_Debww extends BaseDiamondChain {
     return edits;
   }
 
-  solve(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
-    const edits: IEdit[] = [];
+  solve(puzzle: IKropkiPuzzle, chain: Loc[], reverse?: boolean): IEdit[] {
+    if (typeof reverse == "undefined") reverse = true;
 
-    let str = this.getKropkiString(puzzle, chain);
+    const temp = [...chain];
+    const chain1 = [...chain];
 
-    switch (str) {
-      case "ww.b":
-        return this.solve1(puzzle, chain[0], chain[1], chain[2], chain[3]);
-      case "bww.":
-        return this.solve1(puzzle, chain[1], chain[2], chain[3], chain[0]);
-      case ".bww":
-        return this.solve1(puzzle, chain[2], chain[3], chain[0], chain[1]);
-      case "w.bw":
-        return this.solve1(puzzle, chain[3], chain[0], chain[1], chain[2]);
+    for (let i = 0; i < chain.length; i++) {
+      if (this.getKropkiString(puzzle, chain1) == "ww.b")
+        return this.solve1(puzzle, chain1[0], chain1[1], chain1[2], chain1[3]);
 
-      case "b.ww":
-        return this.solve1(puzzle, chain[0], chain[3], chain[2], chain[1]);
-      case "wb.w":
-        return this.solve1(puzzle, chain[1], chain[0], chain[3], chain[2]);
-      case "wwb.":
-        return this.solve1(puzzle, chain[2], chain[1], chain[0], chain[3]);
-      case ".wwb":
-        return this.solve1(puzzle, chain[3], chain[2], chain[1], chain[0]);
-
-      default:
-        return edits;
+      this.pop_push(chain1);
     }
+
+    if (!reverse) return new Array<IEdit>();
+
+    temp.reverse();
+
+    return this.solve(puzzle, temp, false);
   }
 }

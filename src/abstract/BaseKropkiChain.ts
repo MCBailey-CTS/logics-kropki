@@ -32,17 +32,21 @@ export abstract class BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  remove(puzzle:IKropkiPuzzle, loc:Loc, ...candidates:number[] ):IEdit[] {
-    const edits:IEdit[] = [];
-    
+  remove(puzzle: IKropkiPuzzle, loc: Loc, ...candidates: number[]): IEdit[] {
+    const edits: IEdit[] = [];
+
     for (const candidate of candidates)
       if (puzzle.removeCandidate(loc, candidate))
         edits.push(new Edit(puzzle, loc, candidate, this));
 
-        return edits;
+    return edits;
   }
 
+  pop_push(chain1: Loc[]) {
+    const item = chain1.shift();
 
+    if (typeof item == "undefined") throw Error();
+
+    chain1.push(item);
+  }
 }
-
-
