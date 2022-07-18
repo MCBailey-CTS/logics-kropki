@@ -4,6 +4,9 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
 
 export class Chain_Dewbw extends BaseDiamondChain {
+  get expectedKropkiString(): string {
+    throw new Error("Method not implemented.");
+  }
   solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 

@@ -2,9 +2,8 @@ import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { NewPuzzles } from "./src/NewPuzzles";
 import { ChainB } from "./src/new_solvers/ChainB";
 import { BaseKropkiChain } from "./src/abstract/BaseKropkiChain";
-import { ChainE } from "./src/new_solvers/ChainE";
-import { ChainW } from "./src/new_solvers/ChainW";
-import { HiddenSingle } from "./src/new_solvers/HiddenSingle";
+
+import { HiddenSingle, NakedPair } from "./src/new_solvers/HiddenSingle";
 import { Chain_Debww } from "./src/new_solvers/Chain_Debww";
 import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
 import { Chain_Debwb } from "./src/new_solvers/Chain_Debwb";
@@ -14,6 +13,8 @@ import { IEdit } from "./src/interfaces/IEdit";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
 import { Chain_Dewbb as Chain_Dewbb } from "./src/new_solvers/Chain_Dewbb";
 import { ChainBB } from "./src/new_solvers/ChainBB";
+import { ChainE } from "./src/new_solvers/ChainE";
+import { ChainW } from "./src/new_solvers/ChainW";
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
@@ -50,6 +51,7 @@ const masterSolvers: IKropkiChain[] = [
   new ChainE(),
   new ChainW(),
   new HiddenSingle(),
+  new NakedPair(),
   new ChainBB(),
   new Chain_Dewbb(),
   new Chain_Debww(),

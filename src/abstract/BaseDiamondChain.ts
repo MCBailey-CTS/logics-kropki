@@ -1,6 +1,7 @@
 import { Loc } from "../Loc";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseKropkiChain } from "./BaseKropkiChain";
+import { IEdit } from "../interfaces/IEdit";
 
 export abstract class BaseDiamondChain extends BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
@@ -18,33 +19,27 @@ export abstract class BaseDiamondChain extends BaseKropkiChain {
     return chains;
   }
 
-  getKropkiString(puzzle:IKropkiPuzzle,chain:Loc[]):string{
-    let str = "";
+  abstract get expectedKropkiString(): string;
 
-    for (let i = 0; i < chain.length - 1; i++) {
-      const loc0 = chain[i];
-      const loc1 = chain[i + 1];
+  abstract solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[];
 
-      str += puzzle.getCellString(puzzle.getIntersection(loc0, loc1));
+  solve(puzzle: IKropkiPuzzle, chain: Loc[], reverse?: boolean): IEdit[] {
+    if (typeof reverse == "undefined") reverse = true;
+
+    const temp = [...chain];
+    const chain1 = [...chain];
+
+    for (let i = 0; i < chain.length; i++) {
+      if (this.getKropkiString(puzzle, chain1) == this.expectedKropkiString)
+        return this.solve1(puzzle, chain1);
+
+      this.pop_push(chain1);
     }
 
-    str += puzzle.getCellString(puzzle.getIntersection(chain[3], chain[0]));
+    if (!reverse) return new Array<IEdit>();
 
-    return str;
+    temp.reverse();
+
+    return this.solve(puzzle, temp, false);
   }
-
-  // getKropkiString(puzzle:IKropkiPuzzle,chain:Loc[]):string{
-  //   let str = "";
-
-  //   for (let i = 0; i < chain.length - 1; i++) {
-  //     const loc0 = chain[i];
-  //     const loc1 = chain[i + 1];
-
-  //     str += puzzle.getCellString(puzzle.getIntersection(loc0, loc1));
-  //   }
-
-  //   str += puzzle.getCellString(puzzle.getIntersection(chain[3], chain[0]));
-
-  //   return str;
-  // }
 }
