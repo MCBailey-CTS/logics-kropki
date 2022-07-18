@@ -2,6 +2,7 @@ import { Loc } from "../Loc";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { BaseDiamondChain } from "../abstract/BaseDiamondChain";
+import { Edit } from "../Edit";
 
 export class Chain_Dewww extends BaseDiamondChain {
   get expectedKropkiString(): string {
@@ -14,6 +15,31 @@ export class Chain_Dewww extends BaseDiamondChain {
     edits.push(...this.remove(puzzle, chain[1], 1, 9));
     edits.push(...this.remove(puzzle, chain[2], 1, 9));
     edits.push(...this.remove(puzzle, chain[3], 3));
+
+    for (const candidate of puzzle.getCellCandidates(chain[1])) {
+      const beforeSet = puzzle.getCellSet(chain[0]);
+
+      const afterSet = puzzle.getCellSet(chain[2]);
+
+      const lowerC = candidate - 1;
+
+      const upperC = candidate + 1;
+
+      if (
+        (!beforeSet.has(lowerC) && !afterSet.has(lowerC)) ||
+        (!beforeSet.has(upperC) && !afterSet.has(upperC))
+      )
+        edits.push(...this.remove(puzzle, chain[1], candidate));
+    }
+
+    for (const candidate1 of puzzle.getCellCandidates(chain[0])) {
+      if (
+        puzzle.getCellSet(chain[1]).has(candidate1 + 1) &&
+        !puzzle.getCellSet(chain[1]).has(candidate1 - 1) &&
+        !puzzle.getCellSet(chain[2]).has(candidate1 + 2)
+      )
+        edits.push(...this.remove(puzzle, chain[0], candidate1));
+    }
 
     return edits;
   }

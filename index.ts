@@ -13,9 +13,15 @@ import { Chain_Dewbw } from "./src/new_solvers/Chain_Dewbw";
 import { Chain_Dewww } from "./src/new_solvers/Chain_Dewww";
 import { Chain_w } from "./src/new_solvers/Chain_w";
 import { Chain_ww } from "./src/new_solvers/Chain_ww";
-import { HiddenSingle, NakedPair } from "./src/new_solvers/HiddenSingle";
+import {
+  CrossHatch,
+  HiddenSingle,
+  NakedPair,
+  NakedTriple,
+} from "./src/new_solvers/HiddenSingle";
 import { IKropkiChain } from "./src/new_solvers/IKropkiChain";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
+import { XWing } from "./src/new_solvers/XWing";
 
 const puzzleStrings = [
   NewPuzzles._Kropki_022,
@@ -33,12 +39,12 @@ const puzzleStrings = [
   NewPuzzles._Kropki_009,
   NewPuzzles._Kropki_008,
   NewPuzzles._Kropki_007,
-  NewPuzzles._Kropki_006,
   NewPuzzles._Kropki_005,
   NewPuzzles._Kropki_004,
   NewPuzzles._Kropki_003,
   NewPuzzles._Kropki_002,
   NewPuzzles._Kropki_001,
+  NewPuzzles._Kropki_006,
 ];
 
 // const totalEdits = [];
@@ -62,6 +68,7 @@ const masterSolvers: IKropkiChain[] = [
   new Chain_Debwb(),
   new Chain_Dewbw(),
   new Chain_Dbwww(),
+  new CrossHatch(),
 ];
 
 for (const str of puzzleStrings) {

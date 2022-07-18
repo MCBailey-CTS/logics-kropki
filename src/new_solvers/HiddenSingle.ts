@@ -73,6 +73,31 @@ export class NakedPair extends BaseKropkiChain {
   }
 }
 
+export class CrossHatch extends BaseKropkiChain {
+  findChains(puzzle: IKropkiPuzzle): Loc[][] {
+    const chains: Loc[][] = [];
+
+    for (const house of puzzle.getHouses()) chains.push(house);
+
+    return chains;
+  }
+
+  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+    const edits: IEdit[] = [];
+
+    if (
+      NewTechniques.solveSudokuCrossHatchLocs(
+        puzzle.grid,
+        puzzle.length,
+        cellChainLocs
+      )
+    )
+      edits.push(new Edit(puzzle, new Loc(0, 0), 0, this));
+
+    return edits;
+  }
+}
+
 export class NakedQuad extends BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
@@ -87,6 +112,31 @@ export class NakedQuad extends BaseKropkiChain {
 
     if (
       NewTechniques.solveSudokuNakedQuadLocs(
+        puzzle.grid,
+        puzzle.length,
+        cellChainLocs
+      )
+    )
+      edits.push(new Edit(puzzle, new Loc(0, 0), 0, this));
+
+    return edits;
+  }
+}
+
+export class NakedTriple extends BaseKropkiChain {
+  findChains(puzzle: IKropkiPuzzle): Loc[][] {
+    const chains: Loc[][] = [];
+
+    for (const house of puzzle.getHouses()) chains.push(house);
+
+    return chains;
+  }
+
+  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+    const edits: IEdit[] = [];
+
+    if (
+      NewTechniques.solveSudokuNakedTripleLocs(
         puzzle.grid,
         puzzle.length,
         cellChainLocs
