@@ -2,7 +2,7 @@ import { IEdit } from "./interfaces/IEdit";
 import { IKropkiPuzzle } from "./interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "./interfaces/IKropkiSolver";
 import { Loc } from "./Loc";
-import { IKropkiChain } from "./solvers/IKropkiChain";
+import { IKropkiChain } from "./interfaces/IKropkiChain";
 
 export class Edit implements IEdit {
   private readonly _candidate: number;
@@ -13,7 +13,7 @@ export class Edit implements IEdit {
     puzzle: IKropkiPuzzle,
     loc: Loc,
     candidate: number,
-    solver: IKropkiSolver|IKropkiChain
+    solver: IKropkiSolver | IKropkiChain
   ) {
     this._puzzle = puzzle;
     this._loc = loc;
@@ -29,7 +29,7 @@ export class Edit implements IEdit {
     return this._loc;
   }
 
-  get solver(): IKropkiSolver |IKropkiChain {
+  get solver(): IKropkiSolver | IKropkiChain {
     return this._solver;
   }
 

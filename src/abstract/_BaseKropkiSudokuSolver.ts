@@ -1,7 +1,7 @@
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
-import { IKropkiChain } from "../solvers/IKropkiChain";
+import { IKropkiChain } from "../interfaces/IKropkiChain";
 import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
 export abstract class _BaseKropkiSudokuSolver extends _BaseKropkiChain {

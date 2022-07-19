@@ -1,6 +1,6 @@
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { IKropkiSolver } from "../interfaces/IKropkiSolver";
+import { IEdit } from "./IEdit";
+import { IKropkiPuzzle } from "./IKropkiPuzzle";
+import { IKropkiSolver } from "./IKropkiSolver";
 import { Loc } from "../Loc";
 
 export interface IKropkiChain extends IKropkiSolver {

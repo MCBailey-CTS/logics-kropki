@@ -3,7 +3,7 @@ import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
-import { IKropkiChain } from "../solvers/IKropkiChain";
+import { IKropkiChain } from "../interfaces/IKropkiChain";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
