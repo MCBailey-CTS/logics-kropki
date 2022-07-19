@@ -1,8 +1,8 @@
 import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
+import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { _BaseKropkiVector } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
 export class Chain_e extends _BaseKropkiVector {

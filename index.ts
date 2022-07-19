@@ -17,8 +17,8 @@ import { Chain_w } from "./src/solvers/Chain_w";
 import { Chain_ww } from "./src/solvers/Chain_ww";
 import { CrossHatch } from "./src/solvers/CrossHatch";
 import { HiddenSingle } from "./src/solvers/HiddenSingle";
-import { IKropkiChain } from "./src/interfaces/IKropkiChain";
 import { NakedPair } from "./src/solvers/NakedPair";
+
 function main() {
   const puzzleStrings = [
     NewPuzzles._Kropki_022,
