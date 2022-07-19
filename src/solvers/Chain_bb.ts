@@ -13,11 +13,17 @@ export class Chain_bb extends _BaseKropkiVector {
       [_base.right(2), _base.up(2)],
       [_base.right(2), _base.down(2)],
 
-
       [_base.left(2), _base.left(2)],
       [_base.left(2), _base.up(2)],
       [_base.left(2), _base.down(2)],
-      
+
+      [_base.up(2), _base.up(2)],
+      [_base.up(2), _base.left(2)],
+      [_base.up(2), _base.right(2)],
+
+      [_base.down(2), _base.down(2)],
+      [_base.down(2), _base.left(2)],
+      [_base.down(2), _base.right(2)],
     ];
   }
 
@@ -27,8 +33,6 @@ export class Chain_bb extends _BaseKropkiVector {
 
   solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
-
-    
 
     const commonHouses = puzzle.getCommonHouses(cellChainLocs);
 
