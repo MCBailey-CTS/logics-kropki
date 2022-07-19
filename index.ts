@@ -6,6 +6,7 @@ import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { Chain_b } from "./src/solvers/Chain_b";
 import { Chain_bb } from "./src/solvers/Chain_bb";
 import { Chain_bw } from "./src/solvers/Chain_bw";
+import { Chain_bww } from "./src/solvers/Chain_bww";
 import { Chain_Dbwww } from "./src/solvers/Chain_Dbwww";
 import { Chain_Debwb } from "./src/solvers/Chain_Debwb";
 import { Chain_Debww } from "./src/solvers/Chain_Debww";
@@ -66,6 +67,7 @@ function main() {
     new Chain_Dewbw(),
     new Chain_Dbwww(),
     new CrossHatch(),
+    new Chain_bww(),
   ];
 
   for (const str of puzzleStrings) {

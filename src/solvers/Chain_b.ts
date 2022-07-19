@@ -19,13 +19,13 @@ export class Chain_b extends _BaseKropkiVector {
     return "b";
   }
 
-  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
-    // console.log("sksjsjsj");
+  solve2(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
+    
     const edits: IEdit[] = [];
 
-    const loc = cellChainLocs[0];
+    const loc = locs[0];
 
-    const other = cellChainLocs[1];
+    const other = locs[1];
 
     const otherHash = puzzle.getCellSet(other);
 
@@ -41,7 +41,7 @@ export class Chain_b extends _BaseKropkiVector {
 
     const hash = new Set<number>();
 
-    for (const loc of cellChainLocs)
+    for (const loc of locs)
       for (const candidate of puzzle.getCellCandidates(loc))
         hash.add(candidate);
 
@@ -53,22 +53,21 @@ export class Chain_b extends _BaseKropkiVector {
       return a - b;
     });
 
-    if (list[0] * 2 == list[1] && list[1] * 2 == list[2]) {
-      // if (puzzle.id != "008.kropki") return edits;
+    if (!(list[0] * 2 == list[1] && list[1] * 2 == list[2])) return edits;
 
-      const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+    const commonHouses = puzzle.getCommonHouses(locs);
 
-      if (commonHouses.length == 0) return edits;
+    if (commonHouses.length == 0) return edits;
 
-      for (const house of commonHouses)
-        for (const loc of house)
-          if (
-            !loc.equals(cellChainLocs[0]) &&
-            !loc.equals(cellChainLocs[1]) &&
-            puzzle.removeCandidate(loc, list[1])
-          )
-            edits.push(new Edit(puzzle, loc, list[1], this));
-    }
+    for (const house of commonHouses)
+      for (const loc of house)
+        if (
+          !loc.equals(locs[0]) &&
+          !loc.equals(locs[1]) &&
+          puzzle.removeCandidate(loc, list[1])
+        )
+          edits.push(new Edit(puzzle, loc, list[1], this));
+
     return edits;
   }
 }
