@@ -2,15 +2,25 @@ import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { _BaseKropkiVector } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
+// const base = new Loc(0, 0);
 
-export class Chain_b extends _BaseExplicitChainLength {
-  get chainLength(): number {
-    return 2;
+//     return [[base.up(2), base.right(2), base.down(2), base.left(2)]];
+
+export class Chain_b extends _BaseKropkiVector {
+  get vector_chains(): Loc[][] {
+    const _base = new Loc(0, 0);
+    return [[_base.right(2)], [_base.up(2)], [_base.left(2)], [_base.down(2)]];
   }
 
-  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  get expected_kropki_string(): string {
+    return "b";
+  }
+
+  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+    // console.log("sksjsjsj");
     const edits: IEdit[] = [];
 
     const loc = cellChainLocs[0];

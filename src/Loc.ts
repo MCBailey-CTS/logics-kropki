@@ -45,6 +45,10 @@ export class Loc {
     return this._row == other.row && this._col == other.col;
   }
 
+  add_vector(row: number, col: number): Loc {
+    return new Loc(this._row + row, this._col + col);
+  }
+
   static getKropkiCellRowHouseLocs(length: number, row: number): Loc[] {
     const rowHouseLocs: Loc[] = [];
 

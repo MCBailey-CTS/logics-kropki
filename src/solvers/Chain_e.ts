@@ -2,15 +2,20 @@ import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { _BaseKropkiVector } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 
-
-export class Chain_e extends _BaseExplicitChainLength {
-  get chainLength(): number {
-    return 2;
+export class Chain_e extends _BaseKropkiVector {
+  get vector_chains(): Loc[][] {
+    const _base = new Loc(0, 0);
+    return [[_base.right(2)], [_base.up(2)], [_base.left(2)], [_base.down(2)]];
   }
 
-  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  get expected_kropki_string(): string {
+    return ".";
+  }
+
+  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     const loc = cellChainLocs[0];
@@ -20,8 +25,6 @@ export class Chain_e extends _BaseExplicitChainLength {
     const interSectionLoc = puzzle.getIntersection(loc, other);
 
     const intersectionStr = puzzle.getCellString(interSectionLoc);
-
-    if (intersectionStr != ".") return edits;
 
     for (const candidate of puzzle.getCellCandidates(loc)) {
       const kropkiCandidates = [
