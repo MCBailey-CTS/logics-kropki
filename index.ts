@@ -50,7 +50,7 @@ function main() {
 
   const solvedPuzzles = [];
 
-  const masterSolvers: IKropkiChain[] = [
+  const masterSolvers: IKropkiSolver[] = [
     new Chain_b(),
     new Chain_e(),
     new Chain_w(),

@@ -2,12 +2,9 @@ import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 import { IKropkiChain } from "../solvers/IKropkiChain";
+import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
-export abstract class _BaseKropkiSudokuSolver implements IKropkiChain {
-  get id(): string {
-    return this.constructor.name;
-  }
-
+export abstract class _BaseKropkiSudokuSolver extends _BaseKropkiChain {
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 
@@ -16,5 +13,5 @@ export abstract class _BaseKropkiSudokuSolver implements IKropkiChain {
     return chains;
   }
 
-  abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
+  // abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
 }

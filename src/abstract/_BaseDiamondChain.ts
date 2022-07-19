@@ -1,9 +1,14 @@
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
+import { _BaseExplicitChainLength } from "./_BaseExplicitChainLength";
 import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
-export abstract class _BaseDiamondChain extends _BaseKropkiChain {
+export abstract class _BaseDiamondChain extends _BaseExplicitChainLength {
+  get chainLength(): number {
+    return 4;
+  }
+
   findChains(puzzle: IKropkiPuzzle): Loc[][] {
     const chains: Loc[][] = [];
 

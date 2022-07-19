@@ -6,6 +6,15 @@ import { Loc } from "../Loc";
 import { IKropkiChain } from "../solvers/IKropkiChain";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
+  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+    const edits: IEdit[] = [];
+
+    for (const locs of this.findChains(puzzle))
+      edits.push(...this.solve(puzzle, locs));
+
+    return edits;
+  }
+
   abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
 
   get id(): string {
@@ -14,16 +23,13 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
 
   abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
 
-  static solve(puzzle: IKropkiPuzzle, solvers: IKropkiChain[]) {
+  static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
     const edits: IEdit[] = [];
 
     while (true) {
       const originalLength = edits.length;
 
-      for (const solver of solvers) {
-        for (const chain of solver.findChains(puzzle))
-          edits.push(...solver.solve(puzzle, chain));
-      }
+      for (const solver of solvers) edits.push(...solver.solvePuzzle(puzzle));
 
       if (originalLength == edits.length) break;
     }
