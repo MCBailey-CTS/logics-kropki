@@ -15,32 +15,24 @@ export class Chain_e extends _BaseKropkiVector {
     return ".";
   }
 
-  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solve2(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    const loc = cellChainLocs[0];
-
-    const other = cellChainLocs[1];
-
-    const interSectionLoc = puzzle.getIntersection(loc, other);
-
-    const intersectionStr = puzzle.getCellString(interSectionLoc);
-
-    for (const candidate of puzzle.getCellCandidates(loc)) {
+    for (const candidate of puzzle.getCellCandidates(locs[0])) {
       const kropkiCandidates = [
         ...puzzle.getKropkiCandidates(candidate),
         candidate,
       ];
 
-      const otherHash = puzzle.getCellSet(other);
+      const otherHash = puzzle.getCellSet(locs[1]);
 
       for (const t of kropkiCandidates) otherHash.delete(t);
 
       if (otherHash.size > 0) continue;
 
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
+      if (!puzzle.removeCandidate(locs[0], candidate)) continue;
 
-      edits.push(new Edit(puzzle, loc, candidate, this));
+      edits.push(new Edit(puzzle, locs[0], candidate, this));
     }
 
     return edits;
