@@ -181,16 +181,19 @@ export class Hash implements IHash {
   get _items(): number[] {
     throw new Error("Method not implemented.");
   }
+  clear(): boolean {
+    throw new Error("Method not implemented.");
+  }
   add(item: number): boolean {
     throw new Error("Method not implemented.");
   }
   add_range(items: number[]): boolean {
     throw new Error("Method not implemented.");
   }
-  remove(item: number): boolean {
+  delete(item: number): boolean {
     throw new Error("Method not implemented.");
   }
-  remove_range(items: number[]): boolean {
+  delete_range(items: number[]): boolean {
     throw new Error("Method not implemented.");
   }
   set_equals(hash: IHash): boolean {
@@ -217,6 +220,7 @@ export class Hash implements IHash {
   is_proper_superset(hash: IHash): boolean {
     throw new Error("Method not implemented.");
   }
+  
 }
 
 
