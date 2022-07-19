@@ -1,5 +1,6 @@
 import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
 import { IEdit } from "./src/interfaces/IEdit";
+import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { NewPuzzles } from "./src/NewPuzzles";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { Chain_b } from "./src/solvers/Chain_b";
@@ -145,13 +146,12 @@ function main() {
 
 main();
 
-
 export interface IHash {
   get _size(): number;
 
   get _items(): Array<number>;
 
-  clear():boolean;
+  clear(): boolean;
 
   add(item: number): boolean;
   add_range(items: Array<number>): boolean;
@@ -220,9 +220,7 @@ export class Hash implements IHash {
   is_proper_superset(hash: IHash): boolean {
     throw new Error("Method not implemented.");
   }
-  
 }
-
 
 // const t = new Hash();
 

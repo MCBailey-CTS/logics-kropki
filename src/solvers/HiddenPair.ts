@@ -1,18 +1,11 @@
 import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
+import { _BaseKropkiSudokuSolver } from "../abstract/_BaseKropkiSudokuSolver";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
-export class HiddenPair extends _BaseKropkiChain {
-  findChains(puzzle: IKropkiPuzzle): Loc[][] {
-    const chains: Loc[][] = [];
-
-    for (const house of puzzle.getHouses()) chains.push(house);
-
-    return chains;
-  }
-
+export class HiddenPair extends _BaseKropkiSudokuSolver {
   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 

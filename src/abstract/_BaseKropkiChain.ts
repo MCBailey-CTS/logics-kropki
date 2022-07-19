@@ -1,9 +1,9 @@
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 import { IKropkiChain } from "../solvers/IKropkiChain";
-
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
   abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
