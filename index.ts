@@ -7,6 +7,7 @@ import { Chain_b } from "./src/solvers/Chain_b";
 import { Chain_bb } from "./src/solvers/Chain_bb";
 import { Chain_bw } from "./src/solvers/Chain_bw";
 import { Chain_bww } from "./src/solvers/Chain_bww";
+import { Chain_Dbbww } from "./src/solvers/Chain_Dbbww";
 import { Chain_Dbwww } from "./src/solvers/Chain_Dbwww";
 import { Chain_Debwb } from "./src/solvers/Chain_Debwb";
 import { Chain_Debww } from "./src/solvers/Chain_Debww";
@@ -32,7 +33,6 @@ function main() {
     NewPuzzles._Kropki_013,
     NewPuzzles._Kropki_012,
     NewPuzzles._Kropki_011,
-    NewPuzzles._Kropki_010,
     NewPuzzles._Kropki_009,
     NewPuzzles._Kropki_008,
     NewPuzzles._Kropki_007,
@@ -43,7 +43,7 @@ function main() {
     NewPuzzles._Kropki_001,
     NewPuzzles._Kropki_006,
     NewPuzzles._Kropki_016,
-
+    NewPuzzles._Kropki_010,
   ];
 
   // const totalEdits = [];
@@ -69,6 +69,7 @@ function main() {
     new Chain_Dbwww(),
     new CrossHatch(),
     new Chain_bww(),
+    new Chain_Dbbww(),
   ];
 
   for (const str of puzzleStrings) {
