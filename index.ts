@@ -75,7 +75,6 @@ function main() {
     new Chain_Dbbww(),
     new HiddenPair(),
     new NakedQuad(),
-    // new XWing(),
   ];
 
   for (const str of puzzleStrings) {
