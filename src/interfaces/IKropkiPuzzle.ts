@@ -33,8 +33,6 @@ export interface IKropkiPuzzle {
 
   removeCandidate(loc: Loc, candidate: number): boolean;
 
-  solve(solvers: IKropkiSolver[]): IEdit[];
-
   getKropkiCandidates(candidate: number): Set<number>;
 
   getKropkiWhiteCandidates(candidate: number): Set<number>;

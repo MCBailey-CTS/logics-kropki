@@ -4,6 +4,8 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 import { IKropkiChain } from "../interfaces/IKropkiChain";
+import { IFutoshikiPuzzle } from "../interfaces/IFutoshikiPuzzle";
+import { IFutoshikiSolver } from "../interfaces/IFutoshikiSolver";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
@@ -24,6 +26,20 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
   abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
 
   static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
+    const edits: IEdit[] = [];
+
+    while (true) {
+      const originalLength = edits.length;
+
+      for (const solver of solvers) edits.push(...solver.solvePuzzle(puzzle));
+
+      if (originalLength == edits.length) break;
+    }
+
+    return edits;
+  }
+
+  static solveFutoshiki(puzzle: IFutoshikiPuzzle, solvers: IFutoshikiSolver[]) {
     const edits: IEdit[] = [];
 
     while (true) {

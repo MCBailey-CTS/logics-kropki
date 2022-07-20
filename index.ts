@@ -1,7 +1,9 @@
 import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
 import { IEdit } from "./src/interfaces/IEdit";
+import { IFutoshikiSolver } from "./src/interfaces/IFutoshikiSolver";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { NewPuzzles } from "./src/NewPuzzles";
+import { FutoshikiPuzzle } from "./src/puzzles/FutoshikiPuzzle";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { Chain_b } from "./src/solvers/Chain_b";
 import { Chain_bb } from "./src/solvers/Chain_bb";
@@ -26,6 +28,26 @@ import { XWing } from "./src/solvers/XWing";
 
 function main() {
   const puzzleStrings = [
+    NewPuzzles._Futoshiki_110,
+    NewPuzzles._Futoshiki_099,
+    NewPuzzles._Futoshiki_077,
+    NewPuzzles._Futoshiki_041,
+    NewPuzzles._Futoshiki_034,
+    NewPuzzles._Futoshiki_024,
+    NewPuzzles._Futoshiki_014,
+    NewPuzzles._Futoshiki_013,
+    NewPuzzles._Futoshiki_012,
+    NewPuzzles._Futoshiki_011,
+    NewPuzzles._Futoshiki_010,
+    NewPuzzles._Futoshiki_009,
+    NewPuzzles._Futoshiki_008,
+    NewPuzzles._Futoshiki_007,
+    NewPuzzles._Futoshiki_006,
+    NewPuzzles._Futoshiki_005,
+    NewPuzzles._Futoshiki_004,
+    NewPuzzles._Futoshiki_003,
+    NewPuzzles._Futoshiki_002,
+    NewPuzzles._Futoshiki_001,
     NewPuzzles._Kropki_022,
     NewPuzzles._Kropki_021,
     NewPuzzles._Kropki_019,
@@ -55,7 +77,7 @@ function main() {
 
   const solvedPuzzles = [];
 
-  const masterSolvers: IKropkiSolver[] = [
+  const kropkiSolvers: IKropkiSolver[] = [
     new Chain_b(),
     new Chain_e(),
     new Chain_w(),
@@ -77,65 +99,90 @@ function main() {
     new NakedQuad(),
   ];
 
+  const futoshikiSolvers: IFutoshikiSolver[] = [
+    new Chain_b(),
+    new Chain_e(),
+    new Chain_w(),
+    new HiddenSingle(),
+    new NakedPair(),
+    // new Chain_bb(),
+    // new Chain_bw(),
+    // new Chain_ww(),
+    // new Chain_Dewbb(),
+    // new Chain_Debww(),
+    // new Chain_Dewww(),
+    // new Chain_Debwb(),
+    // new Chain_Dewbw(),
+    // new Chain_Dbwww(),
+    new CrossHatch(),
+    // new Chain_bww(),
+    // new Chain_Dbbww(),
+    new HiddenPair(),
+    new NakedQuad(),
+  ];
+
   for (const str of puzzleStrings) {
-    // console.log("///////////////");
+    if (str.includes(".kropki")) {
+      // console.log("///////////////");
+      const puzzle = new KropkiPuzzle(str);
+      try {
+        // puzzle.solve(solvers);
 
-    const puzzle = new KropkiPuzzle(str);
-    try {
-      // puzzle.solve(solvers);
+        const resultingEdits: IEdit[] = [];
 
-      const resultingEdits: IEdit[] = [];
+        resultingEdits.push(..._BaseKropkiChain.solve(puzzle, kropkiSolvers));
 
-      switch (puzzle.id) {
-        case "001.kropki":
-        case "002.kropki":
-        case "003.kropki":
-        case "009.kropki":
-        case "018.kropki":
-        case "019.kropki":
-        case "004.kropki":
-        case "005.kropki":
-        case "006.kropki":
-        case "010.kropki":
-        case "007.kropki":
-        case "008.kropki":
-        case "011.kropki":
-        case "012.kropki":
-        case "013.kropki":
-        case "014.kropki":
-        case "015.kropki":
-        case "016.kropki":
-        case "017.kropki":
-        case "020.kropki":
-        case "021.kropki":
-        case "022.kropki":
-          resultingEdits.push(..._BaseKropkiChain.solve(puzzle, masterSolvers));
+        totalEdits += resultingEdits.length;
 
-          break;
+        if (puzzle.isSolved) {
+          solvedPuzzles.push(puzzle);
 
-        default:
-          console.log(`Unknown puzzle: '${puzzle.id}'`);
+          continue;
+        }
 
-          break;
+        console.log(puzzle.toString());
+        console.log(`Edits: ${resultingEdits.length}`);
+
+        console.log("//////////");
+      } catch (err) {
+        console.log("//////////");
+        console.log(puzzle.id);
+        console.log(err);
+        console.log("//////////");
       }
+    }
 
-      totalEdits += resultingEdits.length;
+    if (str.includes(".futoshiki")) {
+      // console.log(str);
+      // console.log("///////////////");
+      const puzzle = new FutoshikiPuzzle(str);
+      try {
+        // puzzle.solve(solvers);
 
-      if (puzzle.isSolved) {
-        solvedPuzzles.push(puzzle);
+        const resultingEdits: IEdit[] = [];
 
-        continue;
+        resultingEdits.push(
+          ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
+        );
+
+        totalEdits += resultingEdits.length;
+
+        if (puzzle.isSolved) {
+          solvedPuzzles.push(puzzle);
+
+          continue;
+        }
+
+        console.log(puzzle.toString());
+        console.log(`Edits: ${resultingEdits.length}`);
+
+        console.log("//////////");
+      } catch (err) {
+        console.log("//////////");
+        console.log(puzzle.id);
+        console.log(err);
+        console.log("//////////");
       }
-
-      console.log(puzzle.toString());
-      console.log(`Edits: ${resultingEdits.length}`);
-
-      console.log("//////////");
-    } catch (err) {
-      console.log("//////////");
-      console.log(puzzle.id);
-      console.log(err);
-      console.log("//////////");
     }
   }
 

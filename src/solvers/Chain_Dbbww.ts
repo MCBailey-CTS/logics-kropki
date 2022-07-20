@@ -7,9 +7,6 @@ export class Chain_Dbbww extends _BaseKropkiVectorDiamond {
   get expected_kropki_string(): string {
     return "bbww";
   }
-  get expectedKropkiString(): string {
-    return "bbww";
-  }
 
   solveChain(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
