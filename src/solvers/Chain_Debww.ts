@@ -1,10 +1,8 @@
 import { Loc } from "../Loc";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
-import {
-  _BaseKropkiVector,
-} from "../abstract/_BaseKropkiVector";
+
+import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { _BaseKropkiVectorDiamond } from "../abstract/_BaseKropkiVectorDiamond";
 const BLACK_WHITE = [1, 5, 7, 9]; // -> [2, 3, 4, 6, 8];
 const WHITE_EMPTY = [3, 5, 7, 9]; // -> [1, 2, 4, 6, 8];

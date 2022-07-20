@@ -1,4 +1,3 @@
-import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";

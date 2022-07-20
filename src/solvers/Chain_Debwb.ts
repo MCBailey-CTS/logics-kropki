@@ -1,13 +1,14 @@
-import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
+import { _BaseKropkiVectorDiamond } from "../abstract/_BaseKropkiVectorDiamond";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
-export class Chain_Debwb extends _BaseDiamondChain {
-  get expectedKropkiString(): string {
+export class Chain_Debwb extends _BaseKropkiVectorDiamond {
+  get expected_kropki_string(): string {
     return "wb.b";
   }
-  solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
+
+  solveChain(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     edits.push(...this.remove(puzzle, chain[0], 1));

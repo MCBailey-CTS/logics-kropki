@@ -1,4 +1,3 @@
-import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
 import { _BaseKropkiVectorDiamond } from "../abstract/_BaseKropkiVectorDiamond";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
@@ -9,9 +8,7 @@ export class Chain_Dewbb extends _BaseKropkiVectorDiamond {
   get expected_kropki_string(): string {
     return "w.bb";
   }
-  get expectedKropkiString(): string {
-    return "w.bb";
-  }
+
   solveChain(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
     // [0]

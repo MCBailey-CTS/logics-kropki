@@ -1,6 +1,5 @@
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
-import { IKropkiChain } from "../interfaces/IKropkiChain";
 import { _BaseKropkiChain } from "./_BaseKropkiChain";
 
 export abstract class _BaseKropkiSudokuSolver extends _BaseKropkiChain {
@@ -11,8 +10,4 @@ export abstract class _BaseKropkiSudokuSolver extends _BaseKropkiChain {
 
     return chains;
   }
-
-  // abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
 }
-
-

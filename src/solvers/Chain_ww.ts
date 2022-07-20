@@ -1,4 +1,3 @@
-import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
@@ -55,6 +54,3 @@ export class Chain_ww extends _BaseKropkiVector {
     return edits;
   }
 }
-
-
-

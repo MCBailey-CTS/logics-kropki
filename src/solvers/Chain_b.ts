@@ -1,4 +1,3 @@
-import { _BaseExplicitChainLength } from "../abstract/_BaseExplicitChainLength";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
@@ -20,7 +19,6 @@ export class Chain_b extends _BaseKropkiVector {
   }
 
   solveChain(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
-    
     const edits: IEdit[] = [];
 
     const loc = locs[0];
