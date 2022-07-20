@@ -12,7 +12,7 @@ export class Chain_Debww extends _BaseKropkiVector {
   get vector_chains(): Loc[][] {
     const chains: Loc[][] = [];
     const loc = new Loc(0, 0);
-    const temp = [loc, loc.right(2), loc.down(2), loc.left(2)];
+    const temp = [loc.right(2), loc.down(2), loc.left(2)];
 
     chains.push(temp);
     // }
@@ -27,27 +27,41 @@ export class Chain_Debww extends _BaseKropkiVector {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const loc of puzzle.sudokuCellLocs)
+    for (const loc of puzzle.sudokuCellLocs) {
+      const locs: Loc[] = [loc];
+
       for (const vectorChain of this.vector_chains) {
         // console.log(vectorChain);
 
-        const locs: Loc[] = [
-          loc.add_vector(vectorChain[0].row, vectorChain[0].col),
-          loc
-            .add_vector(vectorChain[0].row, vectorChain[0].col)
-            .add_vector(vectorChain[1].row, vectorChain[1].col),
+        for (const vector of vectorChain)
+          locs.push(locs[locs.length - 1].add_vector(vector.row, vector.col));
 
-          loc
-            .add_vector(vectorChain[0].row, vectorChain[0].col)
-            .add_vector(vectorChain[1].row, vectorChain[1].col)
-            .add_vector(vectorChain[2].row, vectorChain[2].col),
+        locs.push(
+          locs[locs.length - 1].add_vector(
+            vectorChain[vectorChain.length - 1].row,
+            vectorChain[vectorChain.length - 1].col
+          )
+        );
 
-          loc
-            .add_vector(vectorChain[0].row, vectorChain[0].col)
-            .add_vector(vectorChain[1].row, vectorChain[1].col)
-            .add_vector(vectorChain[2].row, vectorChain[2].col)
-            .add_vector(vectorChain[3].row, vectorChain[3].col),
-        ];
+        // const locs: Loc[] = [
+        //   loc.add_vector(vectorChain[0].row, vectorChain[0].col),
+        //   loc
+        //     .add_vector(vectorChain[0].row, vectorChain[0].col)
+        //     .add_vector(vectorChain[1].row, vectorChain[1].col),
+
+        //   loc
+        //     .add_vector(vectorChain[0].row, vectorChain[0].col)
+        //     .add_vector(vectorChain[1].row, vectorChain[1].col)
+        //     .add_vector(vectorChain[2].row, vectorChain[2].col),
+
+        //   loc
+        //     .add_vector(vectorChain[0].row, vectorChain[0].col)
+        //     .add_vector(vectorChain[1].row, vectorChain[1].col)
+        //     .add_vector(vectorChain[2].row, vectorChain[2].col)
+        //     .add_vector(vectorChain[3].row, vectorChain[3].col),
+        // ];
+
+        // console.log(locs);
 
         if (
           !locs.every((loc1) => {
@@ -58,20 +72,27 @@ export class Chain_Debww extends _BaseKropkiVector {
 
         let intersectionString = "";
 
-        for (let i = 0; i < locs.length - 1; i++) {
+        for (let i = 0; i < locs.length - 2; i++) {
           const intersectionLoc = puzzle.getIntersection(locs[i], locs[i + 1]);
 
           intersectionString += puzzle.getCellString(intersectionLoc);
         }
 
-        const inLoc = puzzle.getIntersection(locs[0], locs[locs.length - 1]);
+        // const inLoc = puzzle.getIntersection(locs[0], locs[locs.length - 1]);
 
-        intersectionString += puzzle.getCellString(inLoc);
+        // intersectionString += puzzle.getCellString(inLoc);
 
         if (this.expected_kropki_string != intersectionString) continue;
 
-        edits.push(...this.solve2(puzzle, locs));
+        console.log("/////");
+        console.log(locs);
+        console.log(intersectionString);
+
+        // console.log(intersectionString);
+
+        // edits.push(...this.solve2(puzzle, locs));
       }
+    }
 
     return edits;
   }
