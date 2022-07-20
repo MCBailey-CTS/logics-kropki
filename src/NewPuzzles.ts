@@ -3,26 +3,7 @@ export class NewPuzzles {
     return [
       // NewPuzzles._OuOd_020,
 
-      NewPuzzles._Futoshiki_110,
-      NewPuzzles._Futoshiki_099,
-      NewPuzzles._Futoshiki_077,
-      NewPuzzles._Futoshiki_041,
-      NewPuzzles._Futoshiki_034,
-      NewPuzzles._Futoshiki_024,
-      NewPuzzles._Futoshiki_014,
-      NewPuzzles._Futoshiki_013,
-      NewPuzzles._Futoshiki_012,
-      NewPuzzles._Futoshiki_011,
-      NewPuzzles._Futoshiki_010,
-      NewPuzzles._Futoshiki_009,
-      NewPuzzles._Futoshiki_008,
-      NewPuzzles._Futoshiki_007,
-      NewPuzzles._Futoshiki_006,
-      NewPuzzles._Futoshiki_005,
-      NewPuzzles._Futoshiki_004,
-      NewPuzzles._Futoshiki_003,
-      NewPuzzles._Futoshiki_002,
-      NewPuzzles._Futoshiki_001,
+      
 
       // NewPuzzles._OuOd_251,
       // NewPuzzles._OuOd_220,
@@ -57,6 +38,28 @@ export class NewPuzzles {
       NewPuzzles._Kropki_002,
       NewPuzzles._Kropki_001,
       NewPuzzles._Kropki_008,
+      NewPuzzles._Futoshiki_110,
+      NewPuzzles._Futoshiki_099,
+      NewPuzzles._Futoshiki_077,
+      NewPuzzles._Futoshiki_041,
+      NewPuzzles._Futoshiki_034,
+      NewPuzzles._Futoshiki_024,
+      NewPuzzles._Futoshiki_014,
+      NewPuzzles._Futoshiki_013,
+      NewPuzzles._Futoshiki_012,
+      NewPuzzles._Futoshiki_011,
+      NewPuzzles._Futoshiki_010,
+      NewPuzzles._Futoshiki_009,
+      NewPuzzles._Futoshiki_008,
+      NewPuzzles._Futoshiki_007,
+      NewPuzzles._Futoshiki_006,
+      NewPuzzles._Futoshiki_005,
+      NewPuzzles._Futoshiki_004,
+      NewPuzzles._Futoshiki_003,
+      NewPuzzles._Futoshiki_002,
+      NewPuzzles._Futoshiki_001,
+      NewPuzzles._MoreOrLess_015,
+      NewPuzzles._MoreOrLess_023,
     ];
   }
 
@@ -1083,15 +1086,15 @@ export class NewPuzzles {
     return `
         010.futoshiki
         5
-        3 < 4 > _ . _ < _
+        __3__ < ___4_ > 12345 . 12345 < 12345
         . _ . _ . _ . _ .
-        2 . _ . _ . 3 > 1
+        _2___ . 12345 . 12345 . __3__ > 1____
         . _ . _ ^ _ ^ _ .
-        _ . _ . _ > _ > _
+        12345 . 12345 . 12345 > 12345 > 12345
         . _ v _ . _ . _ ^
-        _ . _ > 1 < 5 > _
+        12345 . 12345 > 1____ < ____5 > 12345
         ^ _ . _ . _ . _ .
-        _ . 1 . _ > 2 . _
+        12345 . 1____ . 12345 > _2___ . 12345
         `;
   }
 
@@ -1131,15 +1134,15 @@ export class NewPuzzles {
     return `
         014.futoshiki
         5
-        _ . 5 . _ < _ . _
+        12345 . ____5 . 12345 < 12345 . 12345
         ^ _ v _ ^ _ v _ ^
-        5 . _ < 3 . 1 . _
+        ____5 . 12345 < __3__ . 1____ . 12345
         . _ . _ ^ _ . _ ^
-        _ . _ < _ > _ . 5
+        12345 . 12345 < 12345 > 12345 . ____5
         . _ . _ . _ ^ _ v
-        4 > _ < _ . 5 > _
+        ___4_ > 12345 < 12345 . ____5 > 12345
         . _ . _ ^ _ v _ .
-        2 . _ < 5 > _ . _
+        _2___ . 12345 < ____5 > 12345 . 12345
         `;
   }
 
@@ -1158,4 +1161,53 @@ export class NewPuzzles {
         _ . _ < _ > 1 . _
         `;
   }
+
+  static get _MoreOrLess_023(): string {
+    return `
+        023.moreorless
+        9
+        123456789a < 123456789a . 123456789h < 123456789h . 123456789i > 123456789i < 123456789i . 123456789d < 123456789d
+        v   .   .   .   ^   v   v   ^   v
+        123456789a . 123456789h < 123456789h > 123456789h . 123456789i > 123456789i . 123456789i . 123456789d < 123456789d
+        v   .   .   .   .   .   v   v   v
+        123456789a . 123456789g . 123456789g . 123456789h > 123456789h . 123456789h . 123456789i . 123456789d > 123456789d
+        .   .   ^   .   v   .   .   v   .
+        123456789a . 123456789g > 123456789g < 123456789g . 123456789h . 123456789i < 123456789i . 123456789d . 123456789c
+        .   .   .   v   .   .   .   ^   v
+        123456789a > 123456789a < 123456789a . 123456789g . 123456789g > 123456789g . 123456789g . 123456789d . 123456789c
+        .   .   .   .   .   .   .   ^   v
+        123456789a . 123456789f . 123456789f . 123456789f > 123456789f < 123456789f > 123456789f . 123456789d . 123456789c
+        .   .   .   v   .   ^   v   .   ^
+        123456789e > 123456789e > 123456789e . 123456789f . 123456789e . 123456789f . 123456789f . 123456789c > 123456789c
+        ^   ^   .   .   v   .   .   v   v
+        123456789e . 123456789e < 123456789e > 123456789e < 123456789e . 123456789c > 123456789c < 123456789c . 123456789c
+        .   .   .   .   .   .   .   .   .
+        123456789b < 123456789b > 123456789b . 123456789b < 123456789b < 123456789b < 123456789b > 123456789b > 123456789b
+        `;
+  }
+
+  static get _MoreOrLess_015(): string {
+    return `
+        015.moreorless
+        9
+        123456789a < 123456789a > 123456789a . 123456789b > 123456789b < 123456789b . 123456789c > 123456789c < 123456789c
+        v v ^ ^ ^ ^ ^ ^ v
+        123456789a > 123456789a > 123456789a . 123456789b > 123456789b < 123456789b . 123456789c > 123456789c > 123456789c
+        ^ ^ v ^ ^ v v ^ ^
+        123456789a < 123456789a > 123456789a . 123456789b > 123456789b < 123456789b . 123456789c < 123456789c > 123456789c
+        . . . . . . . . .
+        123456789d > 123456789d < 123456789d . 123456789e > 123456789e > 123456789e . 123456789f > 123456789f < 123456789f
+        v v ^ v v ^ v ^ ^
+        123456789d > 123456789d < 123456789d . 123456789e < 123456789e < 123456789e . 123456789f < 123456789f > 123456789f
+        ^ ^ ^ v ^ v v v v
+        123456789d < 123456789d < 123456789d . 123456789e < 123456789e > 123456789e . 123456789f > 123456789f < 123456789f
+        . . . . . . . . .
+        123456789g < 123456789g < 123456789g . 123456789h < 123456789h > 123456789h . 123456789i < 123456789i < 123456789i
+        v ^ v v v ^ ^ ^ v
+        123456789g < 123456789g < 123456789g . 123456789h < 123456789h > 123456789h . 123456789i > 123456789i > 123456789i
+        ^ v v v ^ ^ v v ^
+        123456789g > 123456789g < 123456789g . 123456789h < 123456789h < 123456789h . 123456789i > 123456789i > 123456789i
+        `;
+  }
+
 }

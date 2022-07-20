@@ -489,6 +489,12 @@ export class FutoshikiPuzzle implements IKropkiPuzzle {
         kropkiToNon = "  ";
         nonToKropki = "  ";
         break;
+
+      case 4:
+        initialOffset = "  ";
+        kropkiToNon = "   ";
+        nonToKropki = "  ";
+        break;
       case 6:
         initialOffset = "  ";
         kropkiToNon = "   ";

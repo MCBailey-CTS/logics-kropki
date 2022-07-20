@@ -24,30 +24,10 @@ import { HiddenPair } from "./src/solvers/HiddenPair";
 import { HiddenSingle } from "./src/solvers/HiddenSingle";
 import { NakedPair } from "./src/solvers/NakedPair";
 import { NakedQuad } from "./src/solvers/NakedQuad";
-import { XWing } from "./src/solvers/XWing";
 
 function main() {
   const puzzleStrings = [
-    NewPuzzles._Futoshiki_110,
-    NewPuzzles._Futoshiki_099,
-    NewPuzzles._Futoshiki_077,
-    NewPuzzles._Futoshiki_041,
-    NewPuzzles._Futoshiki_034,
-    NewPuzzles._Futoshiki_024,
-    NewPuzzles._Futoshiki_014,
-    NewPuzzles._Futoshiki_013,
-    NewPuzzles._Futoshiki_012,
-    NewPuzzles._Futoshiki_011,
-    NewPuzzles._Futoshiki_010,
-    NewPuzzles._Futoshiki_009,
-    NewPuzzles._Futoshiki_008,
-    NewPuzzles._Futoshiki_007,
-    NewPuzzles._Futoshiki_006,
-    NewPuzzles._Futoshiki_005,
-    NewPuzzles._Futoshiki_004,
-    NewPuzzles._Futoshiki_003,
-    NewPuzzles._Futoshiki_002,
-    NewPuzzles._Futoshiki_001,
+    
     NewPuzzles._Kropki_022,
     NewPuzzles._Kropki_021,
     NewPuzzles._Kropki_019,
@@ -69,6 +49,29 @@ function main() {
     NewPuzzles._Kropki_016,
     NewPuzzles._Kropki_010,
     NewPuzzles._Kropki_006,
+    NewPuzzles._MoreOrLess_015,
+    NewPuzzles._MoreOrLess_023,
+    NewPuzzles._Futoshiki_110,
+    NewPuzzles._Futoshiki_099,
+    NewPuzzles._Futoshiki_077,
+    NewPuzzles._Futoshiki_041,
+    NewPuzzles._Futoshiki_034,
+    NewPuzzles._Futoshiki_024,
+    NewPuzzles._Futoshiki_014,
+    NewPuzzles._Futoshiki_013,
+    NewPuzzles._Futoshiki_012,
+    NewPuzzles._Futoshiki_011,
+    NewPuzzles._Futoshiki_010,
+    NewPuzzles._Futoshiki_009,
+    NewPuzzles._Futoshiki_008,
+    NewPuzzles._Futoshiki_007,
+    NewPuzzles._Futoshiki_006,
+    NewPuzzles._Futoshiki_005,
+    NewPuzzles._Futoshiki_004,
+    NewPuzzles._Futoshiki_003,
+    NewPuzzles._Futoshiki_002,
+    NewPuzzles._Futoshiki_001,
+    
   ];
 
   // const totalEdits = [];
@@ -152,7 +155,7 @@ function main() {
       }
     }
 
-    if (str.includes(".futoshiki")) {
+    if (str.includes(".futoshiki") || str.includes(".moreorless")) {
       // console.log(str);
       // console.log("///////////////");
       const puzzle = new FutoshikiPuzzle(str);
