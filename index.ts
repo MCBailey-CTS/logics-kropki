@@ -27,7 +27,6 @@ import { NakedQuad } from "./src/solvers/NakedQuad";
 
 function main() {
   const puzzleStrings = [
-    
     NewPuzzles._Kropki_022,
     NewPuzzles._Kropki_021,
     NewPuzzles._Kropki_019,
@@ -71,7 +70,6 @@ function main() {
     NewPuzzles._Futoshiki_003,
     NewPuzzles._Futoshiki_002,
     NewPuzzles._Futoshiki_001,
-    
   ];
 
   // const totalEdits = [];
@@ -211,84 +209,4 @@ const end = Date.now();
 
 console.log((end - start) / 1000);
 
-export interface IHash {
-  get _size(): number;
 
-  get _items(): Array<number>;
-
-  clear(): boolean;
-
-  add(item: number): boolean;
-  add_range(items: Array<number>): boolean;
-
-  delete(item: number): boolean;
-  delete_range(items: Array<number>): boolean;
-
-  set_equals(hash: IHash): boolean;
-
-  or_union(hash: IHash): IHash;
-
-  and_intersection(hash: IHash): IHash;
-
-  subtract(hash: IHash): IHash;
-
-  is_subset(hash: IHash): boolean;
-  is_proper_subset(hash: IHash): boolean;
-
-  is_superset(hash: IHash): boolean;
-  is_proper_superset(hash: IHash): boolean;
-}
-
-export class Hash implements IHash {
-  get _size(): number {
-    throw new Error("Method not implemented.");
-  }
-  get _items(): number[] {
-    throw new Error("Method not implemented.");
-  }
-  clear(): boolean {
-    throw new Error("Method not implemented.");
-  }
-  add(item: number): boolean {
-    throw new Error("Method not implemented.");
-  }
-  add_range(items: number[]): boolean {
-    throw new Error("Method not implemented.");
-  }
-  delete(item: number): boolean {
-    throw new Error("Method not implemented.");
-  }
-  delete_range(items: number[]): boolean {
-    throw new Error("Method not implemented.");
-  }
-  set_equals(hash: IHash): boolean {
-    throw new Error("Method not implemented.");
-  }
-  or_union(hash: IHash): IHash {
-    throw new Error("Method not implemented.");
-  }
-  and_intersection(hash: IHash): IHash {
-    throw new Error("Method not implemented.");
-  }
-  subtract(hash: IHash): IHash {
-    throw new Error("Method not implemented.");
-  }
-  is_subset(hash: IHash): boolean {
-    throw new Error("Method not implemented.");
-  }
-  is_proper_subset(hash: IHash): boolean {
-    throw new Error("Method not implemented.");
-  }
-  is_superset(hash: IHash): boolean {
-    throw new Error("Method not implemented.");
-  }
-  is_proper_superset(hash: IHash): boolean {
-    throw new Error("Method not implemented.");
-  }
-}
-
-// const t = new Hash();
-
-// t.add_range([6, 5, 1, 4, 2, 3, 4, 4, 5]);
-
-// console.log(`set: ${t._size_set}`);

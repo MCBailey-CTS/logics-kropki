@@ -296,15 +296,15 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     }
   }
 
-  private readonly _hasFences: boolean;
+  protected readonly _hasFences: boolean;
 
-  private readonly _dict: Map<string, Array<Loc>>;
+  protected readonly _dict: Map<string, Array<Loc>>;
 
-  private readonly _id: string;
+  protected readonly _id: string;
 
-  private readonly _length: number;
+  protected readonly _length: number;
 
-  private readonly _grid: string[][];
+  protected readonly _grid: string[][];
 
   get length() {
     return this._length;
@@ -486,6 +486,18 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         kropkiToNon = "  ";
         nonToKropki = "  ";
         break;
+        case 4:
+        initialOffset = " ";
+        kropkiToNon = "  ";
+        nonToKropki = "  ";
+        break;
+
+        case 5:
+        initialOffset = " ";
+        kropkiToNon = "  ";
+        nonToKropki = "  ";
+        break;
+        
       case 6:
         initialOffset = "  ";
         kropkiToNon = "   ";
