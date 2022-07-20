@@ -1,14 +1,19 @@
 import { _BaseDiamondChain } from "../abstract/_BaseDiamondChain";
+import { _BaseKropkiVectorDiamond } from "../abstract/_BaseKropkiVectorDiamond";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
-export class Chain_Dbbww extends _BaseDiamondChain {
+export class Chain_Dbbww extends _BaseKropkiVectorDiamond {
+  get expected_kropki_string(): string {
+    return "bbww";
+
+  }
   get expectedKropkiString(): string {
     return "bbww";
   }
 
-  solve1(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, chain: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     if (
