@@ -31,7 +31,7 @@ export class Chain_bb extends _BaseKropkiVector {
     return "bb";
   }
 
-  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     const commonHouses = puzzle.getCommonHouses(cellChainLocs);

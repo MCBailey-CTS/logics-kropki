@@ -19,7 +19,7 @@ export class Chain_bww extends _BaseKropkiVector {
     return "bww";
   }
 
-  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     if (puzzle.id != "008.kropki") return edits;

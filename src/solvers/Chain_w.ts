@@ -15,7 +15,7 @@ export class Chain_w extends _BaseKropkiVector {
     return "w";
   }
 
-  solve2(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
     const loc = cellChainLocs[0];
