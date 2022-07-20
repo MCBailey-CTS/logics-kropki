@@ -18,8 +18,11 @@ import { Chain_e } from "./src/solvers/Chain_e";
 import { Chain_w } from "./src/solvers/Chain_w";
 import { Chain_ww } from "./src/solvers/Chain_ww";
 import { CrossHatch } from "./src/solvers/CrossHatch";
+import { HiddenPair } from "./src/solvers/HiddenPair";
 import { HiddenSingle } from "./src/solvers/HiddenSingle";
 import { NakedPair } from "./src/solvers/NakedPair";
+import { NakedQuad } from "./src/solvers/NakedQuad";
+import { XWing } from "./src/solvers/XWing";
 
 function main() {
   const puzzleStrings = [
@@ -41,9 +44,9 @@ function main() {
     NewPuzzles._Kropki_003,
     NewPuzzles._Kropki_002,
     NewPuzzles._Kropki_001,
-    NewPuzzles._Kropki_006,
     NewPuzzles._Kropki_016,
     NewPuzzles._Kropki_010,
+    NewPuzzles._Kropki_006,
   ];
 
   // const totalEdits = [];
@@ -70,6 +73,9 @@ function main() {
     new CrossHatch(),
     new Chain_bww(),
     new Chain_Dbbww(),
+    new HiddenPair(),
+    new NakedQuad(),
+    // new XWing(),
   ];
 
   for (const str of puzzleStrings) {
@@ -148,7 +154,13 @@ function main() {
   //
 }
 
+const start = Date.now();
+
 main();
+
+const end = Date.now();
+
+console.log((end - start) / 1000);
 
 export interface IHash {
   get _size(): number;
