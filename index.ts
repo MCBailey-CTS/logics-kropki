@@ -101,11 +101,10 @@ function main() {
   ];
 
   const futoshikiSolvers: IFutoshikiSolver[] = [
-    new Chain_b(),
-    new Chain_e(),
-    new Chain_w(),
-    new HiddenSingle(),
-    new NakedPair(),
+    // new Chain_b(),
+    // new Chain_e(),
+    // new Chain_w(),
+
     // new Chain_bb(),
     // new Chain_bw(),
     // new Chain_ww(),
@@ -115,11 +114,14 @@ function main() {
     // new Chain_Debwb(),
     // new Chain_Dewbw(),
     // new Chain_Dbwww(),
-    new CrossHatch(),
     // new Chain_bww(),
     // new Chain_Dbbww(),
-    new HiddenPair(),
-    new NakedQuad(),
+
+    // new HiddenSingle(),
+    // new NakedPair(),
+    // new CrossHatch(),
+    // new HiddenPair(),
+    // new NakedQuad(),
   ];
 
   for (const str of puzzleStrings) {
@@ -162,9 +164,9 @@ function main() {
 
         const resultingEdits: IEdit[] = [];
 
-        resultingEdits.push(
-          ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
-        );
+        // resultingEdits.push(
+        //   ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
+        // );
 
         totalEdits += resultingEdits.length;
 
@@ -208,5 +210,3 @@ main();
 const end = Date.now();
 
 console.log((end - start) / 1000);
-
-
