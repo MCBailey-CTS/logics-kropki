@@ -27,7 +27,7 @@ export class Chain_e extends _BaseKropkiVector {
 
       for (const t of kropkiCandidates) otherHash.delete(t);
 
-      if (otherHash.size > 0) continue;
+      if (otherHash._size > 0) continue;
 
       if (!puzzle.removeCandidate(locs[0], candidate)) continue;
 

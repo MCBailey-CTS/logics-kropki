@@ -204,8 +204,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return cellCandidates(this.getCellString(r, c));
   }
 
-  getCellSet(r: number | Loc, c?: number): Set<number> {
-    return new Set<number>(this.getCellList(r, c));
+  getCellSet(r: number | Loc, c?: number): IHash {
+    return new Hash(this.getCellList(r, c));
   }
 
   getCellHash(r: number | Loc, c?: number): IHash {
@@ -1171,7 +1171,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     // one way.
 
-    const cellSets: Set<number>[] = cells.map((loc) => this.getCellSet(loc));
+    const cellSets = cells.map((loc) => this.getCellSet(loc));
 
     for (const candidate of this.getCellCandidates(cells[0])) {
       let item = candidate;

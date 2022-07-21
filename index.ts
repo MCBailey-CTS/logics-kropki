@@ -106,7 +106,7 @@ function main() {
   ];
 
   const futoshikiSolvers: IFutoshikiSolver[] = [
-    new Chain_greater_than1(),
+    // new Chain_greater_than1(),
     // new Chain_b(),
     // new Chain_e(),
     // new Chain_w(),
