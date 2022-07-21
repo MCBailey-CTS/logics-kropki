@@ -1,27 +1,15 @@
 import { Hash } from "../../Hash";
 import { IHash } from "../../IHash";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
+import { _BaseKropkiVectorString1 } from "../abstract/_BaseKropkiVectorString1";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
-export class Chain_w extends _BaseKropkiVector {
-  get vector_chains(): IHash<Loc>[] {
-    const _base = new Loc(0, 0);
-
-    const chains: IHash<Loc>[] = [];
-
-    chains.push(new Hash<Loc>([_base.right(2)]));
-    chains.push(new Hash<Loc>([_base.up(2)]));
-    chains.push(new Hash<Loc>([_base.left(2)]));
-    chains.push(new Hash<Loc>([_base.down(2)]));
-
-    return chains;
-  }
-
-  get expected_kropki_string(): string {
-    return "w";
+export class Chain_w extends _BaseKropkiVectorString1 {
+  constructor() {
+    super("w");
   }
 
   solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
