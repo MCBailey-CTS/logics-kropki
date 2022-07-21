@@ -1,8 +1,8 @@
-export interface IHash<T> {
+export interface IHash<T> extends RelativeIndexable<T> {
   get _size(): number;
 
-  // [Symbol.iterator]():Iterable<T>;
-  get _items(): Array<T>;
+  [Symbol.iterator](): IterableIterator<T>;
+
   clear(): boolean;
 
   add(item: T): boolean;
@@ -11,17 +11,17 @@ export interface IHash<T> {
 
   has(item: T): boolean;
 
-  // or_union(items: IHash | Array<number>): IHash;
+  or_union(items: Iterable<T>): IHash<T>;
 
-  // and_intersection(items: IHash | Array<number>): IHash;
+  and_intersection(items: Iterable<T>): IHash<T>;
 
-  // subtract(items: IHash | Array<number>): IHash;
+  subtract(items: Iterable<T>): IHash<T>;
 
   set_equals(items: Array<T>): boolean;
 
   is_subset_of(items: Array<T>): boolean;
-  // is_proper_subset_of(items: IHash | Array<number>): boolean;
+  is_proper_subset_of(items: Iterable<T>): boolean;
 
-  // is_superset_of(items: IHash | Array<number>): boolean;
-  // is_proper_superset_of(items: IHash | Array<number>): boolean;
+  is_superset_of(items: Iterable<T>): boolean;
+  is_proper_superset_of(items: Iterable<T>): boolean;
 }

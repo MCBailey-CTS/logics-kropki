@@ -108,8 +108,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
   getKropkiCandidates(candidate: number): Set<number> {
     return new Set<number>([
-      ...this.getKropkiWhiteCandidates(candidate)._items,
-      ...this.getKropkiBlackCandidates(candidate)._items,
+      ...this.getKropkiWhiteCandidates(candidate),
+      ...this.getKropkiBlackCandidates(candidate),
     ]);
   }
 

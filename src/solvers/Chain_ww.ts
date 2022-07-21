@@ -45,25 +45,25 @@ export class Chain_ww extends _BaseKropkiVector {
     const centerSet = puzzle.getCellSet(center);
     const edgeSet1 = puzzle.getCellSet(edge1);
 
-    for (const candidate of edgeSet0._items) {
+    for (const candidate of edgeSet0) {
       if (!edgeSet1.has(candidate - 2) && !edgeSet1.has(candidate + 2)) {
         edits.push(...this.remove(puzzle, edge0, candidate));
       }
     }
 
-    for (const candidate of edgeSet1._items) {
+    for (const candidate of edgeSet1) {
       if (!edgeSet0.has(candidate - 2) && !edgeSet0.has(candidate + 2)) {
         edits.push(...this.remove(puzzle, edge1, candidate));
       }
     }
 
-    for (const candidate of edgeSet0._items) {
+    for (const candidate of edgeSet0) {
       if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
         edits.push(...this.remove(puzzle, edge0, candidate));
       }
     }
 
-    for (const candidate of edgeSet1._items) {
+    for (const candidate of edgeSet1) {
       if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
         edits.push(...this.remove(puzzle, edge1, candidate));
       }

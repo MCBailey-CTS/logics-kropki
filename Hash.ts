@@ -2,20 +2,43 @@ import { IHash } from "./IHash";
 
 export class Hash<T> implements IHash<T> {
   private readonly __hash: Set<T>;
+  private readonly __list: Array<T>;
 
-  constructor(items?: T[] | null | undefined) {
-    if (items == null || typeof items == "undefined") {
-      this.__hash = new Set<T>();
-      return;
-    }
-
+  constructor(items?: Iterable<T> | null | undefined) {
     this.__hash = new Set<T>(items);
+
+    this.__list = new Array<T>();
+
+    if (items == null || typeof items == "undefined") return;
+
+    this.__list = new Array<T>(...items);
+  }
+  or_union(items: Iterable<T>): IHash<T> {
+    throw new Error("Method not implemented.");
+  }
+  and_intersection(items: Iterable<T>): IHash<T> {
+    throw new Error("Method not implemented.");
+  }
+  subtract(items: Iterable<T>): IHash<T> {
+    throw new Error("Method not implemented.");
+  }
+  is_proper_subset_of(items: Iterable<T>): boolean {
+    throw new Error("Method not implemented.");
+  }
+  is_superset_of(items: Iterable<T>): boolean {
+    throw new Error("Method not implemented.");
+  }
+  is_proper_superset_of(items: Iterable<T>): boolean {
+    throw new Error("Method not implemented.");
   }
 
+  at(index: number): T | undefined {
+    throw new Error("Method not implemented.");
+  }
 
-  // [Symbol.iterator](): Iterable<T> {
-  //   throw new Error("Method not implemented.");
-  // }
+  *[Symbol.iterator](): IterableIterator<T> {
+    for (let item of this.__list) yield item;
+  }
 
   set_equals(items: T[]): boolean {
     const other = new Set<T>(items);
@@ -30,7 +53,7 @@ export class Hash<T> implements IHash<T> {
   is_subset_of(items: T[]): boolean {
     const other = new Set<T>(items);
 
-    return this._items.every((item) => {
+    return [...this].every((item) => {
       return other.has(item);
     });
   }
@@ -39,8 +62,8 @@ export class Hash<T> implements IHash<T> {
     return this.__hash.size;
   }
 
-  get _items(): T[] {
-    return [...this.__hash];
+  get _length(): number {
+    return this.__list.length;
   }
 
   clear(): boolean {
@@ -55,6 +78,8 @@ export class Hash<T> implements IHash<T> {
     const originalSize = this._size;
 
     this.__hash.add(item);
+
+    this.__list.push(item);
 
     return originalSize < this._size;
   }

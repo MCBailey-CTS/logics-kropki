@@ -25,6 +25,7 @@ import { HiddenPair } from "./src/solvers/HiddenPair";
 import { HiddenSingle } from "./src/solvers/HiddenSingle";
 import { NakedPair } from "./src/solvers/NakedPair";
 import { NakedQuad } from "./src/solvers/NakedQuad";
+import { Hash } from "./Hash";
 
 function main() {
   const puzzleStrings = [
@@ -214,3 +215,27 @@ main();
 const end = Date.now();
 
 console.log((end - start) / 1000);
+
+// const temp = new Hash<string>();
+
+// temp.add("1");
+// temp.add("2");
+// temp.add("3");
+// temp.add("2");
+
+// for (const l of temp) console.log(l);
+
+// console.log("Count: " + temp._size);
+
+// const temp1 = new Hash<number>();
+
+// temp1.add(1);
+// temp1.add(2);
+// temp1.add(3);
+// temp1.add(2);
+// temp1.add(5);
+// temp1.add(6);
+
+// for (const l of temp1) console.log(l);
+
+// console.log("Count: " + temp1._size);
