@@ -25,9 +25,9 @@ export class Chain_b extends _BaseKropkiVector {
 
     const other = locs[1];
 
-    const otherHash = puzzle.getCellSet(other);
+    const otherHash = puzzle.getCellList(other);
 
-    for (const candidate of puzzle.getCellCandidates(loc)) {
+    for (const candidate of puzzle.getCellList(loc)) {
       if (otherHash.has(candidate * 2)) continue;
 
       if (candidate % 2 == 0 && otherHash.has(candidate / 2)) continue;
@@ -40,8 +40,7 @@ export class Chain_b extends _BaseKropkiVector {
     const hash = new Set<number>();
 
     for (const loc of locs)
-      for (const candidate of puzzle.getCellCandidates(loc))
-        hash.add(candidate);
+      for (const candidate of puzzle.getCellList(loc)) hash.add(candidate);
 
     if (hash.size != 3) return edits;
 

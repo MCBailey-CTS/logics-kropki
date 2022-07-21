@@ -13,6 +13,35 @@ export class Hash<T> implements IHash<T> {
 
     this.__list = new Array<T>(...items);
   }
+
+  sort(compareFn?: (a: T, b: T) => number): this {
+    this.__list.sort(compareFn);
+
+    return this;
+  }
+
+  // pop(): T | undefined {
+  //   throw new Error("Method not implemented.");
+  // }
+  // _pop(): T {
+  //   throw new Error("Method not implemented.");
+  // }
+  // peek(): T | undefined {
+  //   throw new Error("Method not implemented.");
+  // }
+  // _peek(): T {
+  //   throw new Error("Method not implemented.");
+  // }
+  // unshift(): number {
+  //   throw new Error("Method not implemented.");
+  // }
+  // shift(): T | undefined {
+  //   throw new Error("Method not implemented.");
+  // }
+  // _shift(): T {
+  //   throw new Error("Method not implemented.");
+  // }
+
   or_union(items: Iterable<T>): IHash<T> {
     throw new Error("Method not implemented.");
   }
@@ -33,7 +62,7 @@ export class Hash<T> implements IHash<T> {
   }
 
   at(index: number): T | undefined {
-    throw new Error("Method not implemented.");
+    return this.__list.at(index);
   }
 
   *[Symbol.iterator](): IterableIterator<T> {
@@ -41,9 +70,9 @@ export class Hash<T> implements IHash<T> {
   }
 
   set_equals(items: T[]): boolean {
-    const other = new Set<T>(items);
+    const other = new Hash<T>(items);
 
-    return other.size == this._size && this.is_subset_of(items);
+    return other._size == this._size && this.is_subset_of(items);
   }
 
   has(item: T): boolean {
@@ -56,6 +85,14 @@ export class Hash<T> implements IHash<T> {
     return [...this].every((item) => {
       return other.has(item);
     });
+  }
+
+  _at(index: number): T {
+    const result = this.__list.at(index);
+
+    if (typeof result == "undefined") throw Error();
+
+    return result;
   }
 
   get _size(): number {
@@ -74,7 +111,7 @@ export class Hash<T> implements IHash<T> {
     return originalSize > this._size && this._size != 0;
   }
 
-  add(item: T): boolean {
+  push(item: T): boolean {
     const originalSize = this._size;
 
     this.__hash.add(item);

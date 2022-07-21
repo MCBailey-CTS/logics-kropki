@@ -22,9 +22,9 @@ export class HiddenPair extends _BaseKropkiSudokuSolver {
         const set1 = new Set<number>();
 
         for (let i = 0; i < cellChainLocs.length; i++) {
-          if (puzzle.getCellSet(cellChainLocs[i]).has(candidate0)) set0.add(i);
+          if (puzzle.getCellList(cellChainLocs[i]).has(candidate0)) set0.add(i);
 
-          if (puzzle.getCellSet(cellChainLocs[i]).has(candidate1)) set1.add(i);
+          if (puzzle.getCellList(cellChainLocs[i]).has(candidate1)) set1.add(i);
         }
 
         if (set0.size != 2) continue;

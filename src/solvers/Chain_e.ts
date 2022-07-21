@@ -17,13 +17,13 @@ export class Chain_e extends _BaseKropkiVector {
   solveChain(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const candidate of puzzle.getCellCandidates(locs[0])) {
+    for (const candidate of puzzle.getCellList(locs[0])) {
       const kropkiCandidates = [
         ...puzzle.getKropkiCandidates(candidate),
         candidate,
       ];
 
-      const otherHash = puzzle.getCellSet(locs[1]);
+      const otherHash = puzzle.getCellList(locs[1]);
 
       for (const t of kropkiCandidates) otherHash.delete(t);
 

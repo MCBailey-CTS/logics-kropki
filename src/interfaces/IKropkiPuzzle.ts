@@ -26,9 +26,7 @@ export interface IKropkiPuzzle {
 
   getCellString(r: Loc | number, c?: number): string;
 
-  getCellCandidates(r: Loc | number, c?: number): number[];
-
-  getCellSet(r: Loc | number, c?: number): IHash<number>;
+  getCellList(r: Loc | number, c?: number): IHash<number>;
 
   get expectedCandidates(): number[];
 

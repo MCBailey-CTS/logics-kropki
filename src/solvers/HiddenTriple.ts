@@ -37,13 +37,13 @@ export class HiddenTriple extends _BaseKropkiSudokuSolver {
           const set2 = new Set<number>();
 
           for (let i = 0; i < cellChainLocs.length; i++) {
-            if (puzzle.getCellSet(cellChainLocs[i]).has(candidate0))
+            if (puzzle.getCellList(cellChainLocs[i]).has(candidate0))
               set0.add(i);
 
-            if (puzzle.getCellSet(cellChainLocs[i]).has(candidate1))
+            if (puzzle.getCellList(cellChainLocs[i]).has(candidate1))
               set1.add(i);
 
-            if (puzzle.getCellSet(cellChainLocs[i]).has(candidate2))
+            if (puzzle.getCellList(cellChainLocs[i]).has(candidate2))
               set2.add(i);
           }
 

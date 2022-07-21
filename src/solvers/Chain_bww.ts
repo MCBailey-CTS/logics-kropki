@@ -22,7 +22,7 @@ export class Chain_bww extends _BaseKropkiVector {
   solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (puzzle.getCellSet(cellChainLocs[0]).has(1)) return edits;
+    if (puzzle.getCellList(cellChainLocs[0]).has(1)) return edits;
 
     if (!puzzle.removeCandidate(cellChainLocs[1], 2)) return edits;
 

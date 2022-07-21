@@ -15,10 +15,10 @@ export class Chain_Dewww extends _BaseKropkiVectorDiamond {
     edits.push(...this.remove(puzzle, chain[2], 1, 9));
     edits.push(...this.remove(puzzle, chain[3], 3));
 
-    for (const candidate of puzzle.getCellCandidates(chain[1])) {
-      const beforeSet = puzzle.getCellSet(chain[0]);
+    for (const candidate of puzzle.getCellList(chain[1])) {
+      const beforeSet = puzzle.getCellList(chain[0]);
 
-      const afterSet = puzzle.getCellSet(chain[2]);
+      const afterSet = puzzle.getCellList(chain[2]);
 
       const lowerC = candidate - 1;
 
@@ -31,11 +31,11 @@ export class Chain_Dewww extends _BaseKropkiVectorDiamond {
         edits.push(...this.remove(puzzle, chain[1], candidate));
     }
 
-    for (const candidate1 of puzzle.getCellCandidates(chain[0])) {
+    for (const candidate1 of puzzle.getCellList(chain[0])) {
       if (
-        puzzle.getCellSet(chain[1]).has(candidate1 + 1) &&
-        !puzzle.getCellSet(chain[1]).has(candidate1 - 1) &&
-        !puzzle.getCellSet(chain[2]).has(candidate1 + 2)
+        puzzle.getCellList(chain[1]).has(candidate1 + 1) &&
+        !puzzle.getCellList(chain[1]).has(candidate1 - 1) &&
+        !puzzle.getCellList(chain[2]).has(candidate1 + 2)
       )
         edits.push(...this.remove(puzzle, chain[0], candidate1));
     }

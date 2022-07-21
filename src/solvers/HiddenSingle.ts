@@ -19,7 +19,8 @@ export class HiddenSingle extends _BaseKropkiSudokuSolver {
       const indexes = [];
 
       for (let i = 0; i < cellChainLocs.length; i++)
-        if (puzzle.getCellSet(cellChainLocs[i]).has(candidate)) indexes.push(i);
+        if (puzzle.getCellList(cellChainLocs[i]).has(candidate))
+          indexes.push(i);
 
       if (indexes.length != 1) continue;
 
@@ -27,9 +28,9 @@ export class HiddenSingle extends _BaseKropkiSudokuSolver {
       const loc = cellChainLocs[indexes[0]];
 
       //   console.log(loc);
-      const candidates = puzzle.getCellCandidates(loc);
+      const candidates = puzzle.getCellList(loc);
 
-      if (candidates.length == 1) continue;
+      if (candidates._length == 1) continue;
 
       for (const temp of candidates)
         if (temp != candidate && puzzle.removeCandidate(loc, temp))

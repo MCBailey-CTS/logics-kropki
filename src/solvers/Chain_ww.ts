@@ -41,9 +41,9 @@ export class Chain_ww extends _BaseKropkiVector {
     const center = locs[1];
     const edge1 = locs[2];
 
-    const edgeSet0 = puzzle.getCellSet(edge0);
-    const centerSet = puzzle.getCellSet(center);
-    const edgeSet1 = puzzle.getCellSet(edge1);
+    const edgeSet0 = puzzle.getCellList(edge0);
+    const centerSet = puzzle.getCellList(center);
+    const edgeSet1 = puzzle.getCellList(edge1);
 
     for (const candidate of edgeSet0) {
       if (!edgeSet1.has(candidate - 2) && !edgeSet1.has(candidate + 2)) {

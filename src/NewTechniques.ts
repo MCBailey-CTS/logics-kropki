@@ -7,28 +7,28 @@ import { LocSet } from "./LocSet";
 type GRID = string[][];
 
 export class NewTechniques {
-  // static solveKropkiIntersectionChains(grid: GRID, length: number) {
+  // static solveKropkiIntersectionChains(grid: GRID, _length: number) {
   //   Loc.getKropkiColIntersectionLocs()
 
   // }
   // static isValidKropkiBlack():boolean{}
 
-  static solveSudokuCrossHatch(length: number, house: string[]) {
-    for (let i = 0; i < length; i++)
-      for (let ii = 0; ii < length; ii++) {
+  static solveSudokuCrossHatch(_length: number, house: string[]) {
+    for (let i = 0; i < _length; i++)
+      for (let ii = 0; ii < _length; ii++) {
         if (i == ii) continue;
 
         const cell = cellCandidates(house[i]);
 
-        if (cell.length != 1) continue;
+        if (cell._length != 1) continue;
 
-        house[ii] = house[ii].replace(`${cell[0]}`, "_");
+        house[ii] = house[ii].replace(`${cell._at(0)}`, "_");
       }
   }
 
-  static solveSudokuNakedPair(length: number, house: string[]) {
-    for (let i = 0; i < length; i++)
-      for (let ii = 0; ii < length; ii++) {
+  static solveSudokuNakedPair(_length: number, house: string[]) {
+    for (let i = 0; i < _length; i++)
+      for (let ii = 0; ii < _length; ii++) {
         const indexes = new Set<number>([i, ii]);
 
         if (indexes.size != 2) continue;
@@ -43,28 +43,28 @@ export class NewTechniques {
 
         if (hash.size != 2) continue;
 
-        NewTechniques.removeNakedCandidates(house, length, indexes, hash);
+        NewTechniques.removeNakedCandidates(house, _length, indexes, hash);
       }
   }
 
   static removeNakedCandidates(
     house: string[],
-    length: number,
+    _length: number,
     indexes: Set<number>,
     hash: Set<number>
   ) {
     for (const candidate of hash)
-      for (let j = 0; j < length; j++) {
+      for (let j = 0; j < _length; j++) {
         if (indexes.has(j)) continue;
 
         house[j] = house[j].replace(`${candidate}`, "_");
       }
   }
 
-  static solveSudokuNakedTriple(length: number, house: string[]) {
-    for (let i = 0; i < length; i++)
-      for (let ii = 0; ii < length; ii++)
-        for (let iii = 0; iii < length; iii++) {
+  static solveSudokuNakedTriple(_length: number, house: string[]) {
+    for (let i = 0; i < _length; i++)
+      for (let ii = 0; ii < _length; ii++)
+        for (let iii = 0; iii < _length; iii++) {
           const indexes = new Set<number>([i, ii, iii]);
 
           if (indexes.size != 3) continue;
@@ -82,7 +82,7 @@ export class NewTechniques {
           if (hash.size != 3) continue;
 
           for (const candidate of hash)
-            for (let j = 0; j < length; j++) {
+            for (let j = 0; j < _length; j++) {
               if (indexes.has(j)) continue;
 
               house[j] = house[j].replace(`${candidate}`, "_");
@@ -90,13 +90,13 @@ export class NewTechniques {
         }
   }
 
-  static solveSudokuQuadTriple(length: number, house: string[]) {
+  static solveSudokuQuadTriple(_length: number, house: string[]) {
     // let valid
 
-    for (let i = 0; i < length - 3; i++)
-      for (let ii = i + 1; ii < length - 2; ii++)
-        for (let iii = ii + 1; iii < length - 1; iii++)
-          for (let iiii = iii + 1; iiii < length; iiii++) {
+    for (let i = 0; i < _length - 3; i++)
+      for (let ii = i + 1; ii < _length - 2; ii++)
+        for (let iii = ii + 1; iii < _length - 1; iii++)
+          for (let iiii = iii + 1; iiii < _length; iiii++) {
             const indexes = new Set<number>([i, ii, iii, iiii]);
 
             if (indexes.size != 4) continue;
@@ -108,10 +108,10 @@ export class NewTechniques {
             const candidates2 = cellCandidates(house[iii]);
             const candidates3 = cellCandidates(house[iiii]);
 
-            if (candidates0.length > 4) continue;
-            if (candidates1.length > 4) continue;
-            if (candidates2.length > 4) continue;
-            if (candidates3.length > 4) continue;
+            if (candidates0._length > 4) continue;
+            if (candidates1._length > 4) continue;
+            if (candidates2._length > 4) continue;
+            if (candidates3._length > 4) continue;
 
             candidates.push(...candidates0);
 
@@ -126,7 +126,7 @@ export class NewTechniques {
             if (hash.size != 4) continue;
 
             for (const candidate of hash)
-              for (let j = 0; j < length; j++) {
+              for (let j = 0; j < _length; j++) {
                 if (indexes.has(j)) continue;
 
                 house[j] = house[j].replace(`${candidate}`, "_");
@@ -134,15 +134,15 @@ export class NewTechniques {
           }
   }
 
-  static solveSudokuHiddenSingle(length: number, house: string[]) {
-    switch (length) {
+  static solveSudokuHiddenSingle(_length: number, house: string[]) {
+    switch (_length) {
       case 3:
         for (const candidate of [1, 2, 3]) {
           const strCandidate = `${candidate}`;
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -162,7 +162,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -182,7 +182,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -202,7 +202,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -223,7 +223,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -244,7 +244,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -265,7 +265,7 @@ export class NewTechniques {
 
           const indexes = [];
 
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < _length; i++) {
             if (house[i].includes(strCandidate)) indexes.push(i);
           }
 
@@ -290,7 +290,7 @@ export class NewTechniques {
 
         break;
       default:
-        throw Error(`Unknown length for Sudoku Hidden Single '${length}'`);
+        throw Error(`Unknown _length for Sudoku Hidden Single '${_length}'`);
     }
   }
 
@@ -308,12 +308,12 @@ export class NewTechniques {
     for (let j = 0; j < _length; j++) {
       const loc = locs[j];
 
-      const length = cellCandidates(_grid[loc.row][loc.col]).length;
+      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
       _grid[loc.row][loc.col] = house[j];
 
       edited =
-        length > cellCandidates(_grid[loc.row][loc.col]).length || edited;
+        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
     }
 
     return edited;
@@ -333,12 +333,12 @@ export class NewTechniques {
     for (let j = 0; j < _length; j++) {
       const loc = locs[j];
 
-      const length = cellCandidates(_grid[loc.row][loc.col]).length;
+      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
       _grid[loc.row][loc.col] = house[j];
 
       edited =
-        length > cellCandidates(_grid[loc.row][loc.col]).length || edited;
+        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
     }
 
     return edited;
@@ -358,12 +358,12 @@ export class NewTechniques {
     for (let j = 0; j < _length; j++) {
       const loc = locs[j];
 
-      const length = cellCandidates(_grid[loc.row][loc.col]).length;
+      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
       _grid[loc.row][loc.col] = house[j];
 
       edited =
-        length > cellCandidates(_grid[loc.row][loc.col]).length || edited;
+        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
     }
 
     return edited;
@@ -376,9 +376,9 @@ export class NewTechniques {
 
         const cell1 = cellCandidates(_grid[r * 2][c + 1]);
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         switch (_grid[r * 2][c]) {
           case "<":
@@ -422,9 +422,9 @@ export class NewTechniques {
         const cell0 = cellCandidates(_grid[r - 1][c * 2]);
         const cell1 = cellCandidates(_grid[r + 1][c * 2]);
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         switch (_grid[r][c]) {
           case "v":
@@ -459,12 +459,12 @@ export class NewTechniques {
     for (let j = 0; j < _length; j++) {
       const loc = locs[j];
 
-      const length = cellCandidates(_grid[loc.row][loc.col]).length;
+      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
       _grid[loc.row][loc.col] = house[j];
 
       edited =
-        length > cellCandidates(_grid[loc.row][loc.col]).length || edited;
+        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
     }
 
     return edited;
@@ -484,20 +484,20 @@ export class NewTechniques {
     for (let j = 0; j < _length; j++) {
       const loc = locs[j];
 
-      const length = cellCandidates(_grid[loc.row][loc.col]).length;
+      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
       _grid[loc.row][loc.col] = house[j];
 
       edited =
-        length > cellCandidates(_grid[loc.row][loc.col]).length || edited;
+        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
     }
 
     return edited;
   }
 
   // static solveSudokuLocs(_grid: GRID, _length: number, locs: Loc[]): boolean {
-  //   if (_length != locs.length)
-  //     throw new Error(`Invalid number of locs vs length`);
+  //   if (_length != locs._length)
+  //     throw new Error(`Invalid number of locs vs _length`);
 
   //   if (NewTechniques.solveSudokuCrossHatchLocs(_grid, _length, locs))
   //     return true;
@@ -522,11 +522,11 @@ export class NewTechniques {
 
     const cell1Candidates = cellCandidates(_grid[loc0.row][loc0.col]);
 
-    const length = cellCandidates(_grid[loc1.row][loc1.col]).length;
+    const _length = cellCandidates(_grid[loc1.row][loc1.col])._length;
 
     cell1Candidates.sort((a, b) => a - b);
 
-    const max1 = cell1Candidates[cell1Candidates.length - 1];
+    const max1 = cell1Candidates._at(cell1Candidates._length - 1);
 
     const cell0Candidates = cellCandidates(_grid[loc1.row][loc1.col]);
 
@@ -536,7 +536,7 @@ export class NewTechniques {
       NewTechniques.removeCandidate(_grid, loc1, candidate);
 
       edited =
-        length > cellCandidates(_grid[loc1.row][loc1.col]).length || edited;
+        _length > cellCandidates(_grid[loc1.row][loc1.col])._length || edited;
     }
 
     return edited;
@@ -547,11 +547,11 @@ export class NewTechniques {
 
     const cell0Candidates = cellCandidates(_grid[loc0.row][loc0.col]);
 
-    const length = cellCandidates(_grid[loc1.row][loc1.col]).length;
+    const _length = cellCandidates(_grid[loc1.row][loc1.col])._length;
 
     cell0Candidates.sort((a, b) => a - b);
 
-    const min0 = cell0Candidates[0];
+    const min0 = cell0Candidates._at(0);
 
     const cell1Candidates = cellCandidates(_grid[loc1.row][loc1.col]);
 
@@ -560,7 +560,7 @@ export class NewTechniques {
       NewTechniques.removeCandidate(_grid, loc1, candidate);
 
       edited =
-        length > cellCandidates(_grid[loc1.row][loc1.col]).length || edited;
+        _length > cellCandidates(_grid[loc1.row][loc1.col])._length || edited;
     }
 
     return edited;
@@ -791,9 +791,9 @@ export class NewTechniques {
 
         const cell1 = cellCandidates(_grid[r * 2][c + 1]);
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         if (
           !NewTechniques.isOneUpOneDownIntersectionSolved(
@@ -817,9 +817,9 @@ export class NewTechniques {
         const cell0 = cellCandidates(_grid[r - 1][c * 2]);
         const cell1 = cellCandidates(_grid[r + 1][c * 2]);
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         if (
           !NewTechniques.isOneUpOneDownIntersectionSolved(
@@ -834,18 +834,18 @@ export class NewTechniques {
     return true;
   }
 
-  static isSudokuHouseSolved(house: string[], length: number): boolean {
+  static isSudokuHouseSolved(house: string[], _length: number): boolean {
     const hash = new Set<number>();
 
     for (const cell of house) {
       const candidates = cellCandidates(cell);
 
-      if (candidates.length != 1) return false;
+      if (candidates._length != 1) return false;
 
       for (const candidate of candidates) hash.add(candidate);
     }
 
-    for (let i = 1; i <= length; i++) if (!hash.has(i)) return false;
+    for (let i = 1; i <= _length; i++) if (!hash.has(i)) return false;
 
     return true;
   }
@@ -853,19 +853,19 @@ export class NewTechniques {
   static isSudokuHouseLocsSolved(
     grid: GRID,
     locs: Loc[],
-    length: number
+    _length: number
   ): boolean {
     const hash = new Set<number>();
 
     for (const loc of locs) {
       const candidates = cellCandidates(grid[loc.row][loc.col]);
 
-      if (candidates.length != 1) return false;
+      if (candidates._length != 1) return false;
 
       for (const candidate of candidates) hash.add(candidate);
     }
 
-    for (let i = 1; i <= length; i++) if (!hash.has(i)) return false;
+    for (let i = 1; i <= _length; i++) if (!hash.has(i)) return false;
 
     return true;
   }

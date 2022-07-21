@@ -7,13 +7,13 @@ import { Loc } from "../Loc";
 import { LocSet } from "../LocSet";
 import { NewTechniques } from "../NewTechniques";
 
-export function cellCandidates(cell: string): number[] {
+export function cellCandidates(cell: string): IHash<number> {
   // console.log(`'${cell}'`);
 
   if (cell == null || typeof cell == "undefined")
     throw Error(`cell is ${cell}`);
 
-  const array = [];
+  const array = new Hash<number>();
 
   for (const candidate of cell) {
     if (isNaN(+candidate)) continue;
@@ -126,7 +126,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     for (let c = 1; c <= this._length; c++)
       if (candidate * 2 == c || (candidate % 2 == 0 && candidate / 2 == c))
-        hash.add(c);
+        hash.push(c);
 
     return hash;
   }
@@ -195,12 +195,12 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     const hash = new Hash<number>();
 
     for (let c = 1; c <= this._length; c++)
-      if (candidate + 1 == c || candidate - 1 == c) hash.add(c);
+      if (candidate + 1 == c || candidate - 1 == c) hash.push(c);
 
     return hash;
   }
 
-  getCellList(r: number | Loc, c?: number): number[] {
+  getCellList(r: number | Loc, c?: number): IHash<number> {
     return cellCandidates(this.getCellString(r, c));
   }
 
@@ -387,7 +387,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     throw new Error(`Invalid parameters for setCellString`);
   }
 
-  getCellCandidates(loc: Loc): number[] {
+  getCellCandidates(loc: Loc): IHash<number> {
     return cellCandidates(this.getCellString(loc));
   }
 
@@ -598,7 +598,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     const c = loc.col;
 
-    const originalLength = cellCandidates(this._grid[loc.row][loc.col]).length;
+    const originalLength = cellCandidates(this._grid[loc.row][loc.col])._length;
 
     if (
       r < 0 ||
@@ -623,7 +623,9 @@ export class KropkiPuzzle implements IKropkiPuzzle {
       "_"
     );
 
-    return originalLength > cellCandidates(this._grid[loc.row][loc.col]).length;
+    return (
+      originalLength > cellCandidates(this._grid[loc.row][loc.col])._length
+    );
   }
 
   getCellColHouseLocs(col: number): Loc[] {
@@ -650,11 +652,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         const cell0 = this.getCellCandidates(new Loc(r - 1, c * 2));
         const cell1 = this.getCellCandidates(new Loc(r + 1, c * 2));
 
-        if (cell0.length != 1 || cell1.length != 1) return false;
+        if (cell0._length != 1 || cell1._length != 1) return false;
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         if (
           !this.isIntersectionSolved(
@@ -676,11 +678,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
         const cell1 = this.getCellCandidates(new Loc(r * 2, c + 1));
 
-        if (cell0.length != 1 || cell1.length != 1) return false;
+        if (cell0._length != 1 || cell1._length != 1) return false;
 
-        const c0 = cell0[0];
+        const c0 = cell0._at(0);
 
-        const c1 = cell1[0];
+        const c1 = cell1._at(0);
 
         if (
           !this.isIntersectionSolved(
@@ -800,11 +802,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
       if (isValid) continue;
 
-      const length = this.getCellCandidates(loc0).length;
+      const length = this.getCellCandidates(loc0)._length;
 
       this.removeCandidate(loc0, +strCandidate);
 
-      edited = length > this.getCellCandidates(loc0).length || edited;
+      edited = length > this.getCellCandidates(loc0)._length || edited;
     }
 
     return edited;
@@ -842,11 +844,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
       if (isValid) continue;
 
-      const length = this.getCellCandidates(loc0).length;
+      const length = this.getCellCandidates(loc0)._length;
 
       this.removeCandidate(loc0, +strCandidate);
 
-      edited = length > this.getCellCandidates(loc0).length;
+      edited = length > this.getCellCandidates(loc0)._length;
     }
 
     return edited;
@@ -857,11 +859,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     const cell = this.getCellCandidates(loc1);
 
-    const length = this.getCellCandidates(loc0).length;
+    const length = this.getCellCandidates(loc0)._length;
 
-    if (cell.length != 1) return false;
+    if (cell._length != 1) return false;
 
-    const solved = cell[0];
+    const solved = cell._at(0);
 
     if (solved - 1 >= -1) this.removeCandidate(loc0, solved - 1);
 
@@ -872,7 +874,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     if (solved * 2 < 10) this.removeCandidate(loc0, solved * 2);
 
-    return length > this.getCellCandidates(loc0).length || edited;
+    return length > this.getCellCandidates(loc0)._length || edited;
   }
 
   static isSubset(original: number[], possibleSubset: number[]): boolean {
@@ -1160,7 +1162,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     const candidates = this.getCellCandidates(loc);
 
-    if (KropkiPuzzle.isSubset([1, 2, 3, 4], candidates))
+    if (candidates.is_subset_of([1, 2, 3, 4]))
       edited = this.removeUpDownLeftRight(loc, 2) || edited;
 
     return edited;

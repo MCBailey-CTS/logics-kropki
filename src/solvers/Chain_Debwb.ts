@@ -14,8 +14,8 @@ export class Chain_Debwb extends _BaseKropkiVectorDiamond {
     edits.push(...this.remove(puzzle, chain[0], 1));
     edits.push(...this.remove(puzzle, chain[1], 1));
 
-    const hash0 = puzzle.getCellSet(chain[0]);
-    const hash1 = puzzle.getCellSet(chain[1]);
+    const hash0 = puzzle.getCellList(chain[0]);
+    const hash1 = puzzle.getCellList(chain[1]);
 
     let explicit = [2, 3, 4];
 
