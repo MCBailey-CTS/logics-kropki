@@ -1,3 +1,5 @@
+import { Hash } from "../../Hash";
+import { IHash } from "../../IHash";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
@@ -5,7 +7,7 @@ import { IKropkiVectors } from "../interfaces/IKropkiVectors";
 import { Loc } from "../Loc";
 
 export abstract class _BaseKropkiVector implements IKropkiVectors {
-  abstract get vector_chains(): Loc[][];
+  abstract get vector_chains(): IHash<Loc>[];
 
   get id(): string {
     return this.constructor.name;
@@ -23,19 +25,19 @@ export abstract class _BaseKropkiVector implements IKropkiVectors {
 
   abstract get expected_kropki_string(): string;
 
-  abstract solveChain(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[];
+  abstract solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[];
 
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
     const edits: IEdit[] = [];
 
     for (const loc of puzzle.sudokuCellLocs)
       for (const vectorChain of this.vector_chains) {
-        const locs: Loc[] = [loc];
+        const locs: IHash<Loc> = new Hash<Loc>([loc]);
 
         let intersectionString = "";
 
         for (const vec of vectorChain) {
-          const previous = locs[locs.length - 1];
+          const previous = locs._at(locs._length - 1);
 
           const next = previous.add_vector(vec.row, vec.col);
 
@@ -51,7 +53,7 @@ export abstract class _BaseKropkiVector implements IKropkiVectors {
 
         if (this.expected_kropki_string != intersectionString) continue;
 
-        if (vectorChain.length + 1 != locs.length) continue;
+        if (vectorChain._length + 1 != locs._length) continue;
 
         edits.push(...this.solveChain(puzzle, locs));
       }
@@ -60,5 +62,29 @@ export abstract class _BaseKropkiVector implements IKropkiVectors {
   }
 }
 
+export abstract class _BaseKropkiVectorString1 extends _BaseKropkiVector {
+  protected constructor(expectedKropkiString: string) {
+    super();
 
+    this.__expected = expectedKropkiString;
+  }
 
+  private readonly __expected:string;
+
+  get vector_chains(): IHash<Loc>[] {
+    const _base = new Loc(0, 0);
+
+    const chains: IHash<Loc>[] = [];
+
+    chains.push(new Hash<Loc>([_base.right(2)]));
+    chains.push(new Hash<Loc>([_base.up(2)]));
+    chains.push(new Hash<Loc>([_base.left(2)]));
+    chains.push(new Hash<Loc>([_base.down(2)]));
+
+    return chains;
+  }
+
+  get expected_kropki_string(): string {
+    return this.__expected;
+  }
+}

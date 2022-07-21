@@ -4,7 +4,6 @@ import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
-import { LocSet } from "../LocSet";
 import { NewTechniques } from "../NewTechniques";
 
 export function cellCandidates(cell: string): IHash<number> {
@@ -75,22 +74,22 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     this._dict = new Map<string, Array<Loc>>();
   }
 
-  getSurroundingCellLocs(cellLoc: Loc): Loc[] {
-    if (cellLoc.row % 2 != 0 || cellLoc.col % 2 != 0)
-      throw Error(`Loc ${cellLoc} is not a valid kropki cell loc.`);
+  // getSurroundingCellLocs(cellLoc: Loc): Loc[] {
+  //   if (cellLoc.row % 2 != 0 || cellLoc.col % 2 != 0)
+  //     throw Error(`Loc ${cellLoc} is not a valid kropki cell loc.`);
 
-    return [
-      cellLoc.up(2),
-      cellLoc.right(2),
-      cellLoc.down(2),
-      cellLoc.left(2),
-    ].filter((loc) => {
-      return loc.isValidKropkiLoc(this.length);
-    });
-  }
+  //   return [
+  //     cellLoc.up(2),
+  //     cellLoc.right(2),
+  //     cellLoc.down(2),
+  //     cellLoc.left(2),
+  //   ].filter((loc) => {
+  //     return loc.isValidKropkiLoc(this.length);
+  //   });
+  // }
 
-  getFenceLocs(fence: string): Loc[] {
-    const locs = [];
+  getFenceLocs(fence: string): IHash<Loc> {
+    const locs = new Hash<Loc>();
 
     for (const loc of this.sudokuCellLocs)
       if (fence === this.getFence(loc)) locs.push(loc);
@@ -106,15 +105,15 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return this._edits;
   }
 
-  getKropkiCandidates(candidate: number): Set<number> {
-    return new Set<number>([
+  getKropkiCandidates(candidate: number): IHash<number> {
+    return new Hash<number>([
       ...this.getKropkiWhiteCandidates(candidate),
       ...this.getKropkiBlackCandidates(candidate),
     ]);
   }
 
-  get expectedCandidates(): number[] {
-    const candidates = [];
+  get expectedCandidates(): IHash<number> {
+    const candidates = new Hash<number>();
 
     for (let i = 1; i <= this.length; i++) candidates.push(i);
 
@@ -145,45 +144,49 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return [loc.up(), loc.down(), loc.left(), loc.right()].filter((l) => {});
   }
 
-  getRowHouse(loc: Loc): Loc[] {
-    return Loc.getKropkiCellRowHouseLocs(this.length, loc.row / 2);
+  getRowHouse(loc: Loc): IHash<Loc> {
+    return new Hash<Loc>(
+      Loc.getKropkiCellRowHouseLocs(this.length, loc.row / 2)
+    );
   }
 
-  getColHouse(loc: Loc): Loc[] {
-    return Loc.getKropkiCellColHouseLocs(this.length, loc.col / 2);
+  getColHouse(loc: Loc): IHash<Loc> {
+    return new Hash<Loc>(
+      Loc.getKropkiCellColHouseLocs(this.length, loc.col / 2)
+    );
   }
 
-  getCommonHouses(chain: Loc[]): Loc[][] {
-    const houses: Loc[][] = [];
+  getCommonHouses(chain: IHash<Loc>): IHash<Loc>[] {
+    const houses: IHash<Loc>[] = [];
 
     if (
-      chain.every((loc) => {
-        return chain[0].row == loc.row;
+      [...chain].every((loc) => {
+        return chain._at(0).row == loc.row;
       })
     ) {
       // console.log(`valid row: ${chain}`);
-      houses.push(this.getRowHouse(chain[0]));
+      houses.push(this.getRowHouse(chain._at(0)));
     }
 
     if (
-      chain.every((loc) => {
-        return chain[0].col == loc.col;
+      [...chain].every((loc) => {
+        return chain._at(0).col == loc.col;
       })
     ) {
       // console.log(`valid col: ${chain}`);
 
-      houses.push(this.getColHouse(chain[0]));
+      houses.push(this.getColHouse(chain._at(0)));
     }
 
     if (
       this.hasFences &&
-      chain.every((loc) => {
-        return this.getFence(chain[0]) == this.getFence(loc);
+      [...chain].every((loc) => {
+        return this.getFence(chain._at(0)) == this.getFence(loc);
       })
     ) {
       // console.log(`valid fence: ${chain}`);
 
-      houses.push(this.getFenceLocs(this.getFence(chain[0])));
+      houses.push(this.getFenceLocs(this.getFence(chain._at(0))));
     }
 
     // console.log('////////////////////////')
@@ -208,10 +211,6 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return new Hash<number>(this.getCellList(r, c));
   }
 
-  getCellHash(r: number | Loc, c?: number): IHash<number> {
-    return new Hash<number>(this.getCellList(r, c));
-  }
-
   getCellString(r: number | Loc, c?: number): string {
     if (typeof r == "number" && typeof c == "number") return this._grid[r][c];
 
@@ -220,8 +219,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     throw Error("invalid parameters");
   }
 
-  getHouses(): Loc[][] {
-    const houses: Loc[][] = [];
+  getHouses(): IHash<Loc>[] {
+    const houses: IHash<Loc>[] = [];
 
     for (let i = 0; i < this.length; i++) {
       houses.push(this.getRowHouse(new Loc(i * 2, 0)));
@@ -233,43 +232,6 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     for (const fence of this.fences) houses.push(this.getFenceLocs(fence));
 
     return houses;
-  }
-
-  getRowLocsWithCandidate(row: number | Loc, candidate: number): Loc[] {
-    if (typeof row == "number")
-      return this.getRowLocsWithCandidate(new Loc(row, 0), candidate).filter(
-        (loc) => {
-          return this.getCellSet(loc).has(candidate);
-        }
-      );
-
-    return this.getRowHouse(row).filter((loc) => {
-      return this.getCellSet(loc).has(candidate);
-    });
-  }
-
-  getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[] {
-    // console.log(`getColLocsWithCandidate, ${col}, ${candidate} `);
-
-    if (typeof col == "number")
-      return this.getColLocsWithCandidate(new Loc(0, col), candidate).filter(
-        (loc) => {
-          return this.getCellSet(loc).has(candidate);
-        }
-      );
-
-    return this.getColHouse(col).filter((loc) => {
-      return this.getCellSet(loc).has(candidate);
-    });
-  }
-
-  getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[] {
-    if (typeof fence == "string")
-      return this.getFenceLocs(fence).filter((loc) => {
-        return this.getCellSet(loc).has(candidate);
-      });
-
-    return this.getFenceLocsWithCandidate(this.getFence(fence), candidate);
   }
 
   getIntersection(loc0: Loc, loc1: Loc): Loc {
@@ -371,25 +333,21 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return locs;
   }
 
-  setCellString(value: string, loc_r: Loc | number, c?: number) {
-    if (loc_r instanceof Loc && typeof c === "undefined") {
-      this._grid[loc_r.row][loc_r.col] = value;
+  // // setCellString(value: string, loc_r: Loc | number, c?: number) {
+  // //   if (loc_r instanceof Loc && typeof c === "undefined") {
+  // //     this._grid[loc_r.row][loc_r.col] = value;
 
-      return;
-    }
+  // //     return;
+  // //   }
 
-    if (typeof loc_r == "number" && typeof c === "number") {
-      this.setCellString(value, new Loc(loc_r, c));
+  //   if (typeof loc_r == "number" && typeof c === "number") {
+  //     this.setCellString(value, new Loc(loc_r, c));
 
-      return;
-    }
+  //     return;
+  //   }
 
-    throw new Error(`Invalid parameters for setCellString`);
-  }
-
-  getCellCandidates(loc: Loc): IHash<number> {
-    return cellCandidates(this.getCellString(loc));
-  }
+  //   throw new Error(`Invalid parameters for setCellString`);
+  // }
 
   toCellRowString(r: number, c: number): string {
     if (this.hasFences) {
@@ -436,42 +394,44 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return this.toString();
   }
 
-  getNeighbors(loc: Loc): Loc[] {
-    const locs = new LocSet();
+  // getNeighbors(loc: Loc): Loc[] {
+  //   const locs = new LocSet();
 
-    for (const houseLocs of this.getRowHouses()) {
-      if (loc.row == houseLocs[0].row)
-        for (const houseLoc of houseLocs) locs.add(houseLoc);
+  //   for (const houseLocs of this.getRowHouses()) {
+  //     if (loc.row == houseLocs[0].row)
+  //       for (const houseLoc of houseLocs) locs.add(houseLoc);
+  //   }
+
+  //   for (const houseLocs of this.getColHouses())
+  //     if (loc.col == houseLocs[0].col)
+  //       for (const houseLoc of houseLocs) locs.add(houseLoc);
+
+  //   if (this.hasFences)
+  //     for (const fence of this.fences)
+  //       if (this.getFence(loc) == fence)
+  //         for (const houseLoc of this.getFenceLocs(fence)) locs.add(houseLoc);
+
+  //   locs.delete(loc);
+
+  //   return locs.values;
+  // }
+
+  getRowHouses(): IHash<Loc>[] {
+    const houses: IHash<Loc>[] = [];
+
+    for (let i = 0; i < this.length; i++) {
+      const temp = Loc.getKropkiCellRowHouseLocs(this.length, i);
+      houses.push(new Hash<Loc>(temp));
     }
-
-    for (const houseLocs of this.getColHouses())
-      if (loc.col == houseLocs[0].col)
-        for (const houseLoc of houseLocs) locs.add(houseLoc);
-
-    if (this.hasFences)
-      for (const fence of this.fences)
-        if (this.getFence(loc) == fence)
-          for (const houseLoc of this.getFenceLocs(fence)) locs.add(houseLoc);
-
-    locs.delete(loc);
-
-    return locs.values;
-  }
-
-  getRowHouses(): Loc[][] {
-    const houses = [];
-
-    for (let i = 0; i < this.length; i++)
-      houses.push(Loc.getKropkiCellRowHouseLocs(this.length, i));
 
     return houses;
   }
 
-  getColHouses(): Loc[][] {
-    const houses = [];
+  getColHouses(): IHash<Loc>[] {
+    const houses: IHash<Loc>[] = [];
 
     for (let i = 0; i < this.length; i++)
-      houses.push(Loc.getKropkiCellColHouseLocs(this.length, i));
+      houses.push(new Hash<Loc>(Loc.getKropkiCellColHouseLocs(this.length, i)));
 
     return houses;
   }
@@ -649,8 +609,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   isKropkiColsIntersectionsSolved(): boolean {
     for (let c = 0; c < this.length; c++)
       for (let r = 1; r < this.length * 2 - 1; r += 2) {
-        const cell0 = this.getCellCandidates(new Loc(r - 1, c * 2));
-        const cell1 = this.getCellCandidates(new Loc(r + 1, c * 2));
+        const cell0 = this.getCellList(new Loc(r - 1, c * 2));
+        const cell1 = this.getCellList(new Loc(r + 1, c * 2));
 
         if (cell0._length != 1 || cell1._length != 1) return false;
 
@@ -674,9 +634,9 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   isKropkiRowsIntersectionsSolved(): boolean {
     for (let r = 0; r < this.length; r++)
       for (let c = 1; c < this.length * 2 - 1; c += 2) {
-        const cell0 = this.getCellCandidates(new Loc(r * 2, c - 1));
+        const cell0 = this.getCellList(new Loc(r * 2, c - 1));
 
-        const cell1 = this.getCellCandidates(new Loc(r * 2, c + 1));
+        const cell1 = this.getCellList(new Loc(r * 2, c + 1));
 
         if (cell0._length != 1 || cell1._length != 1) return false;
 
@@ -742,8 +702,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   //   return new Set<number>(this.getCellCandidates(loc));
   // }
 
-  getKropkiIntersectionLocs(puzzleLength: number): Loc[] {
-    const intersections = new LocSet();
+  getKropkiIntersectionLocs(puzzleLength: number): IHash<Loc> {
+    const intersections = new Hash<Loc>();
 
     for (let r = 0; r < puzzleLength - 1; r++)
       for (let c = 0; c < puzzleLength - 1; c++) {
@@ -755,7 +715,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         intersections.add(tempLoc.right());
       }
 
-    return intersections.values;
+    return intersections;
   }
 
   getIntersectionCellLocs(intersection: Loc): Loc[] {
@@ -802,11 +762,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
       if (isValid) continue;
 
-      const length = this.getCellCandidates(loc0)._length;
+      const length = this.getCellList(loc0)._length;
 
       this.removeCandidate(loc0, +strCandidate);
 
-      edited = length > this.getCellCandidates(loc0)._length || edited;
+      edited = length > this.getCellList(loc0)._length || edited;
     }
 
     return edited;
@@ -844,11 +804,11 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
       if (isValid) continue;
 
-      const length = this.getCellCandidates(loc0)._length;
+      const length = this.getCellList(loc0)._length;
 
       this.removeCandidate(loc0, +strCandidate);
 
-      edited = length > this.getCellCandidates(loc0)._length;
+      edited = length > this.getCellList(loc0)._length;
     }
 
     return edited;
@@ -857,9 +817,9 @@ export class KropkiPuzzle implements IKropkiPuzzle {
   kropkiEmpty(loc0: Loc, loc1: Loc): boolean {
     let edited = false;
 
-    const cell = this.getCellCandidates(loc1);
+    const cell = this.getCellList(loc1);
 
-    const length = this.getCellCandidates(loc0)._length;
+    const length = this.getCellList(loc0)._length;
 
     if (cell._length != 1) return false;
 
@@ -874,7 +834,7 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
     if (solved * 2 < 10) this.removeCandidate(loc0, solved * 2);
 
-    return length > this.getCellCandidates(loc0)._length || edited;
+    return length > this.getCellList(loc0)._length || edited;
   }
 
   static isSubset(original: number[], possibleSubset: number[]): boolean {
@@ -925,436 +885,6 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     }
   }
 
-  solveConsecutiveWhites(
-    chainLocs: Loc[],
-    cellIndexesList: number[],
-    cellLocSet: LocSet
-  ): boolean {
-    let edited = false;
 
-    const candidatesInLocs = new Set<number>();
-
-    for (const cellLoc of cellLocSet.values)
-      for (const candidate of this.getCellCandidates(cellLoc))
-        candidatesInLocs.add(candidate);
-
-    edited =
-      this.removeCandidate(
-        chainLocs[2],
-        Math.min(...candidatesInLocs)
-        // Math.max(...candidatesInLocs)
-      ) || edited;
-
-    edited =
-      this.removeCandidate(
-        chainLocs[2],
-        // Math.min(...candidatesInLocs),
-        Math.max(...candidatesInLocs)
-      ) || edited;
-
-    const candidatesList = [...candidatesInLocs].sort((a, b) => a - b);
-
-    const minIndex = candidatesList.length - cellIndexesList.length;
-
-    const maxIndex = cellIndexesList.length - 1;
-
-    const requiredCandiates = [];
-
-    for (let index = minIndex; index <= maxIndex; index++)
-      requiredCandiates.push(candidatesList[index]);
-
-    let cellLocs: LocSet | undefined;
-
-    if (
-      cellIndexesList.every((index) => chainLocs[0].inSameRow(chainLocs[index]))
-    )
-      cellLocs = new LocSet(this.getCellRowHouseLocs(chainLocs[0].row / 2));
-
-    if (
-      cellIndexesList.every((index) => chainLocs[0].inSameCol(chainLocs[index]))
-    ) {
-      cellLocs = new LocSet(this.getCellColHouseLocs(chainLocs[0].col / 2));
-    }
-
-    if (typeof cellLocs == "undefined") return edited;
-
-    for (const cellIndex of cellIndexesList)
-      cellLocs.delete(chainLocs[cellIndex]);
-
-    for (const required of requiredCandiates)
-      for (const loc of cellLocs.values)
-        edited = this.removeCandidate(loc, required) || edited;
-
-    const cells = [];
-
-    for (const i of cellIndexesList) cells.push(chainLocs[i]);
-
-    edited = this.solveConsecutiveWhiteRange(cells) || edited;
-
-    cells.reverse();
-
-    return this.solveConsecutiveWhiteRange(cells) || edited;
-  }
-
-  solveCellIntersectionChain(...chainLocs: Loc[]): boolean {
-    if (this.length != 9) return false;
-
-    if (chainLocs.length < 3)
-      throw Error(`Not enough locs in chain: ${chainLocs.length}`);
-
-    if (chainLocs.length % 2 == 2)
-      throw Error(
-        `Cannot have an even number of locs for chain : ${chainLocs.length}`
-      );
-
-    const lastInter = this.getCellString(chainLocs[chainLocs.length - 2]);
-
-    if (lastInter == ".") return false;
-
-    // all cell locs must be in the same row, same col, or same fence
-
-    const rowIndexes = new Set<number>();
-    const colIndexes = new Set<number>();
-
-    for (let i = 0; i < chainLocs.length; i += 2) {
-      rowIndexes.add(chainLocs[i].row);
-      colIndexes.add(chainLocs[i].col);
-    }
-
-    if (rowIndexes.size != 1 && colIndexes.size != 1) return false;
-
-    const cellLocSet = new LocSet();
-    const kropkiLocSet = new LocSet();
-
-    const cellIndexesList = [];
-    const kropkiIndexesList = [];
-
-    for (let i = 0; i < chainLocs.length; i++)
-      if (i % 2 == 0) {
-        cellLocSet.add(chainLocs[i]);
-        cellIndexesList.push(i);
-      } else {
-        kropkiLocSet.add(chainLocs[i]);
-        kropkiIndexesList.push(i);
-      }
-
-    // Find locs attached to tail.
-
-    const tail = chainLocs[chainLocs.length - 1];
-
-    const upInter = tail.up();
-    const downInter = tail.down();
-    const leftInter = tail.left();
-    const rightInter = tail.right();
-
-    const upCell = upInter.up();
-    const downCell = downInter.down();
-    const leftCell = leftInter.left();
-    const rightCell = rightInter.right();
-
-    let edited = false;
-
-    if (upCell.isValidKropkiLoc(this.length) && !cellLocSet.has(upCell)) {
-      const newChain: Loc[] = [...chainLocs, upInter, upCell];
-
-      edited = this.solveCellIntersectionChain(...newChain) || edited;
-    }
-
-    if (downCell.isValidKropkiLoc(this.length) && !cellLocSet.has(downCell)) {
-      const newChain: Loc[] = [...chainLocs, downInter, downCell];
-
-      edited = this.solveCellIntersectionChain(...newChain) || edited;
-    }
-
-    if (rightCell.isValidKropkiLoc(this.length) && !cellLocSet.has(rightCell)) {
-      const newChain: Loc[] = [...chainLocs, rightInter, rightCell];
-
-      edited = this.solveCellIntersectionChain(...newChain) || edited;
-    }
-
-    if (leftCell.isValidKropkiLoc(this.length) && !cellLocSet.has(leftCell)) {
-      const newChain: Loc[] = [...chainLocs, leftInter, leftCell];
-
-      edited = this.solveCellIntersectionChain(...newChain) || edited;
-    }
-
-    let str = "";
-
-    for (const index of kropkiIndexesList)
-      str += this.getCellString(chainLocs[index]);
-
-    switch (str) {
-      case "w":
-        break;
-      case "b":
-        // if(this.getCellSet(chainLocs[0]))
-
-        break;
-      case ".":
-        break;
-      case "ww":
-      case "www":
-        edited =
-          this.solveConsecutiveWhites(chainLocs, cellIndexesList, cellLocSet) ||
-          edited;
-        break;
-      case "bb":
-        // edited = new KropkiChain_BB().solve(this, chainLocs) || edited;
-        break;
-      case "wb":
-      case "bw":
-        // edited = new KropkiChain_BW().solve(this, chainLocs) || edited;
-        break;
-      case "bwwbb":
-        break;
-      case "bwwbb":
-        break;
-      case "wbb":
-        break;
-      case "wwb":
-        break;
-      case "bww":
-        break;
-      case "bbw":
-        break;
-      case "wwbb":
-        break;
-      case "bbww":
-        break;
-      case "bwwb":
-        break;
-      case "bbwwb":
-        break;
-      case "wbw":
-        break;
-      case "bwb":
-        break;
-      case "bwbw":
-        break;
-
-      case "wwbw":
-        break;
-      case "wbwb":
-        break;
-      case "wbww":
-        break;
-      default:
-        console.log(`Unknown kropki chain '${str}' in ${this.id}`);
-        break;
-    }
-
-    // console.log(str);
-
-    // if (leftCell.isValidKropkiLoc(this.length)&& !cellLocSet.has(leftCell))
-    //   edited = this.solveCellIntersectionChain(loc, leftInter, leftCell) || edited;
-
-    // if (rightCell.isValidKropkiLoc(this.length))
-    //   edited = this.solveCellIntersectionChain(loc, rightInter, rightCell) || edited;
-
-    return edited;
-
-    // console.log(chainLocs[0].toString() + " " + chainLocs[1].toString());
-    // console.log([...kropkiIndexes]);
-  }
-
-  solveExplicitNextTo(loc: Loc): boolean {
-    let edited = false;
-
-    const candidates = this.getCellCandidates(loc);
-
-    if (candidates.is_subset_of([1, 2, 3, 4]))
-      edited = this.removeUpDownLeftRight(loc, 2) || edited;
-
-    return edited;
-  }
-
-  solveConsecutiveWhiteRange(cells: Loc[]): boolean {
-    let edited = false;
-
-    // one way.
-
-    const cellSets = cells.map((loc) => this.getCellSet(loc));
-
-    for (const candidate of this.getCellCandidates(cells[0])) {
-      let item = candidate;
-
-      if (cellSets.every((cellSet) => cellSet.has(item++))) continue;
-
-      item = candidate;
-
-      if (cellSets.every((cellSet) => cellSet.has(item--))) continue;
-
-      edited = this.removeCandidate(cells[0], candidate) || edited;
-    }
-
-    return edited;
-  }
-
-  private kropkiDiamondWeee(
-    rightValue: string,
-    topValue: string,
-    downValue: string,
-    leftValue: string,
-    tlSet: Set<number>,
-    trSet: Set<number>,
-    drSet: Set<number>,
-    edited: boolean,
-    downInt: Loc
-  ) {
-    if (
-      rightValue == "w" &&
-      topValue == "." &&
-      downValue == "." &&
-      leftValue == "."
-    ) {
-      if (
-        KropkiPuzzle.equalSets([1, 2, 6, 8], [...tlSet]) ||
-        KropkiPuzzle.equalSets([3, 4, 5], [...trSet]) ||
-        KropkiPuzzle.equalSets([2, 4, 5], [...drSet])
-      )
-        edited = this.removeCandidate(downInt.left(), 3) || edited;
-    }
-    return edited;
-  }
-
-  private kropkiDiamondEweb(
-    rightValue: string,
-    topValue: string,
-    downValue: string,
-    leftValue: string,
-    tlSet: Set<number>,
-    trSet: Set<number>,
-    dlSet: Set<number>,
-    edited: boolean,
-    downInt: Loc
-  ) {
-    if (
-      rightValue == "w" &&
-      topValue == "." &&
-      downValue == "." &&
-      leftValue == "b"
-    ) {
-      if (
-        KropkiPuzzle.equalSets([1, 2, 4, 6, 8], [...tlSet]) ||
-        KropkiPuzzle.equalSets([2, 4, 6, 8], [...trSet]) ||
-        KropkiPuzzle.equalSets([1, 3, 6], [...dlSet])
-      )
-        edited = this.removeCandidate(downInt.right(), 3) || edited;
-    }
-    return edited;
-  }
-
-  private kropkiDiamondEweb1(
-    rightValue: string,
-    topValue: string,
-    downValue: string,
-    leftValue: string,
-    drSet: Set<number>,
-    trSet: Set<number>,
-    dlSet: Set<number>,
-    edited: boolean,
-    topInt: Loc
-  ) {
-    if (
-      rightValue == "w" &&
-      topValue == "." &&
-      downValue == "." &&
-      leftValue == "b"
-    ) {
-      if (
-        KropkiPuzzle.equalSets([1, 5, 7, 9], [...drSet]) ||
-        KropkiPuzzle.equalSets([2, 4, 8], [...trSet]) ||
-        KropkiPuzzle.equalSets([3, 6], [...dlSet])
-      )
-        edited = this.removeCandidate(topInt.left(), 3) || edited;
-    }
-    return edited;
-  }
-
-  private kropkiDiamondWbww(
-    rightValue: string,
-    topValue: string,
-    downValue: string,
-    leftValue: string,
-    edited: boolean,
-    topInt: Loc,
-    downInt: Loc,
-    diamondString: string,
-    rightInt: Loc,
-    leftInt: Loc
-  ) {
-    if (
-      rightValue == "b" &&
-      topValue == "w" &&
-      downValue == "w" &&
-      leftValue == "w"
-    ) {
-      edited = this.removeCandidate(topInt.right(), 4) || edited;
-      edited = this.removeCandidate(downInt.right(), 4) || edited;
-    }
-
-    switch (diamondString) {
-      case ".www":
-      case "w.ww":
-      case "ww.w":
-      case "www.":
-        // create chain
-        //intersection cell intersection cell
-        const diamond = [
-          topInt,
-          topInt.right(),
-          rightInt,
-          rightInt.down(),
-          downInt,
-          downInt.left(),
-          leftInt,
-          leftInt.up(),
-        ];
-
-        // edited = new KropkiDiamondWwwe().solve(this, diamond) || edited;
-        break;
-    }
-    return edited;
-  }
-
-  private kropkiDiamondWewb(
-    topValue: string,
-    rightValue: string,
-    downValue: string,
-    leftValue: string,
-    edited: boolean,
-    leftInt: Loc
-  ) {
-    if (
-      topValue == "w" &&
-      rightValue == "." &&
-      downValue == "w" &&
-      leftValue == "b"
-    ) {
-      // 123456789 w 123456789    _23456789 w 12_456789
-      //     b           .     ->     b           .
-      // 123456789 w 123456789    _23456789 w 123456789
-      edited = this.removeCandidate(leftInt.up(), 1) || edited;
-      edited = this.removeCandidate(leftInt.down(), 1) || edited;
-    }
-    return edited;
-  }
-
-  private kropkiDiamondWwew4(
-    removeDL: Loc,
-    removeDR: Loc,
-    cornerTR: Loc,
-    cornerTL: Loc
-  ): boolean {
-    let edited = false;
-
-    if (!this.getCellSet(cornerTR).has(2) && !this.getCellSet(cornerTL).has(4))
-      edited = this.removeCandidate(removeDR, 3) || edited;
-
-    if (!this.getCellSet(cornerTL).has(4) && !this.getCellSet(cornerTR).has(2))
-      edited = this.removeCandidate(removeDL, 3) || edited;
-
-    return edited;
-  }
 }
 // 1817

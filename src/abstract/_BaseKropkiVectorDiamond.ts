@@ -1,25 +1,25 @@
+import { Hash } from "../../Hash";
+import { IHash } from "../../IHash";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 import { _BaseKropkiVector } from "./_BaseKropkiVector";
 
-
-
 export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
-  get vector_chains(): Loc[][] {
-    const chains: Loc[][] = [];
+  get vector_chains(): IHash<Loc>[] {
+    const chains: IHash<Loc>[] = [];
     const loc = new Loc(0, 0);
 
-    chains.push([loc.right(2), loc.down(2), loc.left(2)]);
-    chains.push([loc.right(2), loc.up(2), loc.left(2)]);
-    chains.push([loc.left(2), loc.down(2), loc.right(2)]);
-    chains.push([loc.left(2), loc.up(2), loc.right(2)]);
+    chains.push(new Hash<Loc>([loc.right(2), loc.down(2), loc.left(2)]));
+    chains.push(new Hash<Loc>([loc.right(2), loc.up(2), loc.left(2)]));
+    chains.push(new Hash<Loc>([loc.left(2), loc.down(2), loc.right(2)]));
+    chains.push(new Hash<Loc>([loc.left(2), loc.up(2), loc.right(2)]));
 
-    chains.push([loc.up(2), loc.right(2), loc.down(2)]);
-    chains.push([loc.up(2), loc.left(2), loc.down(2)]);
+    chains.push(new Hash<Loc>([loc.up(2), loc.right(2), loc.down(2)]));
+    chains.push(new Hash<Loc>([loc.up(2), loc.left(2), loc.down(2)]));
 
-    chains.push([loc.down(2), loc.right(2), loc.up(2)]);
-    chains.push([loc.down(2), loc.left(2), loc.up(2)]);
+    chains.push(new Hash<Loc>([loc.down(2), loc.right(2), loc.up(2)]));
+    chains.push(new Hash<Loc>([loc.down(2), loc.left(2), loc.up(2)]));
 
     return chains;
   }
@@ -29,33 +29,39 @@ export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
 
     for (const loc of puzzle.sudokuCellLocs) {
       for (const vectorChain of this.vector_chains) {
-        const locs: Loc[] = [loc];
+        const locs = new Hash<Loc>([loc]);
 
         for (const vector of vectorChain)
-          locs.push(locs[locs.length - 1].add_vector(vector.row, vector.col));
+          locs.push(
+            locs._at(locs._length - 1).add_vector(vector.row, vector.col)
+          );
 
-        if (!locs.every((loc1) => {
-          return loc1.isValidKropkiLoc(puzzle.length);
-        }))
+        if (
+          ![...locs].every((loc1) => {
+            return loc1.isValidKropkiLoc(puzzle.length);
+          })
+        )
           continue;
 
         let intersectionString = "";
 
-        for (let i = 0; i < locs.length - 1; i++) {
-          const intersectionLoc = puzzle.getIntersection(locs[i], locs[i + 1]);
+        for (let i = 0; i < locs._length - 1; i++) {
+          const intersectionLoc = puzzle.getIntersection(
+            locs._at(i),
+            locs._at(i + 1)
+          );
 
           intersectionString += puzzle.getCellString(intersectionLoc);
         }
 
         const intersectionLoc1 = puzzle.getIntersection(
-          locs[0],
-          locs[locs.length - 1]
+          locs._at(0),
+          locs._at(locs._length - 1)
         );
 
         intersectionString += puzzle.getCellString(intersectionLoc1);
 
-        if (this.expected_kropki_string != intersectionString)
-          continue;
+        if (this.expected_kropki_string != intersectionString) continue;
 
         edits.push(...this.solveChain(puzzle, locs));
       }

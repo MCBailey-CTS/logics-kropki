@@ -14,6 +14,32 @@ export class Hash<T> implements IHash<T> {
     this.__list = new Array<T>(...items);
   }
 
+  add(item: T): boolean{
+    return this.push(item);
+  }
+
+
+  shift(): T | undefined {
+    return this.__list.shift();
+  }
+  
+  _shift(): T {
+    const item = this.shift();
+
+    if (typeof item == "undefined") throw Error();
+
+    return item;
+  }
+
+  _at(index: number): T {
+    const item = this.__list.at(index);
+
+    if (typeof item == "undefined") throw Error();
+
+    return item;
+  }
+
+
   sort(compareFn?: (a: T, b: T) => number): this {
     this.__list.sort(compareFn);
 
@@ -87,13 +113,7 @@ export class Hash<T> implements IHash<T> {
     });
   }
 
-  _at(index: number): T {
-    const result = this.__list.at(index);
 
-    if (typeof result == "undefined") throw Error();
-
-    return result;
-  }
 
   get _size(): number {
     return this.__hash.size;

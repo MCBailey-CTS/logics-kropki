@@ -1,3 +1,5 @@
+import { Hash } from "../../Hash";
+import { IHash } from "../../IHash";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
@@ -9,21 +11,29 @@ import { Loc } from "../Loc";
 //     return [[base.up(2), base.right(2), base.down(2), base.left(2)]];
 
 export class Chain_b extends _BaseKropkiVector {
-  get vector_chains(): Loc[][] {
+  get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
-    return [[_base.right(2)], [_base.up(2)], [_base.left(2)], [_base.down(2)]];
+
+    const chains: IHash<Loc>[] = [];
+
+    chains.push(new Hash<Loc>([_base.right(2)]));
+    chains.push(new Hash<Loc>([_base.up(2)]));
+    chains.push(new Hash<Loc>([_base.left(2)]));
+    chains.push(new Hash<Loc>([_base.down(2)]));
+
+    return chains;
   }
 
   get expected_kropki_string(): string {
     return "b";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    const loc = locs[0];
+    const loc = locs._at(0);
 
-    const other = locs[1];
+    const other = locs._at(1);
 
     const otherHash = puzzle.getCellList(other);
 
@@ -59,8 +69,8 @@ export class Chain_b extends _BaseKropkiVector {
     for (const house of commonHouses)
       for (const loc of house)
         if (
-          !loc.equals(locs[0]) &&
-          !loc.equals(locs[1]) &&
+          !loc.equals(locs._at(0)) &&
+          !loc.equals(locs._at(1)) &&
           puzzle.removeCandidate(loc, list[1])
         )
           edits.push(new Edit(puzzle, loc, list[1], this));

@@ -8,6 +8,7 @@ export interface IHash<T> extends RelativeIndexable<T> {
   clear(): boolean;
 
   push(item: T): boolean;
+  add(item: T): boolean;
 
   delete(item: T): boolean;
 
@@ -19,9 +20,9 @@ export interface IHash<T> extends RelativeIndexable<T> {
 
   subtract(items: Iterable<T>): IHash<T>;
 
-  set_equals(items: Array<T>): boolean;
+  set_equals(items: Iterable<T>): boolean;
 
-  is_subset_of(items: Array<T>): boolean;
+  is_subset_of(items: Iterable<T>): boolean;
   is_proper_subset_of(items: Iterable<T>): boolean;
 
   is_superset_of(items: Iterable<T>): boolean;
@@ -39,6 +40,6 @@ export interface IHash<T> extends RelativeIndexable<T> {
 
   // unshift(): number;
 
-  // shift(): T | undefined;
-  // _shift(): T;
+  shift(): T | undefined;
+  _shift(): T;
 }

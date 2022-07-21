@@ -1,3 +1,4 @@
+import { IHash } from "../../IHash";
 import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
 import { _BaseKropkiSudokuSolver } from "../abstract/_BaseKropkiSudokuSolver";
 import { Edit } from "../Edit";
@@ -6,10 +7,10 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
 export class HiddenSingle extends _BaseKropkiSudokuSolver {
-  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solve(puzzle: IKropkiPuzzle, cellChainLocs:IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (puzzle.length != cellChainLocs.length) return edits;
+    if (puzzle.length != cellChainLocs._length) return edits;
 
     const expected = [];
 
@@ -18,14 +19,14 @@ export class HiddenSingle extends _BaseKropkiSudokuSolver {
     for (const candidate of expected) {
       const indexes = [];
 
-      for (let i = 0; i < cellChainLocs.length; i++)
-        if (puzzle.getCellList(cellChainLocs[i]).has(candidate))
+      for (let i = 0; i < cellChainLocs._length; i++)
+        if (puzzle.getCellList(cellChainLocs._at(i)).has(candidate))
           indexes.push(i);
 
       if (indexes.length != 1) continue;
 
       //   console.log(cellChainLocs);
-      const loc = cellChainLocs[indexes[0]];
+      const loc = cellChainLocs._at(indexes[0]);
 
       //   console.log(loc);
       const candidates = puzzle.getCellList(loc);

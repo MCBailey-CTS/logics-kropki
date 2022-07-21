@@ -20,19 +20,20 @@ export interface IKropkiPuzzle {
 
   get grid(): string[][];
 
-  getFenceLocs(fence: string): Loc[];
+  getFenceLocs(fence: string): IHash<Loc>;
 
+  // getFence(r:number, c:number): string;
   getFence(loc: Loc): string;
 
   getCellString(r: Loc | number, c?: number): string;
 
   getCellList(r: Loc | number, c?: number): IHash<number>;
 
-  get expectedCandidates(): number[];
+  get expectedCandidates(): IHash<number>;
 
   removeCandidate(loc: Loc, candidate: number): boolean;
 
-  getKropkiCandidates(candidate: number): Set<number>;
+  getKropkiCandidates(candidate: number): IHash<number>;
 
   getKropkiWhiteCandidates(candidate: number): IHash<number>;
 
@@ -40,29 +41,23 @@ export interface IKropkiPuzzle {
 
   toPuzzleString(): string;
 
-  getNeighbors(loc: Loc): Loc[];
+  // getNeighbors1(loc: Loc): Loc[];
 
-  getRowHouses(): Loc[][];
+  getRowHouses(): Array<IHash<Loc>>;
 
-  getColHouses(): Loc[][];
+  getColHouses(): Array<IHash<Loc>>;
 
   getCellIntersections(loc: Loc): Loc[];
 
-  getSurroundingCellLocs(cellLoc: Loc): Loc[];
+  // getSurroundingCellLocs(cellLoc: Loc): Loc[];
 
   getIntersection(loc0: Loc, loc1: Loc): Loc;
 
-  getCommonHouses(chain: Loc[]): Loc[][];
+  getCommonHouses(chain: IHash<Loc>): Array<IHash<Loc>>;
 
-  getRowHouse(loc: Loc): Loc[];
+  getRowHouse(loc: Loc): IHash<Loc>;
 
-  getColHouse(loc: Loc): Loc[];
+  getColHouse(loc: Loc): IHash<Loc>;
 
-  getHouses(): Loc[][];
-
-  getRowLocsWithCandidate(row: number | Loc, candidate: number): Loc[];
-
-  getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[];
-
-  getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[];
+  getHouses(): Array<IHash<Loc>>;
 }

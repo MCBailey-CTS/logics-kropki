@@ -6,6 +6,7 @@ import { Loc } from "../Loc";
 import { IKropkiChain } from "../interfaces/IKropkiChain";
 import { IFutoshikiPuzzle } from "../interfaces/IFutoshikiPuzzle";
 import { IFutoshikiSolver } from "../interfaces/IFutoshikiSolver";
+import { IHash } from "../../IHash";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
   solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
@@ -17,13 +18,13 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  abstract findChains(puzzle: IKropkiPuzzle): Loc[][];
+  abstract findChains(puzzle: IKropkiPuzzle): IHash<Loc>[];
 
   get id(): string {
     return this.constructor.name;
   }
 
-  abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[];
+  abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: IHash<Loc>): IEdit[];
 
   static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
     const edits: IEdit[] = [];
@@ -58,17 +59,17 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  getKropkiString(puzzle: IKropkiPuzzle, chain: Loc[]): string {
+  getKropkiString(puzzle: IKropkiPuzzle, chain: IHash<Loc>): string {
     let str = "";
 
-    for (let i = 0; i < chain.length - 1; i++) {
-      const loc0 = chain[i];
-      const loc1 = chain[i + 1];
+    for (let i = 0; i < chain._length - 1; i++) {
+      const loc0 = chain._at(i);
+      const loc1 = chain._at(i + 1);
 
       str += puzzle.getCellString(puzzle.getIntersection(loc0, loc1));
     }
 
-    str += puzzle.getCellString(puzzle.getIntersection(chain[3], chain[0]));
+    str += puzzle.getCellString(puzzle.getIntersection(chain._at(3), chain._at(0)));
 
     return str;
   }
@@ -83,7 +84,7 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  pop_push(chain1: Loc[]) {
+  pop_push(chain1: IHash<Loc>) {
     const item = chain1.shift();
 
     if (typeof item == "undefined") throw Error();

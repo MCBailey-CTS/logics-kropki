@@ -1,3 +1,5 @@
+import { Hash } from "../../Hash";
+import { IHash } from "../../IHash";
 import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
 import { Edit } from "../Edit";
 import { IEdit } from "../interfaces/IEdit";
@@ -5,27 +7,35 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { Loc } from "../Loc";
 
 export class Chain_w extends _BaseKropkiVector {
-  get vector_chains(): Loc[][] {
+  get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
-    return [[_base.right(2)], [_base.up(2)], [_base.left(2)], [_base.down(2)]];
+
+    const chains: IHash<Loc>[] = [];
+
+    chains.push(new Hash<Loc>([_base.right(2)]));
+    chains.push(new Hash<Loc>([_base.up(2)]));
+    chains.push(new Hash<Loc>([_base.left(2)]));
+    chains.push(new Hash<Loc>([_base.down(2)]));
+
+    return chains;
   }
 
   get expected_kropki_string(): string {
     return "w";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    const loc = cellChainLocs[0];
+    const loc = locs._at(0);
 
-    const other = cellChainLocs[1];
+    const other = locs._at(1);
 
     const interSectionLoc = puzzle.getIntersection(loc, other);
 
     const intersectionStr = puzzle.getCellString(interSectionLoc);
 
-    const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+    const commonHouses = puzzle.getCommonHouses(locs);
 
     if (commonHouses.length == 0) return edits;
 
@@ -43,7 +53,7 @@ export class Chain_w extends _BaseKropkiVector {
 
     const hash = new Set<number>();
 
-    for (const loc of cellChainLocs)
+    for (const loc of locs)
       for (const candidate of puzzle.getCellList(loc)) hash.add(candidate);
 
     if (hash.size != 3) return edits;
@@ -60,8 +70,8 @@ export class Chain_w extends _BaseKropkiVector {
       for (const house of commonHouses)
         for (const loc of house)
           if (
-            !loc.equals(cellChainLocs[0]) &&
-            !loc.equals(cellChainLocs[1]) &&
+            !loc.equals(locs._at(0)) &&
+            !loc.equals(locs._at(1)) &&
             puzzle.removeCandidate(loc, list[1])
           )
             edits.push(new Edit(puzzle, loc, list[1], this));
