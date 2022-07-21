@@ -1,15 +1,15 @@
-type valid = IHash;
-
-export interface IHash {
+export interface IHash<T> {
   get _size(): number;
-  get _items(): Array<number>;
+
+  // [Symbol.iterator]():Iterable<T>;
+  get _items(): Array<T>;
   clear(): boolean;
 
-  add(item: number): boolean;
+  add(item: T): boolean;
 
-  delete(item: number): boolean;
+  delete(item: T): boolean;
 
-  has(item: number): boolean;
+  has(item: T): boolean;
 
   // or_union(items: IHash | Array<number>): IHash;
 
@@ -17,9 +17,9 @@ export interface IHash {
 
   // subtract(items: IHash | Array<number>): IHash;
 
-  set_equals(items: Array<number>): boolean;
+  set_equals(items: Array<T>): boolean;
 
-  is_subset_of(items: Array<number>): boolean;
+  is_subset_of(items: Array<T>): boolean;
   // is_proper_subset_of(items: IHash | Array<number>): boolean;
 
   // is_superset_of(items: IHash | Array<number>): boolean;

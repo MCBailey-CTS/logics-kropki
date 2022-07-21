@@ -159,38 +159,38 @@ function main() {
       }
     }
 
-    if (str.includes(".futoshiki") || str.includes(".moreorless")) {
-      // console.log(str);
-      // console.log("///////////////");
-      const puzzle = new FutoshikiPuzzle(str);
-      try {
-        // puzzle.solve(solvers);
+    // if (str.includes(".futoshiki") || str.includes(".moreorless")) {
+    //   // console.log(str);
+    //   // console.log("///////////////");
+    //   const puzzle = new FutoshikiPuzzle(str);
+    //   try {
+    //     // puzzle.solve(solvers);
 
-        const resultingEdits: IEdit[] = [];
+    //     const resultingEdits: IEdit[] = [];
 
-        resultingEdits.push(
-          ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
-        );
+    //     resultingEdits.push(
+    //       ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
+    //     );
 
-        totalEdits += resultingEdits.length;
+    //     totalEdits += resultingEdits.length;
 
-        if (puzzle.isSolved) {
-          solvedPuzzles.push(puzzle);
+    //     if (puzzle.isSolved) {
+    //       solvedPuzzles.push(puzzle);
 
-          continue;
-        }
+    //       continue;
+    //     }
 
-        console.log(puzzle.toString());
-        console.log(`Edits: ${resultingEdits.length}`);
+    //     console.log(puzzle.toString());
+    //     console.log(`Edits: ${resultingEdits.length}`);
 
-        console.log("//////////");
-      } catch (err) {
-        console.log("//////////");
-        console.log(puzzle.id);
-        console.log(err);
-        console.log("//////////");
-      }
-    }
+    //     console.log("//////////");
+    //   } catch (err) {
+    //     console.log("//////////");
+    //     console.log(puzzle.id);
+    //     console.log(err);
+    //     console.log("//////////");
+    //   }
+    // }
   }
 
   console.log();

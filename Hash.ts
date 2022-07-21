@@ -1,29 +1,34 @@
 import { IHash } from "./IHash";
 
-export class Hash implements IHash {
-  private readonly __hash: Set<number>;
+export class Hash<T> implements IHash<T> {
+  private readonly __hash: Set<T>;
 
-  constructor(items?: number[] | null | undefined) {
+  constructor(items?: T[] | null | undefined) {
     if (items == null || typeof items == "undefined") {
-      this.__hash = new Set<number>();
+      this.__hash = new Set<T>();
       return;
     }
 
-    this.__hash = new Set<number>(items);
+    this.__hash = new Set<T>(items);
   }
 
-  set_equals(items: number[]): boolean {
-    const other = new Set<number>(items);
+
+  // [Symbol.iterator](): Iterable<T> {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  set_equals(items: T[]): boolean {
+    const other = new Set<T>(items);
 
     return other.size == this._size && this.is_subset_of(items);
   }
 
-  has(item: number): boolean {
+  has(item: T): boolean {
     return this.__hash.has(item);
   }
 
-  is_subset_of(items: number[]): boolean {
-    const other = new Set<number>(items);
+  is_subset_of(items: T[]): boolean {
+    const other = new Set<T>(items);
 
     return this._items.every((item) => {
       return other.has(item);
@@ -34,7 +39,7 @@ export class Hash implements IHash {
     return this.__hash.size;
   }
 
-  get _items(): number[] {
+  get _items(): T[] {
     return [...this.__hash];
   }
 
@@ -46,7 +51,7 @@ export class Hash implements IHash {
     return originalSize > this._size && this._size != 0;
   }
 
-  add(item: number): boolean {
+  add(item: T): boolean {
     const originalSize = this._size;
 
     this.__hash.add(item);
@@ -54,7 +59,7 @@ export class Hash implements IHash {
     return originalSize < this._size;
   }
 
-  delete(item: number): boolean {
+  delete(item: T): boolean {
     return this.__hash.delete(item);
   }
 }

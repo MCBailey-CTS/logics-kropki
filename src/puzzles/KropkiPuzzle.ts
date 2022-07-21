@@ -121,8 +121,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return candidates;
   }
 
-  getKropkiBlackCandidates(candidate: number): IHash {
-    const hash = new Hash();
+  getKropkiBlackCandidates(candidate: number): IHash<number> {
+    const hash = new Hash<number>();
 
     for (let c = 1; c <= this._length; c++)
       if (candidate * 2 == c || (candidate % 2 == 0 && candidate / 2 == c))
@@ -191,8 +191,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return houses;
   }
 
-  getKropkiWhiteCandidates(candidate: number): Hash {
-    const hash = new Hash();
+  getKropkiWhiteCandidates(candidate: number): IHash<number> {
+    const hash = new Hash<number>();
 
     for (let c = 1; c <= this._length; c++)
       if (candidate + 1 == c || candidate - 1 == c) hash.add(c);
@@ -204,12 +204,12 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return cellCandidates(this.getCellString(r, c));
   }
 
-  getCellSet(r: number | Loc, c?: number): IHash {
-    return new Hash(this.getCellList(r, c));
+  getCellSet(r: number | Loc, c?: number): IHash<number> {
+    return new Hash<number>(this.getCellList(r, c));
   }
 
-  getCellHash(r: number | Loc, c?: number): IHash {
-    return new Hash(this.getCellList(r, c));
+  getCellHash(r: number | Loc, c?: number): IHash<number> {
+    return new Hash<number>(this.getCellList(r, c));
   }
 
   getCellString(r: number | Loc, c?: number): string {

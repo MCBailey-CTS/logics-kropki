@@ -57,10 +57,20 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
 
     this._dict = new Map<string, Array<Loc>>();
   }
-
-  getCellHash(r: number | Loc, c?: number): IHash {
-    return new Hash(this.getCellList(r, c));
+  removeCandidate(loc: Loc, candidate: number): boolean {
+    throw new Error("Method not implemented.");
   }
+  getKropkiCandidates(candidate: number): Set<number> {
+    throw new Error("Method not implemented.");
+  }
+  getKropkiWhiteCandidates(candidate: number) {
+    throw new Error("Method not implemented.");
+  }
+  getKropkiBlackCandidates(candidate: number) {
+    throw new Error("Method not implemented.");
+  }
+
+
 
   getSurroundingCellLocs(cellLoc: Loc): Loc[] {
     if (cellLoc.row % 2 != 0 || cellLoc.col % 2 != 0)
