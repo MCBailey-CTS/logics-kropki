@@ -24,10 +24,10 @@ export class Chain_greater_than1 extends _BaseKropkiVector {
 
     const other = locs[1];
 
-    console.log("here");
+    // console.log("here");
 
-    // if (Chain_greater_than1.solveGreaterThan(puzzle, locs[0], locs[1]))
-    //   edits.push(new Edit(puzzle, locs[0], 1, this));
+    if (Chain_greater_than1.solveGreaterThan(puzzle, locs[0], locs[1]))
+      edits.push(new Edit(puzzle, locs[0], 1, this));
 
     // const otherHash = puzzle.getCellSet(other);
     // for (const candidate of puzzle.getCellCandidates(loc)) {

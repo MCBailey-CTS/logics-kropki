@@ -45,7 +45,12 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     while (true) {
       const originalLength = edits.length;
 
-      for (const solver of solvers) edits.push(...solver.solvePuzzle(puzzle));
+      // console.log(puzzle.id);
+
+      for (const solver of solvers) {
+        edits.push(...solver.solvePuzzle(puzzle));
+        // console.log(solver.id);
+      }
 
       if (originalLength == edits.length) break;
     }

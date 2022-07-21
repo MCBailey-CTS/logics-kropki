@@ -57,6 +57,7 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
 
     this._dict = new Map<string, Array<Loc>>();
   }
+
   getCellHash(r: number | Loc, c?: number): IHash {
     return new Hash(this.getCellList(r, c));
   }
@@ -92,29 +93,12 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
     return this._edits;
   }
 
-  getKropkiCandidates(candidate: number): Set<number> {
-    return new Set<number>([
-      ...this.getKropkiWhiteCandidates(candidate),
-      ...this.getKropkiBlackCandidates(candidate),
-    ]);
-  }
-
   get expectedCandidates(): number[] {
     const candidates = [];
 
     for (let i = 1; i <= this.length; i++) candidates.push(i);
 
     return candidates;
-  }
-
-  getKropkiBlackCandidates(candidate: number): Set<number> {
-    const hash = new Set<number>();
-
-    for (let c = 1; c <= this._length; c++)
-      if (candidate * 2 == c || (candidate % 2 == 0 && candidate / 2 == c))
-        hash.add(c);
-
-    return hash;
   }
 
   getCellIntersections(loc: Loc): Loc[] {
@@ -175,15 +159,6 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
     // console.log('////////////////////////')
 
     return houses;
-  }
-
-  getKropkiWhiteCandidates(candidate: number): Set<number> {
-    const hash = new Set<number>();
-
-    for (let c = 1; c <= this._length; c++)
-      if (candidate + 1 == c || candidate - 1 == c) hash.add(c);
-
-    return hash;
   }
 
   getCellList(r: number | Loc, c?: number): number[] {
@@ -355,65 +330,12 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
     return locs;
   }
 
-  setCellString(value: string, loc_r: Loc | number, c?: number) {
-    if (loc_r instanceof Loc && typeof c === "undefined") {
-      this._grid[loc_r.row][loc_r.col] = value;
-
-      return;
-    }
-
-    if (typeof loc_r == "number" && typeof c === "number") {
-      this.setCellString(value, new Loc(loc_r, c));
-
-      return;
-    }
-
-    throw new Error(`Invalid parameters for setCellString`);
-  }
-
   getCellCandidates(loc: Loc): number[] {
     return cellCandidates(this.getCellString(loc));
   }
 
   toCellRowString(r: number, c: number): string {
-    if (this.hasFences) {
-      let numbers = "";
-      let blanks = "";
-
-      for (let i = 0; i < this._length; i++) {
-        numbers += `${i + 1}`;
-        blanks += "_";
-      }
-
-      if (this.getCellString(r, c).includes("_________")) {
-      }
-      // console.log(`Temp: '${this._grid[r][c]}'`);
-
-      // cell
-      if (c % 2 == 0)
-        if (this._grid[r][c].startsWith(`${numbers}`))
-          return `${blanks}${this._grid[r][c][this._grid[r][c].length - 1]} `;
-        else if (this.getCellString(r, c).includes("_________")) {
-          return `${"empty".padEnd(this._length)}`;
-        } else return `${this._grid[r][c].padEnd(this._length)} `;
-      // kropki
-      else return `${this._grid[r][c]} `;
-    } else {
-      let numbers = "";
-      let blanks = "";
-
-      for (let i = 0; i < this._length; i++) {
-        numbers += `${i + 1}`;
-        blanks += "_";
-      }
-
-      // cell
-      if (c % 2 == 0)
-        if (this._grid[r][c] == `${numbers}`) return `${blanks} `;
-        else return `${this._grid[r][c].padEnd(this._length)} `;
-      // kropki
-      else return `${this._grid[r][c]} `;
-    }
+    return `${this._grid[r][c]} `;
   }
 
   toPuzzleString(): string {
@@ -479,7 +401,7 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
       case 4:
         initialOffset = " ";
         kropkiToNon = "  ";
-        nonToKropki = "  ";
+        nonToKropki = "   ";
         break;
 
       case 5:
@@ -536,78 +458,6 @@ export class FutoshikiPuzzle implements IFutoshikiPuzzle {
     }
 
     return `${this._id}\n${this._length}\n${str}\n`;
-  }
-
-  //   removeUpDownLeftRight(loc: Loc, candidate: number): boolean {
-  //     const leftKropkiLoc = loc.left();
-
-  //     let edited = false;
-
-  //     if (
-  //       leftKropkiLoc.col >= 0 &&
-  //       this._grid[leftKropkiLoc.row][leftKropkiLoc.col] == "."
-  //     )
-  //       edited = this.removeCandidate(leftKropkiLoc.left(), candidate) || edited;
-
-  //     const rightKropkiLoc = loc.right();
-
-  //     if (
-  //       rightKropkiLoc.col < this._length * 2 - 1 &&
-  //       this._grid[rightKropkiLoc.row][rightKropkiLoc.col] == "."
-  //     )
-  //       edited =
-  //         this.removeCandidate(rightKropkiLoc.right(), candidate) || edited;
-
-  //     const upKropkiLoc = loc.up();
-
-  //     if (
-  //       upKropkiLoc.row >= 0 &&
-  //       this._grid[upKropkiLoc.row][upKropkiLoc.col] == "."
-  //     )
-  //       edited = this.removeCandidate(upKropkiLoc.up(), candidate) || edited;
-
-  //     const downKropkiLoc = loc.down();
-
-  //     if (
-  //       downKropkiLoc.row < this._length * 2 - 1 &&
-  //       this._grid[downKropkiLoc.row][downKropkiLoc.col] == "."
-  //     )
-  //       edited = this.removeCandidate(downKropkiLoc.down(), candidate) || edited;
-
-  //     return edited;
-  //   }
-
-  removeCandidate(loc: Loc, candidate: number): boolean {
-    const r = loc.row;
-
-    const c = loc.col;
-
-    const originalLength = cellCandidates(this._grid[loc.row][loc.col]).length;
-
-    if (
-      r < 0 ||
-      c < 0 ||
-      r >= this._length * 2 - 1 ||
-      c >= this._length * 2 - 1
-    )
-      throw Error(
-        `Cannot remove candidate from location ${loc.toString()} on a grid of length ${
-          this._length
-        } (${this._length * 2 - 1})`
-      );
-
-    const cell = this._grid[loc.row][loc.col];
-
-    if (cell === null || typeof cell == "undefined")
-      throw Error(`Cell: [${loc.toString()} is ${cell}]`);
-
-    // for (const candidate of candidates)
-    this._grid[loc.row][loc.col] = this._grid[loc.row][loc.col].replace(
-      `${candidate}`,
-      "_"
-    );
-
-    return originalLength > cellCandidates(this._grid[loc.row][loc.col]).length;
   }
 
   getCellColHouseLocs(col: number): Loc[] {

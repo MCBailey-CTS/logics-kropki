@@ -91,12 +91,10 @@ export class NewTechniques {
   }
 
   static solveSudokuQuadTriple(length: number, house: string[]) {
-    // let valid 
+    // let valid
 
-
-
-    for (let i = 0; i < length-3; i++)
-      for (let ii = i + 1; ii < length-2; ii++)
+    for (let i = 0; i < length - 3; i++)
+      for (let ii = i + 1; ii < length - 2; ii++)
         for (let iii = ii + 1; iii < length - 1; iii++)
           for (let iiii = iii + 1; iiii < length; iiii++) {
             const indexes = new Set<number>([i, ii, iii, iiii]);
@@ -568,7 +566,7 @@ export class NewTechniques {
     return edited;
   }
 
-  static solveFutoshikiRowIntersections(_grid: GRID, rowLocs: Loc[]) {
+  static solveFutoshikiRowIntersections1(_grid: GRID, rowLocs: Loc[]) {
     for (let j = 0; j < rowLocs.length - 1; j++) {
       const loc0 = rowLocs[j];
       const loc1 = rowLocs[j + 1];
