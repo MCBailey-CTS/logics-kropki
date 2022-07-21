@@ -108,8 +108,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
   getKropkiCandidates(candidate: number): Set<number> {
     return new Set<number>([
-      ...this.getKropkiWhiteCandidates(candidate),
-      ...this.getKropkiBlackCandidates(candidate),
+      ...this.getKropkiWhiteCandidates(candidate)._items,
+      ...this.getKropkiBlackCandidates(candidate)._items,
     ]);
   }
 
@@ -121,8 +121,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return candidates;
   }
 
-  getKropkiBlackCandidates(candidate: number): Set<number> {
-    const hash = new Set<number>();
+  getKropkiBlackCandidates(candidate: number): IHash {
+    const hash = new Hash();
 
     for (let c = 1; c <= this._length; c++)
       if (candidate * 2 == c || (candidate % 2 == 0 && candidate / 2 == c))
@@ -191,8 +191,8 @@ export class KropkiPuzzle implements IKropkiPuzzle {
     return houses;
   }
 
-  getKropkiWhiteCandidates(candidate: number): Set<number> {
-    const hash = new Set<number>();
+  getKropkiWhiteCandidates(candidate: number): Hash {
+    const hash = new Hash();
 
     for (let c = 1; c <= this._length; c++)
       if (candidate + 1 == c || candidate - 1 == c) hash.add(c);

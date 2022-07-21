@@ -36,9 +36,9 @@ export interface IKropkiPuzzle {
 
   getKropkiCandidates(candidate: number): Set<number>;
 
-  getKropkiWhiteCandidates(candidate: number): Set<number>;
+  getKropkiWhiteCandidates(candidate: number): IHash;
 
-  getKropkiBlackCandidates(candidate: number): Set<number>;
+  getKropkiBlackCandidates(candidate: number): IHash;
 
   toPuzzleString(): string;
 
@@ -67,6 +67,4 @@ export interface IKropkiPuzzle {
   getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[];
 
   getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[];
-
-  getCellHash(r: Loc | number, c?: number): IHash;
 }

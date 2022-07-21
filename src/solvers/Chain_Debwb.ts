@@ -14,8 +14,8 @@ export class Chain_Debwb extends _BaseKropkiVectorDiamond {
     edits.push(...this.remove(puzzle, chain[0], 1));
     edits.push(...this.remove(puzzle, chain[1], 1));
 
-    const hash0 = puzzle.getCellHash(chain[0]);
-    const hash1 = puzzle.getCellHash(chain[1]);
+    const hash0 = puzzle.getCellSet(chain[0]);
+    const hash1 = puzzle.getCellSet(chain[1]);
 
     let explicit = [2, 3, 4];
 
@@ -23,10 +23,6 @@ export class Chain_Debwb extends _BaseKropkiVectorDiamond {
       return edits;
 
     for (const house of puzzle.getCommonHouses([chain[2], chain[3]])) {
-      // console.log(house);
-      // console.log(
-      //   puzzle.getCellString(chain[2]) + " " + puzzle.getCellString(chain[3])
-      // );
       for (const loc of house) {
         if (loc.equals(chain[2])) continue;
         if (loc.equals(chain[3])) continue;
