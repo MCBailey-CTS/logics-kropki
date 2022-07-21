@@ -10,18 +10,7 @@ export class NewTechniques {
   // }
   // static isValidKropkiBlack():boolean{}
 
-  static solveSudokuCrossHatch(_length: number, house: string[]) {
-    for (let i = 0; i < _length; i++)
-      for (let ii = 0; ii < _length; ii++) {
-        if (i == ii) continue;
-
-        const cell = cellCandidates(house[i]);
-
-        if (cell._length != 1) continue;
-
-        house[ii] = house[ii].replace(`${cell._at(0)}`, "_");
-      }
-  }
+  
 
   static solveSudokuNakedPair(_length: number, house: string[]) {
     for (let i = 0; i < _length; i++)
@@ -291,30 +280,6 @@ export class NewTechniques {
     }
   }
 
-  static solveSudokuCrossHatchLocs(
-    _grid: GRID,
-    _length: number,
-    locs: Loc[]
-  ): boolean {
-    const house = Loc.getHouseFromLocs(_grid, locs);
-
-    NewTechniques.solveSudokuCrossHatch(_length, house);
-
-    let edited = false;
-
-    for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
-
-      const _length = cellCandidates(_grid[loc.row][loc.col])._length;
-
-      _grid[loc.row][loc.col] = house[j];
-
-      edited =
-        _length > cellCandidates(_grid[loc.row][loc.col])._length || edited;
-    }
-
-    return edited;
-  }
 
   static solveSudokuNakedTripleLocs(
     _grid: GRID,

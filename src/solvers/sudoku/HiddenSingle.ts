@@ -1,10 +1,9 @@
-import { IHash } from "../../IHash";
-import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
-import { _BaseKropkiSudokuSolver } from "../abstract/_BaseKropkiSudokuSolver";
-import { Edit } from "../Edit";
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Loc } from "../Loc";
+import { IHash } from "../../../IHash";
+import { _BaseKropkiSudokuSolver } from "../../abstract/_BaseKropkiSudokuSolver";
+import { Edit } from "../../Edit";
+import { IEdit } from "../../interfaces/IEdit";
+import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
+import { Loc } from "../../Loc";
 
 export class HiddenSingle extends _BaseKropkiSudokuSolver {
   solve(puzzle: IKropkiPuzzle, cellChainLocs:IHash<Loc>): IEdit[] {
