@@ -30,26 +30,44 @@ export class Chain_ww extends _BaseKropkiVector {
     return "ww";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+  solveChain(puzzle: IKropkiPuzzle, locs: Loc[]): IEdit[] {
     const edits: IEdit[] = [];
 
-    const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+    const commonHouses = puzzle.getCommonHouses(locs);
 
     if (commonHouses.length == 0) return edits;
 
-    if (puzzle.removeCandidate(cellChainLocs[1], 1))
-      edits.push(new Edit(puzzle, cellChainLocs[1], 1, this));
+    const edge0 = locs[0];
+    const center = locs[1];
+    const edge1 = locs[2];
 
-    if (puzzle.removeCandidate(cellChainLocs[1], puzzle.length))
-      edits.push(new Edit(puzzle, cellChainLocs[1], puzzle.length, this));
+    const edgeSet0 = puzzle.getCellSet(edge0);
+    const centerSet = puzzle.getCellSet(center);
+    const edgeSet1 = puzzle.getCellSet(edge1);
 
-    if (
-      !puzzle.getCellSet(cellChainLocs[0]).has(1) &&
-      puzzle.getCellSet(cellChainLocs[1]).has(2) &&
-      !puzzle.getCellSet(cellChainLocs[2]).has(1) &&
-      puzzle.removeCandidate(cellChainLocs[1], 2)
-    )
-      edits.push(new Edit(puzzle, cellChainLocs[1], 2, this));
+    for (const candidate of edgeSet0) {
+      if (!edgeSet1.has(candidate - 2) && !edgeSet1.has(candidate + 2)) {
+        edits.push(...this.remove(puzzle, edge0, candidate));
+      }
+    }
+
+    for (const candidate of edgeSet1) {
+      if (!edgeSet0.has(candidate - 2) && !edgeSet0.has(candidate + 2)) {
+        edits.push(...this.remove(puzzle, edge1, candidate));
+      }
+    }
+
+    for (const candidate of edgeSet0) {
+      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
+        edits.push(...this.remove(puzzle, edge0, candidate));
+      }
+    }
+
+    for (const candidate of edgeSet1) {
+      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
+        edits.push(...this.remove(puzzle, edge1, candidate));
+      }
+    }
 
     return edits;
   }
