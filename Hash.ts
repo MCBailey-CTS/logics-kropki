@@ -14,15 +14,14 @@ export class Hash<T> implements IHash<T> {
     this.__list = new Array<T>(...items);
   }
 
-  add(item: T): boolean{
+  add(item: T): boolean {
     return this.push(item);
   }
-
 
   shift(): T | undefined {
     return this.__list.shift();
   }
-  
+
   _shift(): T {
     const item = this.shift();
 
@@ -38,7 +37,6 @@ export class Hash<T> implements IHash<T> {
 
     return item;
   }
-
 
   sort(compareFn?: (a: T, b: T) => number): this {
     this.__list.sort(compareFn);
@@ -112,8 +110,6 @@ export class Hash<T> implements IHash<T> {
       return other.has(item);
     });
   }
-
-
 
   get _size(): number {
     return this.__hash.size;
