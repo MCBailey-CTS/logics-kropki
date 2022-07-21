@@ -6,6 +6,7 @@ import { NewPuzzles } from "./src/NewPuzzles";
 import { FutoshikiPuzzle } from "./src/puzzles/FutoshikiPuzzle";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { Chain_b } from "./src/solvers/Chain_b";
+import { Chain_greater_than1 } from "./src/solvers/Chain_greater_than1";
 import { Chain_bb } from "./src/solvers/Chain_bb";
 import { Chain_bw } from "./src/solvers/Chain_bw";
 import { Chain_bww } from "./src/solvers/Chain_bww";
@@ -27,27 +28,6 @@ import { NakedQuad } from "./src/solvers/NakedQuad";
 
 function main() {
   const puzzleStrings = [
-    NewPuzzles._Kropki_022,
-    NewPuzzles._Kropki_021,
-    NewPuzzles._Kropki_019,
-    NewPuzzles._Kropki_018,
-    NewPuzzles._Kropki_017,
-    NewPuzzles._Kropki_015,
-    NewPuzzles._Kropki_014,
-    NewPuzzles._Kropki_013,
-    NewPuzzles._Kropki_012,
-    NewPuzzles._Kropki_011,
-    NewPuzzles._Kropki_009,
-    NewPuzzles._Kropki_008,
-    NewPuzzles._Kropki_007,
-    NewPuzzles._Kropki_005,
-    NewPuzzles._Kropki_004,
-    NewPuzzles._Kropki_003,
-    NewPuzzles._Kropki_002,
-    NewPuzzles._Kropki_001,
-    NewPuzzles._Kropki_016,
-    NewPuzzles._Kropki_010,
-    NewPuzzles._Kropki_006,
     NewPuzzles._MoreOrLess_015,
     NewPuzzles._MoreOrLess_023,
     NewPuzzles._Futoshiki_110,
@@ -70,6 +50,30 @@ function main() {
     NewPuzzles._Futoshiki_003,
     NewPuzzles._Futoshiki_002,
     NewPuzzles._Futoshiki_001,
+
+    NewPuzzles._Kropki_022,
+    NewPuzzles._Kropki_019,
+    NewPuzzles._Kropki_018,
+    NewPuzzles._Kropki_017,
+    NewPuzzles._Kropki_016,
+    NewPuzzles._Kropki_014,
+    NewPuzzles._Kropki_013,
+    NewPuzzles._Kropki_012,
+    NewPuzzles._Kropki_011,
+    NewPuzzles._Kropki_009,
+    NewPuzzles._Kropki_007,
+    NewPuzzles._Kropki_005,
+    NewPuzzles._Kropki_004,
+    NewPuzzles._Kropki_003,
+    NewPuzzles._Kropki_002,
+    NewPuzzles._Kropki_001,
+
+    NewPuzzles._Kropki_010,
+    NewPuzzles._Kropki_006,
+    NewPuzzles._Kropki_015,
+    NewPuzzles._Kropki_021,
+    NewPuzzles._Kropki_020,
+    NewPuzzles._Kropki_008,
   ];
 
   // const totalEdits = [];
@@ -101,6 +105,7 @@ function main() {
   ];
 
   const futoshikiSolvers: IFutoshikiSolver[] = [
+    new Chain_greater_than1(),
     // new Chain_b(),
     // new Chain_e(),
     // new Chain_w(),
@@ -164,9 +169,9 @@ function main() {
 
         const resultingEdits: IEdit[] = [];
 
-        // resultingEdits.push(
-        //   ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
-        // );
+        resultingEdits.push(
+          ..._BaseKropkiChain.solveFutoshiki(puzzle, futoshikiSolvers)
+        );
 
         totalEdits += resultingEdits.length;
 

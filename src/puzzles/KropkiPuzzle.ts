@@ -1,3 +1,5 @@
+import { Hash } from "../../Hash";
+import { IHash } from "../../IHash";
 import { IEdit } from "../interfaces/IEdit";
 import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
@@ -204,6 +206,10 @@ export class KropkiPuzzle implements IKropkiPuzzle {
 
   getCellSet(r: number | Loc, c?: number): Set<number> {
     return new Set<number>(this.getCellList(r, c));
+  }
+
+  getCellHash(r: number | Loc, c?: number): IHash {
+    return new Hash(this.getCellList(r, c));
   }
 
   getCellString(r: number | Loc, c?: number): string {
@@ -486,18 +492,18 @@ export class KropkiPuzzle implements IKropkiPuzzle {
         kropkiToNon = "  ";
         nonToKropki = "  ";
         break;
-        case 4:
+      case 4:
         initialOffset = " ";
         kropkiToNon = "  ";
         nonToKropki = "  ";
         break;
 
-        case 5:
+      case 5:
         initialOffset = " ";
         kropkiToNon = "  ";
         nonToKropki = "  ";
         break;
-        
+
       case 6:
         initialOffset = "  ";
         kropkiToNon = "   ";

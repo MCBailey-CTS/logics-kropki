@@ -1,6 +1,7 @@
 import { IKropkiSolver } from "./IKropkiSolver";
 import { IEdit } from "./IEdit";
 import { Loc } from "../Loc";
+import { IHash } from "../../IHash";
 
 export interface IKropkiPuzzle {
   get id(): string;
@@ -66,4 +67,6 @@ export interface IKropkiPuzzle {
   getColLocsWithCandidate(col: number | Loc, candidate: number): Loc[];
 
   getFenceLocsWithCandidate(fence: string | Loc, candidate: number): Loc[];
+
+  getCellHash(r: Loc | number, c?: number): IHash;
 }

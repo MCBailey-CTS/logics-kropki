@@ -7,19 +7,21 @@ export interface IHash {
 
   add(item: number): boolean;
 
-  delete(item: number | Array<number>): boolean;
+  delete(item: number): boolean;
 
-  or_union(hash: IHash): IHash;
+  has(item: number): boolean;
 
-  and_intersection(hash: IHash): IHash;
+  // or_union(items: IHash | Array<number>): IHash;
 
-  subtract(hash: IHash): IHash;
+  // and_intersection(items: IHash | Array<number>): IHash;
 
-  set_equals(hash: IHash): boolean;
+  // subtract(items: IHash | Array<number>): IHash;
 
-  is_subset_of(hash: IHash): boolean;
-  is_proper_subset_of(hash: IHash): boolean;
+  set_equals(items: Array<number>): boolean;
 
-  is_superset_of(hash: IHash): boolean;
-  is_proper_superset_of(hash: IHash): boolean;
+  is_subset_of(items: Array<number>): boolean;
+  // is_proper_subset_of(items: IHash | Array<number>): boolean;
+
+  // is_superset_of(items: IHash | Array<number>): boolean;
+  // is_proper_superset_of(items: IHash | Array<number>): boolean;
 }
