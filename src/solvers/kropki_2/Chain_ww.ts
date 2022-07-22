@@ -18,37 +18,25 @@ export class Chain_ww extends _BaseKropkiVectorString2 {
 
     if (commonHouses.length == 0) return edits;
 
-    const edge0 = locs._at(0);
-    const center = locs._at(1);
-    const edge1 = locs._at(2);
+    const edgeSet0 = puzzle.getCellList(locs._at(0));
+    const centerSet = puzzle.getCellList(locs._at(1));
+    const edgeSet1 = puzzle.getCellList(locs._at(2));
 
-    const edgeSet0 = puzzle.getCellList(edge0);
-    const centerSet = puzzle.getCellList(center);
-    const edgeSet1 = puzzle.getCellList(edge1);
+    for (const candidate of edgeSet0)
+      if (!edgeSet1.has(candidate - 2) && !edgeSet1.has(candidate + 2))
+        edits.push(...this.remove(puzzle, locs._at(0), candidate));
 
-    for (const candidate of edgeSet0) {
-      if (!edgeSet1.has(candidate - 2) && !edgeSet1.has(candidate + 2)) {
-        edits.push(...this.remove(puzzle, edge0, candidate));
-      }
-    }
+    for (const candidate of edgeSet1)
+      if (!edgeSet0.has(candidate - 2) && !edgeSet0.has(candidate + 2))
+        edits.push(...this.remove(puzzle, locs._at(2), candidate));
 
-    for (const candidate of edgeSet1) {
-      if (!edgeSet0.has(candidate - 2) && !edgeSet0.has(candidate + 2)) {
-        edits.push(...this.remove(puzzle, edge1, candidate));
-      }
-    }
+    for (const candidate of edgeSet0)
+      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1))
+        edits.push(...this.remove(puzzle, locs._at(0), candidate));
 
-    for (const candidate of edgeSet0) {
-      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
-        edits.push(...this.remove(puzzle, edge0, candidate));
-      }
-    }
-
-    for (const candidate of edgeSet1) {
-      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1)) {
-        edits.push(...this.remove(puzzle, edge1, candidate));
-      }
-    }
+    for (const candidate of edgeSet1)
+      if (!centerSet.has(candidate - 1) && !centerSet.has(candidate + 1))
+        edits.push(...this.remove(puzzle, locs._at(2), candidate));
 
     return edits;
   }

@@ -18,6 +18,7 @@ import { Chain_Debww } from "./src/solvers/kropki_4d/Chain_Debww";
 import { Chain_Dewbb } from "./src/solvers/kropki_4d/Chain_Dewbb";
 import { Chain_Dewbw } from "./src/solvers/kropki_4d/Chain_Dewbw";
 import { Chain_Dewww } from "./src/solvers/kropki_4d/Chain_Dewww";
+import { east, north, south, west } from "./src/Loc";
 
 function main() {
   const puzzleStrings = [
@@ -202,6 +203,13 @@ function main() {
 const start = Date.now();
 
 main();
+
+// const temp = [east(2), south(2), west(2)];
+
+// console.log(temp);
+
+// for (const t of temp) {
+// }
 
 const end = Date.now();
 

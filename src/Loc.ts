@@ -1,3 +1,27 @@
+export function north(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(-offset, 0);
+}
+
+export function south(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(offset, 0);
+}
+
+export function west(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(0, -offset);
+}
+
+export function east(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(0, offset);
+}
+
 export class Loc {
   constructor(row: number, col: number) {
     this._row = row;
