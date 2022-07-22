@@ -60,6 +60,12 @@ export class Chain_b extends _BaseKropkiVectorString1 {
 
     if (hash.size != 3) return edits;
 
+    this.newMethod_1(hash, commonHouses, locs, puzzle, edits);
+
+    return edits;
+  }
+
+  private newMethod_1(hash: Set<number>, commonHouses: IHash<Loc>[], locs: IHash<Loc>, puzzle: IKropkiPuzzle, edits: IEdit[]) {
     const list = [...hash];
 
     list.sort((a, b) => {
@@ -69,8 +75,6 @@ export class Chain_b extends _BaseKropkiVectorString1 {
     if (this.isValidList(list)) {
       newMethod(commonHouses, locs, puzzle, list, edits, this);
     }
-
-    return edits;
   }
 
   isValidList(list: number[]): boolean {
