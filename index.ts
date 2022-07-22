@@ -4,11 +4,16 @@ import { IFutoshikiSolver } from "./src/interfaces/IFutoshikiSolver";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { NewPuzzles } from "./src/NewPuzzles";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
-import { Chain_b } from "./src/solvers/Chain_b";
+import { Chain_bw } from "./src/solvers/Chain_bw";
 import { Chain_bww } from "./src/solvers/Chain_bww";
+import { Chain_Dbbww } from "./src/solvers/Chain_Dbbww";
+import { Chain_Dbwww } from "./src/solvers/Chain_Dbwww";
+import { Chain_Debwb } from "./src/solvers/Chain_Debwb";
+import { Chain_Debww } from "./src/solvers/Chain_Debww";
 import { Chain_Dewbb } from "./src/solvers/Chain_Dewbb";
-import { Chain_e } from "./src/solvers/Chain_e";
-import { Chain_w } from "./src/solvers/Chain_w";
+import { Chain_Dewbw } from "./src/solvers/Chain_Dewbw";
+import { Chain_Dewww } from "./src/solvers/Chain_Dewww";
+import { Chain_b, Chain_e, Chain_w } from "./src/solvers/kropki_1/Chain_b";
 import { CrossHatch } from "./src/solvers/sudoku/CrossHatch";
 import { HiddenSingle } from "./src/solvers/sudoku/HiddenSingle";
 
@@ -78,17 +83,17 @@ function main() {
     new HiddenSingle(),
     // new NakedPair(),
     // new Chain_bb(),
-    // new Chain_bw(),
+    new Chain_bw(),
     // new Chain_ww(),
     new Chain_Dewbb(),
-    // new Chain_Debww(),
-    // new Chain_Dewww(),
-    // new Chain_Debwb(),
-    // new Chain_Dewbw(),
-    // new Chain_Dbwww(),
+    new Chain_Debww(),
+    new Chain_Dewww(),
+    new Chain_Debwb(),
+    new Chain_Dewbw(),
+    new Chain_Dbwww(),
     new CrossHatch(),
     new Chain_bww(),
-    // new Chain_Dbbww(),
+    new Chain_Dbbww(),
     // new HiddenPair(),
     // new NakedQuad(),
   ];

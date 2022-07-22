@@ -1,70 +1,70 @@
-import { Hash } from "../../Hash";
-import { IHash } from "../../IHash";
-import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
-import { _BaseKropkiVectorString1 } from "../abstract/_BaseKropkiVectorString1";
-import { Edit } from "../Edit";
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Loc } from "../Loc";
+// import { Hash } from "../../Hash";
+// import { IHash } from "../../IHash";
+// import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
+// import { _BaseKropkiVectorString1 } from "../abstract/_BaseKropkiVectorString1";
+// import { Edit } from "../Edit";
+// import { IEdit } from "../interfaces/IEdit";
+// import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+// import { Loc } from "../Loc";
 
-export class Chain_w extends _BaseKropkiVectorString1 {
-  constructor() {
-    super("w");
-  }
+// export class Chain_w extends _BaseKropkiVectorString1 {
+//   constructor() {
+//     super("w");
+//   }
 
-  solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
-    const edits: IEdit[] = [];
+//   solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
+//     const edits: IEdit[] = [];
 
-    const loc = locs._at(0);
+//     const loc = locs._at(0);
 
-    const other = locs._at(1);
+//     const other = locs._at(1);
 
-    const interSectionLoc = puzzle.getIntersection(loc, other);
+//     const interSectionLoc = puzzle.getIntersection(loc, other);
 
-    const intersectionStr = puzzle.getCellString(interSectionLoc);
+//     const intersectionStr = puzzle.getCellString(interSectionLoc);
 
-    const commonHouses = puzzle.getCommonHouses(locs);
+//     const commonHouses = puzzle.getCommonHouses(locs);
 
-    if (commonHouses.length == 0) return edits;
+//     if (commonHouses.length == 0) return edits;
 
-    const otherHash = puzzle.getCellList(other);
+//     const otherHash = puzzle.getCellList(other);
 
-    for (const candidate of puzzle.getCellList(loc)) {
-      if (otherHash.has(candidate + 1)) continue;
+//     for (const candidate of puzzle.getCellList(loc)) {
+//       if (otherHash.has(candidate + 1)) continue;
 
-      if (otherHash.has(candidate - 1)) continue;
+//       if (otherHash.has(candidate - 1)) continue;
 
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
+//       if (!puzzle.removeCandidate(loc, candidate)) continue;
 
-      edits.push(new Edit(puzzle, loc, candidate, this));
-    }
+//       edits.push(new Edit(puzzle, loc, candidate, this));
+//     }
 
-    const hash = new Set<number>();
+//     const hash = new Set<number>();
 
-    for (const loc of locs)
-      for (const candidate of puzzle.getCellList(loc)) hash.add(candidate);
+//     for (const loc of locs)
+//       for (const candidate of puzzle.getCellList(loc)) hash.add(candidate);
 
-    if (hash.size != 3) return edits;
+//     if (hash.size != 3) return edits;
 
-    const list = [...hash];
+//     const list = [...hash];
 
-    list.sort((a, b) => {
-      return a - b;
-    });
+//     list.sort((a, b) => {
+//       return a - b;
+//     });
 
-    if (list[0] + 1 == list[1] && list[1] + 1 == list[2]) {
-      // if (puzzle.id != "008.kropki") return edits;
+//     if (list[0] + 1 == list[1] && list[1] + 1 == list[2]) {
+//       // if (puzzle.id != "008.kropki") return edits;
 
-      for (const house of commonHouses)
-        for (const loc of house)
-          if (
-            !loc.equals(locs._at(0)) &&
-            !loc.equals(locs._at(1)) &&
-            puzzle.removeCandidate(loc, list[1])
-          )
-            edits.push(new Edit(puzzle, loc, list[1], this));
-    }
+//       for (const house of commonHouses)
+//         for (const loc of house)
+//           if (
+//             !loc.equals(locs._at(0)) &&
+//             !loc.equals(locs._at(1)) &&
+//             puzzle.removeCandidate(loc, list[1])
+//           )
+//             edits.push(new Edit(puzzle, loc, list[1], this));
+//     }
 
-    return edits;
-  }
-}
+//     return edits;
+//   }
+// }

@@ -1,18 +1,9 @@
-import { Hash } from "../../Hash";
-import { IHash } from "../../IHash";
-import { Loc } from "../Loc";
-import { _BaseKropkiVector } from "./_BaseKropkiVector";
-
+import { Hash } from "../../../Hash";
+import { IHash } from "../../../IHash";
+import { Loc } from "../../Loc";
+import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
 
 export abstract class _BaseKropkiVectorString1 extends _BaseKropkiVector {
-   constructor(expectedKropkiString: string) {
-    super();
-
-    this.__expected = expectedKropkiString;
-  }
-
-  private readonly __expected: string;
-
   get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
 
@@ -26,7 +17,5 @@ export abstract class _BaseKropkiVectorString1 extends _BaseKropkiVector {
     return chains;
   }
 
-  get expected_kropki_string(): string {
-    return this.__expected;
-  }
+  abstract get expected_kropki_string(): string;
 }
