@@ -1,4 +1,3 @@
-import { Hash } from "../../../Hash";
 import { IHash } from "../../../IHash";
 import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
 import { _BaseKropkiVectorString1 } from "./_BaseKropkiVectorString1";
@@ -6,10 +5,25 @@ import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
+import { IKropkiSolver } from "../../interfaces/IKropkiSolver";
 
-// const base = new Loc(0, 0);
-
-//     return [[base.up(2), base.right(2), base.down(2), base.left(2)]];
+function newMethod(
+  commonHouses: IHash<Loc>[],
+  locs: IHash<Loc>,
+  puzzle: IKropkiPuzzle,
+  list: number[],
+  edits: IEdit[],
+  solver: IKropkiSolver
+) {
+  for (const house of commonHouses)
+    for (const loc of house)
+      if (
+        !loc.equals(locs._at(0)) &&
+        !loc.equals(locs._at(1)) &&
+        puzzle.removeCandidate(loc, list[1])
+      )
+        edits.push(new Edit(puzzle, loc, list[1], solver));
+}
 
 export class Chain_b extends _BaseKropkiVectorString1 {
   get expected_kropki_string(): string {
@@ -52,20 +66,15 @@ export class Chain_b extends _BaseKropkiVectorString1 {
       return a - b;
     });
 
-    if (list[0] + 1 == list[1] && list[1] + 1 == list[2]) {
-      // if (puzzle.id != "008.kropki") return edits;
-
-      for (const house of commonHouses)
-        for (const loc of house)
-          if (
-            !loc.equals(locs._at(0)) &&
-            !loc.equals(locs._at(1)) &&
-            puzzle.removeCandidate(loc, list[1])
-          )
-            edits.push(new Edit(puzzle, loc, list[1], this));
+    if (this.isValidList(list)) {
+      newMethod(commonHouses, locs, puzzle, list, edits, this);
     }
 
     return edits;
+  }
+
+  isValidList(list: number[]): boolean {
+    return list[0] * 2 == list[1] && list[1] * 2 == list[2];
   }
 }
 
@@ -103,31 +112,30 @@ export class Chain_w extends _BaseKropkiVectorString1 {
     return "w";
   }
 
+  isValidCandidate(candidate: number, other: IHash<number>): boolean {
+    // return true;
+    return other.has(candidate + 1) || other.has(candidate - 1);
+  }
+
   solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    const loc = locs._at(0);
+    // const loc = locs._at(0);
 
-    const other = locs._at(1);
-
-    const interSectionLoc = puzzle.getIntersection(loc, other);
-
-    const intersectionStr = puzzle.getCellString(interSectionLoc);
+    // const other = locs._at(1);
 
     const commonHouses = puzzle.getCommonHouses(locs);
 
     if (commonHouses.length == 0) return edits;
 
-    const otherHash = puzzle.getCellList(other);
+    const otherHash = puzzle.getCellList(locs._at(1));
 
-    for (const candidate of puzzle.getCellList(loc)) {
-      if (otherHash.has(candidate + 1)) continue;
+    for (const candidate of puzzle.getCellList(locs._at(0))) {
+      if (this.isValidCandidate(candidate, otherHash)) continue;
 
-      if (otherHash.has(candidate - 1)) continue;
+      if (!puzzle.removeCandidate(locs._at(0), candidate)) continue;
 
-      if (!puzzle.removeCandidate(loc, candidate)) continue;
-
-      edits.push(new Edit(puzzle, loc, candidate, this));
+      edits.push(new Edit(puzzle, locs._at(0), candidate, this));
     }
 
     const hash = new Set<number>();
@@ -146,16 +154,11 @@ export class Chain_w extends _BaseKropkiVectorString1 {
     if (list[0] + 1 == list[1] && list[1] + 1 == list[2]) {
       // if (puzzle.id != "008.kropki") return edits;
 
-      for (const house of commonHouses)
-        for (const loc of house)
-          if (
-            !loc.equals(locs._at(0)) &&
-            !loc.equals(locs._at(1)) &&
-            puzzle.removeCandidate(loc, list[1])
-          )
-            edits.push(new Edit(puzzle, loc, list[1], this));
+      newMethod(commonHouses, locs, puzzle, list, edits, this);
     }
 
     return edits;
   }
 }
+
+// 160
