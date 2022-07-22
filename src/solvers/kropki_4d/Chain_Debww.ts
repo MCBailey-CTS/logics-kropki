@@ -1,16 +1,16 @@
-import { Loc } from "../Loc";
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
+import { IHash } from "../../../IHash";
+import { _BaseKropkiVectorDiamond } from "../../abstract/_BaseKropkiVectorDiamond";
+import { IEdit } from "../../interfaces/IEdit";
+import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
+import { Loc } from "../../Loc";
+import { _BaseKropkiVectorString4D } from "./_BaseKropkiVectorString4D";
 
-import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
-import { _BaseKropkiVectorDiamond } from "../abstract/_BaseKropkiVectorDiamond";
-import { IHash } from "../../IHash";
 const BLACK_WHITE = [1, 5, 7, 9]; // -> [2, 3, 4, 6, 8];
 const WHITE_EMPTY = [3, 5, 7, 9]; // -> [1, 2, 4, 6, 8];
 const EMPTY_BLACK = [5, 7, 9]; // -> [1, 2, 3, 4, 6, 8];
 const WHITE_WHITE = [1, 4, 6, 8, 9]; // -> [2, 3, 5, 7];
 
-export class Chain_Debww extends _BaseKropkiVectorDiamond {
+export class Chain_Debww extends _BaseKropkiVectorString4D {
   get expected_kropki_string(): string {
     return "ww.b";
   }

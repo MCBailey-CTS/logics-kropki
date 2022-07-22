@@ -1,10 +1,10 @@
-import { Hash } from "../../Hash";
-import { IHash } from "../../IHash";
-import { _BaseKropkiVector } from "../abstract/_BaseKropkiVector";
-import { Edit } from "../Edit";
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Loc } from "../Loc";
+import { Hash } from "../../../Hash";
+import { IHash } from "../../../IHash";
+import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
+import { Edit } from "../../Edit";
+import { IEdit } from "../../interfaces/IEdit";
+import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
+import { Loc } from "../../Loc";
 
 export class Chain_bww extends _BaseKropkiVector {
   get vector_chains(): IHash<Loc>[] {

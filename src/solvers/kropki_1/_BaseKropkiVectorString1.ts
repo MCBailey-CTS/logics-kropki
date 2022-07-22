@@ -16,6 +16,4 @@ export abstract class _BaseKropkiVectorString1 extends _BaseKropkiVector {
 
     return chains;
   }
-
-  abstract get expected_kropki_string(): string;
 }
