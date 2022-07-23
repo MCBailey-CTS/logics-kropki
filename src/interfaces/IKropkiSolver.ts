@@ -1,12 +1,15 @@
 import { Loc } from "../Loc";
-import { LocSet } from "../LocSet";
 import { IEdit } from "./IEdit";
 import { IKropkiPuzzle } from "./IKropkiPuzzle";
 
 export interface IKropkiSolver {
   get id(): string;
 
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[];
+  get puzzle(): IKropkiPuzzle;
+  
+  set puzzle(puzzle: IKropkiPuzzle);
 
-  remove(puzzle: IKropkiPuzzle, loc: Loc, ...candidates: number[]): IEdit[];
+  solvePuzzle(): IEdit[];
+
+  remove(loc: Loc, ...candidates: number[]): IEdit[];
 }

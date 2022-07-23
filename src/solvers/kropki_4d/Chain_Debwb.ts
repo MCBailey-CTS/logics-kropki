@@ -11,28 +11,28 @@ export class Chain_Debwb extends _BaseKropkiVectorString4D {
     return "wb.b";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain(chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    edits.push(...this.remove(puzzle, chain._at(0), 1));
-    edits.push(...this.remove(puzzle, chain._at(1), 1));
+    edits.push(...this.remove(chain._at(0), 1));
+    edits.push(...this.remove(chain._at(1), 1));
 
-    const hash0 = puzzle.getCellList(chain._at(0));
-    const hash1 = puzzle.getCellList(chain._at(1));
+    const hash0 = this.puzzle.getCellList(chain._at(0));
+    const hash1 = this.puzzle.getCellList(chain._at(1));
 
     let explicit = [2, 3, 4];
 
     if (!hash0.is_subset_of(explicit) || !hash1.is_subset_of(explicit))
       return edits;
 
-    for (const house of puzzle.getCommonHouses(
+    for (const house of this.puzzle.getCommonHouses(
       new Hash<Loc>([chain._at(2), chain._at(3)])
     )) {
       for (const loc of house) {
         if (loc.equals(chain._at(2))) continue;
         if (loc.equals(chain._at(3))) continue;
 
-        edits.push(...this.remove(puzzle, loc, 6));
+        edits.push(...this.remove(loc, 6));
       }
     }
 

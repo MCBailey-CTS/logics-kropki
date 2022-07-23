@@ -11,22 +11,22 @@ export class Chain_Dewbb extends _BaseKropkiVectorString4D {
     return "w.bb";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain( chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
     // [0]
     for (const candidate of [1, 3, 5, 6, 7, 9])
-      if (puzzle.removeCandidate(chain._at(0), candidate))
-        edits.push(new Edit(puzzle, chain._at(0), candidate, this));
+      if (this.puzzle.removeCandidate(chain._at(0), candidate))
+        edits.push(new Edit(this.puzzle, chain._at(0), candidate, this));
 
     // [2]
     for (const candidate of [3, 5, 6, 7, 9])
-      if (puzzle.removeCandidate(chain._at(2), candidate))
-        edits.push(new Edit(puzzle, chain._at(2), candidate, this));
+      if (this.puzzle.removeCandidate(chain._at(2), candidate))
+        edits.push(new Edit(this.puzzle, chain._at(2), candidate, this));
 
     // [3]
     for (const candidate of [1, 3, 5, 6, 7, 8, 9])
-      if (puzzle.removeCandidate(chain._at(3), candidate))
-        edits.push(new Edit(puzzle, chain._at(3), candidate, this));
+      if (this.puzzle.removeCandidate(chain._at(3), candidate))
+        edits.push(new Edit(this.puzzle, chain._at(3), candidate, this));
 
     return edits;
   }

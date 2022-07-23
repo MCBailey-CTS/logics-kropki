@@ -10,20 +10,20 @@ export class Chain_Dbbww extends _BaseKropkiVectorString4D {
     return "bbww";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain( chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
     if (
-      puzzle.getCellList(chain._at(0)).has(1) &&
-      !puzzle.getCellList(chain._at(2)).has(1)
+      this.puzzle.getCellList(chain._at(0)).has(1) &&
+      !this.puzzle.getCellList(chain._at(2)).has(1)
     )
-      edits.push(...this.remove(puzzle, chain._at(0), 1));
+      edits.push(...this.remove( chain._at(0), 1));
 
     if (
-      puzzle.getCellList(chain._at(2)).has(1) &&
-      !puzzle.getCellList(chain._at(0)).has(1)
+      this.puzzle.getCellList(chain._at(2)).has(1) &&
+      !this.puzzle.getCellList(chain._at(0)).has(1)
     )
-      edits.push(...this.remove(puzzle, chain._at(2), 1));
+      edits.push(...this.remove( chain._at(2), 1));
 
     return edits;
   }

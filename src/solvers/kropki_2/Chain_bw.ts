@@ -12,15 +12,15 @@ export class Chain_bw extends _BaseKropkiVectorString2 {
     return "bw";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, cellChainLocs: IHash<Loc>): IEdit[] {
+  solveChain( cellChainLocs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    const commonHouses = puzzle.getCommonHouses(cellChainLocs);
+    const commonHouses = this.puzzle.getCommonHouses(cellChainLocs);
 
     if (commonHouses.length == 0) return edits;
 
-    if (puzzle.removeCandidate(cellChainLocs._at(1), 1))
-      edits.push(new Edit(puzzle, cellChainLocs._at(1), 1, this));
+    if (this.puzzle.removeCandidate(cellChainLocs._at(1), 1))
+      edits.push(new Edit(this.puzzle, cellChainLocs._at(1), 1, this));
 
     return edits;
   }

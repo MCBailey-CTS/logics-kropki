@@ -15,27 +15,27 @@ export class Chain_Debww extends _BaseKropkiVectorString4D {
     return "ww.b";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain(chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
     if (
       ![...chain].every((loc) => {
-        return loc.isValidKropkiLoc(puzzle.length);
+        return loc.isValidKropkiLoc(this.puzzle.length);
       })
     )
       return edits;
 
     // black -> white
-    edits.push(...this.remove(puzzle, chain._at(0), ...BLACK_WHITE));
+    edits.push(...this.remove(chain._at(0), ...BLACK_WHITE));
 
     // white -> white
-    edits.push(...this.remove(puzzle, chain._at(1), ...WHITE_WHITE));
+    edits.push(...this.remove(chain._at(1), ...WHITE_WHITE));
 
     // white -> empty
-    edits.push(...this.remove(puzzle, chain._at(2), ...WHITE_EMPTY));
+    edits.push(...this.remove(chain._at(2), ...WHITE_EMPTY));
 
     // empty -> black
-    edits.push(...this.remove(puzzle, chain._at(3), ...EMPTY_BLACK));
+    edits.push(...this.remove(chain._at(3), ...EMPTY_BLACK));
 
     return edits;
   }

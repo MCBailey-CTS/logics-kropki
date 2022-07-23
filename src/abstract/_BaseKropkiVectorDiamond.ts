@@ -24,10 +24,10 @@ export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
     return chains;
   }
 
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+  solvePuzzle(): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const loc of puzzle.sudokuCellLocs) {
+    for (const loc of this.puzzle.sudokuCellLocs) {
       for (const vectorChain of this.vector_chains) {
         const locs = new Hash<Loc>([loc]);
 
@@ -38,7 +38,7 @@ export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
 
         if (
           ![...locs].every((loc1) => {
-            return loc1.isValidKropkiLoc(puzzle.length);
+            return loc1.isValidKropkiLoc(this.puzzle.length);
           })
         )
           continue;
@@ -46,24 +46,24 @@ export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
         let intersectionString = "";
 
         for (let i = 0; i < locs._length - 1; i++) {
-          const intersectionLoc = puzzle.getIntersection(
+          const intersectionLoc = this.puzzle.getIntersection(
             locs._at(i),
             locs._at(i + 1)
           );
 
-          intersectionString += puzzle.getCellString(intersectionLoc);
+          intersectionString += this.puzzle.getCellString(intersectionLoc);
         }
 
-        const intersectionLoc1 = puzzle.getIntersection(
+        const intersectionLoc1 = this.puzzle.getIntersection(
           locs._at(0),
           locs._at(locs._length - 1)
         );
 
-        intersectionString += puzzle.getCellString(intersectionLoc1);
+        intersectionString += this.puzzle.getCellString(intersectionLoc1);
 
         if (this.expected_kropki_string != intersectionString) continue;
 
-        edits.push(...this.solveChain(puzzle, locs));
+        edits.push(...this.solveChain(this.puzzle, locs));
       }
     }
 

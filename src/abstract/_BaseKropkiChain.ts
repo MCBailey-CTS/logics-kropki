@@ -9,11 +9,28 @@ import { IFutoshikiSolver } from "../interfaces/IFutoshikiSolver";
 import { IHash } from "../../IHash";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+
+  __puzzle: IKropkiPuzzle | undefined = undefined;
+
+  get puzzle(): IKropkiPuzzle {
+    if (typeof this.__puzzle == "undefined")
+      throw Error(`You have not set a puzzle for the solver ${this.id}`);
+
+    return this.__puzzle;
+  }
+
+  set puzzle(puzzle: IKropkiPuzzle) {
+    if (typeof this.__puzzle != "undefined")
+      throw Error(`You can only set a puzzle one time the solver ${this.id}`);
+
+      this.__puzzle = puzzle;
+  }
+
+  solvePuzzle(): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const locs of this.findChains(puzzle))
-      edits.push(...this.solve(puzzle, locs));
+    for (const locs of this.findChains(this.puzzle))
+      edits.push(...this.solve(this.puzzle, locs));
 
     return edits;
   }
@@ -29,10 +46,13 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
   static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
     const edits: IEdit[] = [];
 
+    for(const solver of solvers)
+    solver.puzzle = puzzle;
+
     while (true) {
       const originalLength = edits.length;
 
-      for (const solver of solvers) edits.push(...solver.solvePuzzle(puzzle));
+      for (const solver of solvers) edits.push(...solver.solvePuzzle());
 
       if (originalLength == edits.length) break;
     }
@@ -40,24 +60,7 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  static solveFutoshiki(puzzle: IFutoshikiPuzzle, solvers: IFutoshikiSolver[]) {
-    const edits: IEdit[] = [];
-
-    while (true) {
-      const originalLength = edits.length;
-
-      // console.log(puzzle.id);
-
-      for (const solver of solvers) {
-        edits.push(...solver.solvePuzzle(puzzle));
-        // console.log(solver.id);
-      }
-
-      if (originalLength == edits.length) break;
-    }
-
-    return edits;
-  }
+  
 
   getKropkiString(puzzle: IKropkiPuzzle, chain: IHash<Loc>): string {
     let str = "";
@@ -74,12 +77,12 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return str;
   }
 
-  remove(puzzle: IKropkiPuzzle, loc: Loc, ...candidates: number[]): IEdit[] {
+  remove( loc: Loc, ...candidates: number[]): IEdit[] {
     const edits: IEdit[] = [];
 
     for (const candidate of candidates)
-      if (puzzle.removeCandidate(loc, candidate))
-        edits.push(new Edit(puzzle, loc, candidate, this));
+      if (this.puzzle.removeCandidate(loc, candidate))
+        edits.push(new Edit(this.puzzle, loc, candidate, this));
 
     return edits;
   }

@@ -7,30 +7,46 @@ import { IKropkiVectors } from "../interfaces/IKropkiVectors";
 import { Loc } from "../Loc";
 
 export abstract class _BaseKropkiVector implements IKropkiVectors {
+  __puzzle: IKropkiPuzzle | undefined = undefined;
+
+  get puzzle(): IKropkiPuzzle {
+    if (typeof this.__puzzle == "undefined")
+      throw Error(`You have not set a puzzle for the solver ${this.id}`);
+
+    return this.__puzzle;
+  }
+
+  set puzzle(puzzle: IKropkiPuzzle) {
+    if (typeof this.__puzzle != "undefined")
+      throw Error(`You can only set a puzzle one time the solver ${this.id}`);
+
+    this.__puzzle = puzzle;
+  }
+
   abstract get vector_chains(): IHash<Loc>[];
 
   get id(): string {
     return this.constructor.name;
   }
 
-  remove(puzzle: IKropkiPuzzle, loc: Loc, ...candidates: number[]): IEdit[] {
+  remove(loc: Loc, ...candidates: number[]): IEdit[] {
     const edits: IEdit[] = [];
 
     for (const candidate of candidates)
-      if (puzzle.removeCandidate(loc, candidate))
-        edits.push(new Edit(puzzle, loc, candidate, this));
+      if (this.puzzle.removeCandidate(loc, candidate))
+        edits.push(new Edit(this.puzzle, loc, candidate, this));
 
     return edits;
   }
 
   abstract get expected_kropki_string(): string;
 
-  abstract solveChain(puzzle: IKropkiPuzzle, locs: IHash<Loc>): IEdit[];
+  abstract solveChain(locs: IHash<Loc>): IEdit[];
 
-  solvePuzzle(puzzle: IKropkiPuzzle): IEdit[] {
+  solvePuzzle(): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const loc of puzzle.sudokuCellLocs)
+    for (const loc of this.puzzle.sudokuCellLocs)
       for (const vectorChain of this.vector_chains) {
         const locs: IHash<Loc> = new Hash<Loc>([loc]);
 
@@ -41,12 +57,12 @@ export abstract class _BaseKropkiVector implements IKropkiVectors {
 
           const next = previous.add_vector(vec.row, vec.col);
 
-          if (!next.isValidKropkiLoc(puzzle.length)) break;
+          if (!next.isValidKropkiLoc(this.puzzle.length)) break;
 
           // continue;
-          const intersectionLoc = puzzle.getIntersection(previous, next);
+          const intersectionLoc = this.puzzle.getIntersection(previous, next);
 
-          intersectionString += puzzle.getCellString(intersectionLoc);
+          intersectionString += this.puzzle.getCellString(intersectionLoc);
 
           locs.push(next);
         }
@@ -55,11 +71,9 @@ export abstract class _BaseKropkiVector implements IKropkiVectors {
 
         if (vectorChain._length + 1 != locs._length) continue;
 
-        edits.push(...this.solveChain(puzzle, locs));
+        edits.push(...this.solveChain(locs));
       }
 
     return edits;
   }
 }
-
-

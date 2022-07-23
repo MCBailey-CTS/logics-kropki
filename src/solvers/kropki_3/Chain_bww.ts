@@ -21,13 +21,13 @@ export class Chain_bww extends _BaseKropkiVector {
     return "bww";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain(chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    if (puzzle.getCellList(chain._at(0)).has(1)) return edits;
+    if (this.puzzle.getCellList(chain._at(0)).has(1)) return edits;
 
-    if (!puzzle.removeCandidate(chain._at(1), 2)) return edits;
+    if (!this.puzzle.removeCandidate(chain._at(1), 2)) return edits;
 
-    return [new Edit(puzzle, chain._at(1), 2, this)];
+    return [new Edit(this.puzzle, chain._at(1), 2, this)];
   }
 }

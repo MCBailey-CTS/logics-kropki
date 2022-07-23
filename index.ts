@@ -5,7 +5,9 @@ import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { NewPuzzles } from "./src/NewPuzzles";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
 import { Chain_bb } from "./src/solvers/kropki_2/Chain_bb";
-import { Chain_b, Chain_e, Chain_w } from "./src/solvers/kropki_1/Chain_b";
+import { Chain_b } from "./src/solvers/kropki_1/Chain_b";
+import { Chain_w } from "./src/solvers/kropki_1/Chain_w";
+import { Chain_e } from "./src/solvers/kropki_1/Chain_e";
 import { HiddenSingle } from "./src/solvers/sudoku/HiddenSingle";
 import { Chain_bw } from "./src/solvers/kropki_2/Chain_bw";
 import { Chain_ww } from "./src/solvers/kropki_2/Chain_ww";
@@ -76,27 +78,7 @@ function main() {
 
   const solvedPuzzles = [];
 
-  const kropkiSolvers: IKropkiSolver[] = [
-    new Chain_b(),
-    new Chain_e(),
-    new Chain_w(),
-    new HiddenSingle(),
-    // new NakedPair(),
-    new Chain_bb(),
-    new Chain_bw(),
-    new Chain_ww(),
-    new Chain_Dewbb(),
-    new Chain_Debww(),
-    new Chain_Dewww(),
-    new Chain_Debwb(),
-    new Chain_Dewbw(),
-    new Chain_Dbwww(),
-    new CrossHatch(),
-    new Chain_bww(),
-    new Chain_Dbbww(),
-    // new HiddenPair(),
-    // new NakedQuad(),
-  ];
+  
 
   const futoshikiSolvers: IFutoshikiSolver[] = [
     // new Chain_greater_than1(),
@@ -127,6 +109,28 @@ function main() {
       const puzzle = new KropkiPuzzle(str);
       try {
         // puzzle.solve(solvers);
+
+        const kropkiSolvers: IKropkiSolver[] = [
+          new Chain_b(),
+          new Chain_e(),
+          new Chain_w(),
+          new HiddenSingle(),
+          // new NakedPair(),
+          new Chain_bb(),
+          new Chain_bw(),
+          new Chain_ww(),
+          new Chain_Dewbb(),
+          new Chain_Debww(),
+          new Chain_Dewww(),
+          new Chain_Debwb(),
+          new Chain_Dewbw(),
+          new Chain_Dbwww(),
+          new CrossHatch(),
+          new Chain_bww(),
+          new Chain_Dbbww(),
+          // new HiddenPair(),
+          // new NakedQuad(),
+        ];
 
         const resultingEdits: IEdit[] = [];
 

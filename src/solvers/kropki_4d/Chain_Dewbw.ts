@@ -10,11 +10,11 @@ export class Chain_Dewbw extends _BaseKropkiVectorString4D {
     return "wbw.";
   }
 
-  solveChain(puzzle: IKropkiPuzzle, chain: IHash<Loc>): IEdit[] {
+  solveChain(chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
-    edits.push(...this.remove(puzzle, chain._at(1), 1));
-    edits.push(...this.remove(puzzle, chain._at(2), 1));
+    edits.push(...this.remove(chain._at(1), 1));
+    edits.push(...this.remove(chain._at(2), 1));
 
     return edits;
   }
