@@ -1,3 +1,5 @@
+// const temp = new Array();
+
 export interface IHash<T> extends RelativeIndexable<T> {
   get _size(): number;
 
@@ -32,14 +34,15 @@ export interface IHash<T> extends RelativeIndexable<T> {
 
   sort(compareFn?: (a: T, b: T) => number): this;
 
-  // pop(): T | undefined;
-  // _pop(): T;
+  // popH(): T | undefined;
+  // _popH(): T;
 
-  // peek(): T | undefined;
-  // _peek(): T;
+  // peekH(): T | undefined;
+  // _peekH(): T;
 
-  // unshift(): number;
+  // popT(): T | undefined;
+  // _popT(): T;
 
-  shift(): T | undefined;
-  _shift(): T;
+  // peekT(): T | undefined;
+  // _peekT(): T;
 }
