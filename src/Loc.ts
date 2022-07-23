@@ -1,26 +1,3 @@
-export function north(offset?: number): Loc {
-  if (typeof offset == "undefined") offset = 1;
-
-  return new Loc(-offset, 0);
-}
-
-export function south(offset?: number): Loc {
-  if (typeof offset == "undefined") offset = 1;
-
-  return new Loc(offset, 0);
-}
-
-export function west(offset?: number): Loc {
-  if (typeof offset == "undefined") offset = 1;
-
-  return new Loc(0, -offset);
-}
-
-export function east(offset?: number): Loc {
-  if (typeof offset == "undefined") offset = 1;
-
-  return new Loc(0, offset);
-}
 
 export class Loc {
   constructor(row: number, col: number) {
@@ -329,3 +306,40 @@ export class Loc {
     return true;
   }
 }
+
+
+export function north(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(-offset, 0);
+}
+
+export function south(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(offset, 0);
+}
+
+export function west(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(0, -offset);
+}
+
+export function east(offset?: number): Loc {
+  if (typeof offset == "undefined") offset = 1;
+
+  return new Loc(0, offset);
+}
+
+export const east_south_west = [east(2), south(2), west(2)];
+export const east_north_west = [east(2), north(2), west(2)];
+
+export const west_south_east = [west(2), south(2), east(2)];
+export const west_north_east = [west(2), north(2), east(2)];
+
+export const north_east_south = [north(2), east(2), south(2)];
+export const north_west_south = [north(2), west(2), south(2)];
+
+export const south_east_north = [south(2), east(2), north(2)];
+export const south_west_north = [south(2), west(2), north(2)];

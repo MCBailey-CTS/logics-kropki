@@ -63,7 +63,7 @@ export abstract class _BaseKropkiVectorDiamond extends _BaseKropkiVector {
 
         if (this.expected_kropki_string != intersectionString) continue;
 
-        edits.push(...this.solveChain(this.puzzle, locs));
+        edits.push(...this.solveChain(locs));
       }
     }
 

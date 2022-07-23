@@ -4,12 +4,9 @@ import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
 import { IKropkiSolver } from "../interfaces/IKropkiSolver";
 import { Loc } from "../Loc";
 import { IKropkiChain } from "../interfaces/IKropkiChain";
-import { IFutoshikiPuzzle } from "../interfaces/IFutoshikiPuzzle";
-import { IFutoshikiSolver } from "../interfaces/IFutoshikiSolver";
 import { IHash } from "../../IHash";
 
 export abstract class _BaseKropkiChain implements IKropkiChain {
-
   __puzzle: IKropkiPuzzle | undefined = undefined;
 
   get puzzle(): IKropkiPuzzle {
@@ -23,7 +20,7 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     if (typeof this.__puzzle != "undefined")
       throw Error(`You can only set a puzzle one time the solver ${this.id}`);
 
-      this.__puzzle = puzzle;
+    this.__puzzle = puzzle;
   }
 
   solvePuzzle(): IEdit[] {
@@ -46,8 +43,7 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
   static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
     const edits: IEdit[] = [];
 
-    for(const solver of solvers)
-    solver.puzzle = puzzle;
+    for (const solver of solvers) solver.puzzle = puzzle;
 
     while (true) {
       const originalLength = edits.length;
@@ -60,8 +56,6 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
     return edits;
   }
 
-  
-
   getKropkiString(puzzle: IKropkiPuzzle, chain: IHash<Loc>): string {
     let str = "";
 
@@ -72,12 +66,14 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
       str += puzzle.getCellString(puzzle.getIntersection(loc0, loc1));
     }
 
-    str += puzzle.getCellString(puzzle.getIntersection(chain._at(3), chain._at(0)));
+    str += puzzle.getCellString(
+      puzzle.getIntersection(chain._at(3), chain._at(0))
+    );
 
     return str;
   }
 
-  remove( loc: Loc, ...candidates: number[]): IEdit[] {
+  remove(loc: Loc, ...candidates: number[]): IEdit[] {
     const edits: IEdit[] = [];
 
     for (const candidate of candidates)

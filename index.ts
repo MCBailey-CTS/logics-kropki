@@ -1,6 +1,5 @@
-import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
+// import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
 import { IEdit } from "./src/interfaces/IEdit";
-import { IFutoshikiSolver } from "./src/interfaces/IFutoshikiSolver";
 import { IKropkiSolver } from "./src/interfaces/IKropkiSolver";
 import { NewPuzzles } from "./src/NewPuzzles";
 import { KropkiPuzzle } from "./src/puzzles/KropkiPuzzle";
@@ -21,6 +20,7 @@ import { Chain_Dewbb } from "./src/solvers/kropki_4d/Chain_Dewbb";
 import { Chain_Dewbw } from "./src/solvers/kropki_4d/Chain_Dewbw";
 import { Chain_Dewww } from "./src/solvers/kropki_4d/Chain_Dewww";
 import { east, north, south, west } from "./src/Loc";
+import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
 
 function main() {
   const puzzleStrings = [
@@ -77,31 +77,6 @@ function main() {
   let totalEdits = 0;
 
   const solvedPuzzles = [];
-
-  
-
-  const futoshikiSolvers: IFutoshikiSolver[] = [
-    // new Chain_greater_than1(),
-    // new Chain_b(),
-    // new Chain_e(),
-    // new Chain_w(),
-    // new Chain_bb(),
-    // new Chain_bw(),
-    // new Chain_ww(),
-    // new Chain_Dewbb(),
-    // new Chain_Debww(),
-    // new Chain_Dewww(),
-    // new Chain_Debwb(),
-    // new Chain_Dewbw(),
-    // new Chain_Dbwww(),
-    // new Chain_bww(),
-    // new Chain_Dbbww(),
-    // new HiddenSingle(),
-    // new NakedPair(),
-    // new CrossHatch(),
-    // new HiddenPair(),
-    // new NakedQuad(),
-  ];
 
   for (const str of puzzleStrings) {
     if (str.includes(".kropki")) {
