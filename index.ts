@@ -104,8 +104,6 @@ function main() {
           new CrossHatch(),
           new Chain_bww(),
           new Chain_Dbbww(),
-          // new HiddenPair(),
-          // new NakedQuad(),
         ];
 
         const resultingEdits: IEdit[] = [];

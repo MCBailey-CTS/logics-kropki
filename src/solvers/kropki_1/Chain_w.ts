@@ -1,12 +1,26 @@
+import { Hash } from "../../../Hash";
 import { IHash } from "../../../IHash";
-import { _BaseKropkiVectorString1 } from "./_BaseKropkiVectorString1";
+import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
 import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
 import { Loc } from "../../Loc";
 import { newMethod } from "./Chain_b";
 
 
-export class Chain_w extends _BaseKropkiVectorString1 {
+export class Chain_w extends _BaseKropkiVector {
+
+  get vector_chains(): IHash<Loc>[] {
+    const _base = new Loc(0, 0);
+
+    const chains: IHash<Loc>[] = [];
+
+    chains.push(new Hash<Loc>([_base.right(2)]));
+    chains.push(new Hash<Loc>([_base.up(2)]));
+    chains.push(new Hash<Loc>([_base.left(2)]));
+    chains.push(new Hash<Loc>([_base.down(2)]));
+
+    return chains;
+  }
   get expected_kropki_string(): string {
     return "w";
   }

@@ -6,9 +6,7 @@ import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
 
-
 export class Chain_bb extends _BaseKropkiVector {
-
   get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
     return [
@@ -33,14 +31,14 @@ export class Chain_bb extends _BaseKropkiVector {
     return "bb";
   }
 
-  solveChain( locs: IHash<Loc>): IEdit[] {
+  solveChain(locs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
-
-    // console.log([...locs]);
 
     const commonHouses = this.puzzle.getCommonHouses(locs);
 
     if (commonHouses.length == 0) return edits;
+
+    // if (this.puzzle.id == "004.kropki") console.log([...locs]);
 
     if (this.puzzle.length == 9) {
       // edge
