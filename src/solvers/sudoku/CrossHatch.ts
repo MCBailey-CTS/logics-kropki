@@ -10,9 +10,11 @@ export class CrossHatch extends _BaseKropkiChain {
     const edits: IEdit[] = [];
 
     if (
-      this.solveSudokuCrossHatchLocs(this.puzzle.grid, this.puzzle.length, [
-        ...cellChainLocs,
-      ])
+      this.solveSudokuCrossHatchLocs(
+        this.puzzle.grid,
+        this.puzzle.length,
+        cellChainLocs
+      )
     )
       edits.push(new Edit(this.puzzle, new Loc(0, 0), 0, this));
 
@@ -35,7 +37,7 @@ export class CrossHatch extends _BaseKropkiChain {
   solveSudokuCrossHatchLocs(
     _grid: string[][],
     _length: number,
-    locs: Loc[]
+    locs: IHash<Loc>
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
@@ -44,7 +46,7 @@ export class CrossHatch extends _BaseKropkiChain {
     let edited = false;
 
     for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
+      const loc = locs._at(j);
 
       const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 

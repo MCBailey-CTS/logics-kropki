@@ -1,5 +1,6 @@
 import { cellCandidates } from "./puzzles/KropkiPuzzle";
 import { Loc } from "./Loc";
+import { IHash } from "../IHash";
 
 type GRID = string[][];
 
@@ -284,7 +285,7 @@ export class NewTechniques {
   static solveSudokuNakedTripleLocs(
     _grid: GRID,
     _length: number,
-    locs: Loc[]
+    locs: IHash<Loc>
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
@@ -293,7 +294,7 @@ export class NewTechniques {
     let edited = false;
 
     for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
+      const loc = locs._at(j);
 
       const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
@@ -309,7 +310,7 @@ export class NewTechniques {
   static solveSudokuNakedQuadLocs(
     _grid: GRID,
     _length: number,
-    locs: Loc[]
+    locs: IHash<Loc>
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
@@ -318,7 +319,7 @@ export class NewTechniques {
     let edited = false;
 
     for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
+      const loc = locs._at(j);
 
       const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
@@ -410,7 +411,7 @@ export class NewTechniques {
   static solveSudokuHiddenSingleLocs(
     _grid: GRID,
     _length: number,
-    locs: Loc[]
+    locs: IHash<Loc>
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
@@ -419,7 +420,7 @@ export class NewTechniques {
     let edited = false;
 
     for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
+      const loc = locs._at(j);
 
       const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 
@@ -435,7 +436,7 @@ export class NewTechniques {
   static solveSudokuNakedPairLocs(
     _grid: GRID,
     _length: number,
-    locs: Loc[]
+    locs: IHash<Loc>
   ): boolean {
     const house = Loc.getHouseFromLocs(_grid, locs);
 
@@ -444,7 +445,7 @@ export class NewTechniques {
     let edited = false;
 
     for (let j = 0; j < _length; j++) {
-      const loc = locs[j];
+      const loc = locs._at(j);
 
       const _length = cellCandidates(_grid[loc.row][loc.col])._length;
 

@@ -1,3 +1,4 @@
+import { IHash } from "../IHash";
 
 export class Loc {
   constructor(row: number, col: number) {
@@ -130,7 +131,7 @@ export class Loc {
     return colHouseLocs;
   }
 
-  static getHouseFromLocs(_gridString: string[][], locs: Loc[]): string[] {
+  static getHouseFromLocs(_gridString: string[][], locs: IHash<Loc>): string[] {
     const house: string[] = [];
 
     for (const loc of locs) house.push(_gridString[loc.row][loc.col]);

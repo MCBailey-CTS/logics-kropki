@@ -1,23 +1,23 @@
-import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
-import { _BaseKropkiSudokuSolver } from "../abstract/_BaseKropkiSudokuSolver";
-import { Edit } from "../Edit";
-import { IEdit } from "../interfaces/IEdit";
-import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-import { Loc } from "../Loc";
-import { NewTechniques } from "../NewTechniques";
+import { IHash } from "../../../IHash";
+import { _BaseKropkiChain } from "../../abstract/_BaseKropkiChain";
+import { Edit } from "../../Edit";
+import { IEdit } from "../../interfaces/IEdit";
+import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
+import { Loc } from "../../Loc";
+import { NewTechniques } from "../../NewTechniques";
 
-export class NakedTriple extends _BaseKropkiSudokuSolver {
-  solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+export class NakedTriple extends _BaseKropkiChain {
+  solve( cellChainLocs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
     if (
       NewTechniques.solveSudokuNakedTripleLocs(
-        puzzle.grid,
-        puzzle.length,
+        this.puzzle.grid,
+        this.puzzle.length,
         cellChainLocs
       )
     )
-      edits.push(new Edit(puzzle, new Loc(0, 0), 0, this));
+      edits.push(new Edit(this.puzzle, new Loc(0, 0), 0, this));
 
     return edits;
   }
