@@ -21,6 +21,7 @@ import { Chain_Dewbw } from "./src/solvers/kropki_4d/Chain_Dewbw";
 import { Chain_Dewww } from "./src/solvers/kropki_4d/Chain_Dewww";
 import { east, north, south, west } from "./src/Loc";
 import { _BaseKropkiChain } from "./src/abstract/_BaseKropkiChain";
+import { NakedPair } from "./src/solvers/sudoku/NakedPair";
 
 function main() {
   const puzzleStrings = [
@@ -90,7 +91,7 @@ function main() {
           new Chain_e(),
           new Chain_w(),
           new HiddenSingle(),
-          // new NakedPair(),
+          new NakedPair(),
           new Chain_bb(),
           new Chain_bw(),
           new Chain_ww(),

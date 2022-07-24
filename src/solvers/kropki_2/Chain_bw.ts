@@ -5,9 +5,30 @@ import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
-import { _BaseKropkiVectorString2 } from "./_BaseKropkiVectorString2";
 
-export class Chain_bw extends _BaseKropkiVectorString2 {
+
+export class Chain_bw extends _BaseKropkiVector {
+
+  get vector_chains(): IHash<Loc>[] {
+    const _base = new Loc(0, 0);
+    return [
+      [_base.right(2), _base.right(2)],
+      [_base.right(2), _base.up(2)],
+      [_base.right(2), _base.down(2)],
+
+      [_base.left(2), _base.left(2)],
+      [_base.left(2), _base.up(2)],
+      [_base.left(2), _base.down(2)],
+
+      [_base.up(2), _base.up(2)],
+      [_base.up(2), _base.left(2)],
+      [_base.up(2), _base.right(2)],
+
+      [_base.down(2), _base.down(2)],
+      [_base.down(2), _base.left(2)],
+      [_base.down(2), _base.right(2)],
+    ].map((array) => new Hash<Loc>(array));
+  }
   get expected_kropki_string(): string {
     return "bw";
   }

@@ -4,14 +4,37 @@ import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
 import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
-import { _BaseKropkiVectorString2 } from "./_BaseKropkiVectorString2";
 
-export class Chain_ww extends _BaseKropkiVectorString2 {
+
+export class Chain_ww extends _BaseKropkiVector {
   get expected_kropki_string(): string {
     return "ww";
   }
 
+  get vector_chains(): IHash<Loc>[] {
+    const _base = new Loc(0, 0);
+    return [
+      [_base.right(2), _base.right(2)],
+      [_base.right(2), _base.up(2)],
+      [_base.right(2), _base.down(2)],
+
+      [_base.left(2), _base.left(2)],
+      [_base.left(2), _base.up(2)],
+      [_base.left(2), _base.down(2)],
+
+      [_base.up(2), _base.up(2)],
+      [_base.up(2), _base.left(2)],
+      [_base.up(2), _base.right(2)],
+
+      [_base.down(2), _base.down(2)],
+      [_base.down(2), _base.left(2)],
+      [_base.down(2), _base.right(2)],
+    ].map((array) => new Hash<Loc>(array));
+  }
+
   solveChain(locs: IHash<Loc>): IEdit[] {
+
+
     const edits: IEdit[] = [];
 
     const commonHouses = this.puzzle.getCommonHouses(locs);

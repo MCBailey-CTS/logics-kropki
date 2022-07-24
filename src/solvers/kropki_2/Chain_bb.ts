@@ -1,17 +1,42 @@
+import { Hash } from "../../../Hash";
 import { IHash } from "../../../IHash";
+import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
 import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
-import { _BaseKropkiVectorString2 } from "./_BaseKropkiVectorString2";
 
-export class Chain_bb extends _BaseKropkiVectorString2 {
+
+export class Chain_bb extends _BaseKropkiVector {
+
+  get vector_chains(): IHash<Loc>[] {
+    const _base = new Loc(0, 0);
+    return [
+      [_base.right(2), _base.right(2)],
+      [_base.right(2), _base.up(2)],
+      [_base.right(2), _base.down(2)],
+
+      [_base.left(2), _base.left(2)],
+      [_base.left(2), _base.up(2)],
+      [_base.left(2), _base.down(2)],
+
+      [_base.up(2), _base.up(2)],
+      [_base.up(2), _base.left(2)],
+      [_base.up(2), _base.right(2)],
+
+      [_base.down(2), _base.down(2)],
+      [_base.down(2), _base.left(2)],
+      [_base.down(2), _base.right(2)],
+    ].map((array) => new Hash<Loc>(array));
+  }
   get expected_kropki_string(): string {
     return "bb";
   }
 
   solveChain( locs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
+
+    // console.log([...locs]);
 
     const commonHouses = this.puzzle.getCommonHouses(locs);
 

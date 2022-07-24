@@ -1,17 +1,40 @@
+import { Hash } from "../../../Hash";
 import { IHash } from "../../../IHash";
-import { _BaseKropkiVectorDiamond } from "../../abstract/_BaseKropkiVectorDiamond";
+import { _BaseKropkiVector } from "../../abstract/_BaseKropkiVector";
+
 import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
 import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
-import { Loc } from "../../Loc";
-import { _BaseKropkiVectorString4D } from "./_BaseKropkiVectorString4D";
+import {
+  east_north_west,
+  east_south_west,
+  Loc,
+  north_east_south,
+  north_west_south,
+  south_east_north,
+  south_west_north,
+  west_north_east,
+  west_south_east,
+} from "../../Loc";
 
-export class Chain_Dewbb extends _BaseKropkiVectorString4D {
+export class Chain_Dewbb extends _BaseKropkiVector {
+  get vector_chains(): IHash<Loc>[] {
+    return [
+      east_north_west,
+      east_south_west,
+      west_south_east,
+      west_north_east,
+      north_east_south,
+      north_west_south,
+      south_east_north,
+      south_west_north,
+    ].map((locs) => new Hash<Loc>(locs));
+  }
   get expected_kropki_string(): string {
     return "w.bb";
   }
 
-  solveChain( chain: IHash<Loc>): IEdit[] {
+  solveChain(chain: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
     // [0]
     for (const candidate of [1, 3, 5, 6, 7, 9])

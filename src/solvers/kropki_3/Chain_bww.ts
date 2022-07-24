@@ -10,11 +10,11 @@ export class Chain_bww extends _BaseKropkiVector {
   get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
     return [
-      new Hash<Loc>([_base.right(2), _base.right(2), _base.right(2)]),
-      new Hash<Loc>([_base.left(2), _base.left(2), _base.left(2)]),
-      new Hash<Loc>([_base.down(2), _base.down(2), _base.down(2)]),
-      new Hash<Loc>([_base.up(2), _base.up(2), _base.up(2)]),
-    ];
+      [_base.right(2), _base.right(2), _base.right(2)],
+      [_base.left(2), _base.left(2), _base.left(2)],
+      [_base.down(2), _base.down(2), _base.down(2)],
+      [_base.up(2), _base.up(2), _base.up(2)],
+    ].map((locs) => new Hash<Loc>(locs));
   }
 
   get expected_kropki_string(): string {
