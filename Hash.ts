@@ -14,6 +14,20 @@ export class Hash<T> implements IHash<T> {
     this.__list = new Array<T>(...items);
   }
 
+  get  length(): number {
+    return this._length;
+  }
+  popH(): T | undefined {
+    return this.shift();
+  }
+  _popH(): T {
+    const item = this.popH();
+
+    if (typeof item == "undefined") throw Error();
+
+    return item;
+  }
+
   add(item: T): boolean {
     return this.push(item);
   }

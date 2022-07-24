@@ -26,19 +26,18 @@ export abstract class _BaseKropkiChain implements IKropkiChain {
   solvePuzzle(): IEdit[] {
     const edits: IEdit[] = [];
 
-    for (const locs of this.findChains(this.puzzle))
-      edits.push(...this.solve(this.puzzle, locs));
+    for (const locs of this.findChains()) edits.push(...this.solve(locs));
 
     return edits;
   }
 
-  abstract findChains(puzzle: IKropkiPuzzle): IHash<Loc>[];
+  abstract findChains(): IHash<Loc>[];
 
   get id(): string {
     return this.constructor.name;
   }
 
-  abstract solve(puzzle: IKropkiPuzzle, cellChainLocs: IHash<Loc>): IEdit[];
+  abstract solve(cellChainLocs: IHash<Loc>): IEdit[];
 
   static solve(puzzle: IKropkiPuzzle, solvers: IKropkiSolver[]) {
     const edits: IEdit[] = [];

@@ -1,11 +1,5 @@
-// import { _BaseKropkiChain } from "../abstract/_BaseKropkiChain";
-// import { _BaseKropkiSudokuSolver } from "../abstract/_BaseKropkiSudokuSolver";
-// import { Edit } from "../Edit";
-// import { IEdit } from "../interfaces/IEdit";
-// import { IKropkiPuzzle } from "../interfaces/IKropkiPuzzle";
-// import { Loc } from "../Loc";
 
-// export class HiddenTriple extends _BaseKropkiSudokuSolver {
+// export class HiddenTriple extends _BaseKropkiChain {
 //   static isSubset(topset: Set<number>, subset: Set<number>): boolean {
 //     // if (topset.size == 0 && subset.size == 0) return false;
 
@@ -16,7 +10,7 @@
 //     return true;
 //   }
 
-//   solve(puzzle: IKropkiPuzzle, cellChainLocs: Loc[]): IEdit[] {
+//   solve( cellChainLocs: Loc[]): IEdit[] {
 //     const edits: IEdit[] = [];
 
 //     if (puzzle.length != cellChainLocs.length) return edits;
@@ -89,5 +83,13 @@
 //         }
 
 //     return edits;
+//   }
+
+//   findChains(): IHash<Loc>[] {
+//     const chains: IHash<Loc>[] = [];
+
+//     for (const house of this.puzzle.getHouses()) chains.push(house);
+
+//     return chains;
 //   }
 // }

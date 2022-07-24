@@ -1,30 +1,25 @@
 import { IHash } from "../../../IHash";
 import { _BaseKropkiChain } from "../../abstract/_BaseKropkiChain";
-import { _BaseKropkiSudokuSolver } from "../../abstract/_BaseKropkiSudokuSolver";
 import { Edit } from "../../Edit";
 import { IEdit } from "../../interfaces/IEdit";
-import { IKropkiPuzzle } from "../../interfaces/IKropkiPuzzle";
 import { Loc } from "../../Loc";
-import { NewTechniques } from "../../NewTechniques";
 import { cellCandidates } from "../../puzzles/KropkiPuzzle";
 
-export class CrossHatch extends _BaseKropkiSudokuSolver {
-  solve(puzzle: IKropkiPuzzle, cellChainLocs: IHash<Loc>): IEdit[] {
+export class CrossHatch extends _BaseKropkiChain {
+  solve(cellChainLocs: IHash<Loc>): IEdit[] {
     const edits: IEdit[] = [];
 
     if (
-      this.solveSudokuCrossHatchLocs(
-        puzzle.grid,
-        puzzle.length,
-       [...cellChainLocs]
-      )
+      this.solveSudokuCrossHatchLocs(this.puzzle.grid, this.puzzle.length, [
+        ...cellChainLocs,
+      ])
     )
-      edits.push(new Edit(puzzle, new Loc(0, 0), 0, this));
+      edits.push(new Edit(this.puzzle, new Loc(0, 0), 0, this));
 
     return edits;
   }
 
-   solveSudokuCrossHatch(_length: number, house: string[]) {
+  solveSudokuCrossHatch(_length: number, house: string[]) {
     for (let i = 0; i < _length; i++)
       for (let ii = 0; ii < _length; ii++) {
         if (i == ii) continue;
@@ -37,8 +32,7 @@ export class CrossHatch extends _BaseKropkiSudokuSolver {
       }
   }
 
-  
-   solveSudokuCrossHatchLocs(
+  solveSudokuCrossHatchLocs(
     _grid: string[][],
     _length: number,
     locs: Loc[]
@@ -61,5 +55,12 @@ export class CrossHatch extends _BaseKropkiSudokuSolver {
     }
 
     return edited;
+  }
+  findChains(): IHash<Loc>[] {
+    const chains: IHash<Loc>[] = [];
+
+    for (const house of this.puzzle.getHouses()) chains.push(house);
+
+    return chains;
   }
 }

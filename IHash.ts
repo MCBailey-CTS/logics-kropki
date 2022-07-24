@@ -5,6 +5,8 @@ export interface IHash<T> extends RelativeIndexable<T> {
 
   get _length(): number;
 
+  get length(): number;
+
   [Symbol.iterator](): IterableIterator<T>;
 
   clear(): boolean;
@@ -34,8 +36,11 @@ export interface IHash<T> extends RelativeIndexable<T> {
 
   sort(compareFn?: (a: T, b: T) => number): this;
 
-  // popH(): T | undefined;
-  // _popH(): T;
+  shift(): T | undefined;
+
+  popH(): T | undefined;
+
+  _popH(): T;
 
   // peekH(): T | undefined;
   // _peekH(): T;
