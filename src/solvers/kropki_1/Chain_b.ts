@@ -25,7 +25,73 @@ export function newMethod(
         edits.push(new Edit(puzzle, loc, list[1], solver));
 }
 
-export class Chain_b extends _BaseKropkiVector {
+export class Chain_b implements IKropkiSolver {
+  /////////////
+  __puzzle: IKropkiPuzzle | undefined = undefined;
+
+  get puzzle(): IKropkiPuzzle {
+    if (typeof this.__puzzle == "undefined")
+      throw Error(`You have not set a puzzle for the solver ${this.id}`);
+
+    return this.__puzzle;
+  }
+
+  set puzzle(puzzle: IKropkiPuzzle) {
+    if (typeof this.__puzzle != "undefined")
+      throw Error(`You can only set a puzzle one time the solver ${this.id}`);
+
+    this.__puzzle = puzzle;
+  }
+
+  get id(): string {
+    return this.constructor.name;
+  }
+
+  remove(loc: Loc, ...candidates: number[]): IEdit[] {
+    const edits: IEdit[] = [];
+
+    for (const candidate of candidates)
+      if (this.puzzle.removeCandidate(loc, candidate))
+        edits.push(new Edit(this.puzzle, loc, candidate, this));
+
+    return edits;
+  }
+
+  solvePuzzle(): IEdit[] {
+    const edits: IEdit[] = [];
+
+    for (const loc of this.puzzle.sudokuCellLocs)
+      for (const vectorChain of this.vector_chains) {
+        const locs: IHash<Loc> = new Hash<Loc>([loc]);
+
+        let intersectionString = "";
+
+        for (const vec of vectorChain) {
+          const previous = locs._at(locs._length - 1);
+
+          const next = previous.add_vector(vec.row, vec.col);
+
+          if (!next.isValidKropkiLoc(this.puzzle.length)) break;
+
+          // continue;
+          const intersectionLoc = this.puzzle.getIntersection(previous, next);
+
+          intersectionString += this.puzzle.getCellString(intersectionLoc);
+
+          locs.push(next);
+        }
+
+        if (this.expected_kropki_string != intersectionString) continue;
+
+        if (vectorChain._length + 1 != locs._length) continue;
+
+        edits.push(...this.solveChain(locs));
+      }
+
+    return edits;
+  }
+  ///////////
+
   get vector_chains(): IHash<Loc>[] {
     const _base = new Loc(0, 0);
 
@@ -99,5 +165,3 @@ export class Chain_b extends _BaseKropkiVector {
     return list[0] * 2 == list[1] && list[1] * 2 == list[2];
   }
 }
-
-
